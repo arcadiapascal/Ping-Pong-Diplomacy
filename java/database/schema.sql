@@ -123,12 +123,6 @@ ADD CONSTRAINT FK_username_player FOREIGN (username) REFERENCES users(username),
 
 ALTER TABLE host 
 ADD CONSTRAINT FK_username_host FOREIGN (username) REFERENCES users(username),
-
-
-
-
-
-
  
     
   
