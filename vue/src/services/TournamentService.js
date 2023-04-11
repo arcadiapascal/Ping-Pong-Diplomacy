@@ -14,5 +14,17 @@ export default {
         return http.get(`/tournaments/${id}`);
     },
 
+    create(tournament) {
+        return http.post(`/tournaments/`, tournament);
+    },
+
+    update(id, tournament) {
+        return http.put(`/tournaments/${id}`, tournament);
+    },
+
+    delete(id) {
+        return http.delete(`/tournaments/${id}`);
+    }
+
 
 }

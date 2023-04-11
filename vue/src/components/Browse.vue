@@ -1,5 +1,7 @@
 <template>
-  
+    <div class="browse">
+        
+    </div>    
 </template>
 
 <script>
@@ -9,7 +11,9 @@ export default {
     name: "tournament-list",
     methods: {
         getTournaments() {
-            
+            tournamentService.listTournaments().then(response => {
+                this.$store.commit("SET_TOURNAMENTS", response.data);
+            });
         }
     }
 
