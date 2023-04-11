@@ -33,11 +33,7 @@ CREATE TABLE player
     photo OID,
     team_name varchar(64),
 
-    CONSTRAINT FK_player_team FOREIGN KEY (player_id) REFERENCES player_team(player_id),
-    CONSTRAINT FK_team_player FOREIGN KEY (team_id) REFERENCES player_team(team_id),
-    CONSTRAINT FK_player_tournament FOREIGN KEY (player_id) REFERENCES tournament_player(player_id),
-    CONSTRAINT FK_tournament_player FOREIGN KEY (tournament_id) REFERENCES tournament_player(tournament_id),
-    CONSTRAINT FK_player_host FOREIGN KEY (username) REFERENCES host(username),
+    
 
    CONSTRAINT PK_player PRIMARY KEY(player_id),
    CONSTRAINT chk_state_abbrev CHECK (state_abbrev IN ('AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'))
@@ -109,29 +105,33 @@ CREATE TABLE users (
 
 
 
-ALTER TABLE tournament_host
-ADD CONSTRAINT FK_tournament_host FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id),
-ADD CONSTRAINT FK_host_tournament FOREIGN KEY (host_id) REFERENCES host(host_id);
-
 ALTER TABLE player_team
 ADD CONSTRAINT FK_player_team FOREIGN KEY (player_id) REFERENCES player(player_id),
-ADD CONSTRAINT FK_team_player FOREIGN KEY (team_id) REFERENCES team(team_id);
+ADD CONSTRAINT FK_team_player FOREIGN KEY (team_id) REFERENCES team(team_id),
 
 ALTER TABLE tournament_player
+ADD CONSTRAINT FK_tournament_player FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id),
 ADD CONSTRAINT FK_player_tournament FOREIGN KEY (player_id) REFERENCES player(player_id),
-ADD CONSTRAINT FK_tournament_player FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id);
+
+ALTER TABLE tournament_host
+ADD CONSTRAINT FK_tournament_host FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id),
+ADD CONSTRAINT FK_host_tournament FOREIGN KEY (host_id) REFERENCES host(host_id),
 
 ALTER TABLE player
-ADD CONSTRAINT FK_player_host FOREIGN KEY (username) REFERENCES host(username);
+ADD CONSTRAINT FK_username_player FOREIGN (username) REFERENCES users(username),
 
-ALTER TABLE tournament_team
-ADD CONSTRAINT FK_tournament_team FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id),
-ADD CONSTRAINT FK_team_tournament FOREIGN KEY (team_id) REFERENCES team(team_id);
 
-ALTER TABLE tournament 
-ADD CONSTRAINT FK_tournament_team1 FOREIGN KEY (tournament_id) REFERENCES tournament_player(tournament_id),
-ADD CONSTRAINT FK_team_tournament1 FOREIGN KEY (team_id) REFERENCES tournament_ team(team_id);
+ALTER TABLE host 
+ADD CONSTRAINT FK_username_host FOREIGN (username) REFERENCES users(username),
 
+
+
+
+
+
+ 
+    
+  
 COMMIT;
 ROLLBACK
 
