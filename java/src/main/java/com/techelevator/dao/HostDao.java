@@ -9,7 +9,7 @@ public interface HostDao {
 
     // Create
     void addHost(Host host) throws SQLException;
-    Host makeUserHost(Host host);
+//    Host makeUserHost(Host host);
 
     // Read
     List<Host> getAllHosts() throws SQLException;

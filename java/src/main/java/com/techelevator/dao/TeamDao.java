@@ -9,19 +9,18 @@ public interface TeamDao {
 
     // Create
     void addTeam(Team team) throws SQLException;
-    Team createNewTeam(Team team);
 
     // Read
     List<Team> getAllTeams() throws SQLException;
-    List<Team> listTeamsInState(String state);
-    List<Team> listTeamsInCity(String city);
-    Team getTeamByName(String name);
+    List<Team> listTeamsInState(String state) throws SQLException;
+    List<Team> listTeamsInCity(String city) throws SQLException;
+    Team getTeamByName(String name) throws SQLException;
+    Team getTeamById(int id) throws SQLException;
 
     // Update
     void updateTeam(Team team) throws SQLException;
 
     // Delete
     void deleteTeam(Team team) throws SQLException;
-
 
 }
