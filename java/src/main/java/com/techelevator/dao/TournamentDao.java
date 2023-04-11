@@ -9,11 +9,11 @@ public interface TournamentDao {
 
     // Create
     void addTournament(Tournament tournament) throws SQLException;
-    Tournament createTournament(Tournament tournament);
 
     // Read
     List<Tournament> getAllTournaments() throws SQLException;
     Tournament getTournamentById(int id) throws SQLException;
+//    List<Tournament> getTournamentsByLevel(String level) throws SQLException;
 
     // Update
     void updateTournament(Tournament tournament) throws SQLException;

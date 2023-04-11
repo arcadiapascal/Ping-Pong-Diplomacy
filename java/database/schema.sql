@@ -133,6 +133,4 @@ ADD CONSTRAINT FK_username_host FOREIGN (username) REFERENCES users(username),
     
   
 COMMIT;
-ROLLBACK
-
-
+ROLLBACK;
