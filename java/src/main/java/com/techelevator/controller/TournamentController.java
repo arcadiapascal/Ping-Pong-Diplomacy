@@ -1,16 +1,20 @@
 package com.techelevator.controller;
 
 
-import com.techelevator.dao.HostDao;
-import com.techelevator.dao.PlayerDao;
-import com.techelevator.dao.TeamDao;
-import com.techelevator.dao.UserDao;
+import com.techelevator.dao.*;
+import com.techelevator.model.Host;
+import com.techelevator.model.Player;
 import com.techelevator.model.Team;
+import com.techelevator.model.Tournament;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
@@ -23,22 +27,22 @@ public class TournamentController {
     private PlayerDao playerDao;
     private HostDao hostDao;
     private TeamDao teamDao;
+    private TournamentDao tournamentDao;
 
     // POST A NEW TOURNAMENT
-
     // EDIT A TOURNAMENT
-
     // GET LIST OF ALL TOURNAMENTS
-
     // GET LIST OF PAST TOURNAMENTS
-
     // GET LIST OF PRESENT AND FUTURE TOURNAMENTS
-
     // GET TOURNAMENT DETAILS
+    // DELETE A TOURNAMENT
+    // ADD A PLAYER TO A TOURNAMENT
+    // REMOVE A PLAYER FROM A TOURNAMENT
+    // ADD A TEAM TO A TOURNAMENT
+    // REMOVE A TEAM FROM A TOURNAMENT
 
 
     // TEAM METHODS
-
     // POST NEW TEAM
     @RequestMapping(path = "/teams", method = RequestMethod.POST)
     public void addTeam(@RequestBody Team team) throws SQLException {
@@ -82,5 +86,114 @@ public class TournamentController {
         return teamDao.listTeamsInCity(city);
     }
 
+    // HOST METHODS
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/hosts", method = RequestMethod.POST)
+    public void addHost(@RequestBody Host host) {
+        try {
+            hostDao.addHost(host);
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error adding host", e);
+        }
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(value = "/hosts/{id}", method = RequestMethod.PUT)
+    public void updateHost(@PathVariable int id, @RequestBody Host host) {
+        Host existingHost;
+        try {
+            existingHost = hostDao.getHostById(id);
+            if (existingHost == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Host not found");
+            }
+            existingHost.setHostName(host.getHostName());
+            existingHost.setDescription(host.getDescription());
+            existingHost.setCity(host.getCity());
+            existingHost.setState(host.getState());
+            existingHost.setUsername(host.getUsername());
+            hostDao.updateHost(existingHost);
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error updating host", e);
+        }
+    }
+
+    @RequestMapping(value = "/hosts", method = RequestMethod.GET)
+    public List<Host> getAllHosts() {
+        try {
+            return hostDao.getAllHosts();
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error getting hosts", e);
+        }
+    }
+
+
+    // PLAYER METHODS
+    // Create a new player
+    @PostMapping
+    public ResponseEntity<String> addPlayer(@RequestBody Player player) {
+        try {
+            playerDao.addPlayer(player);
+            return new ResponseEntity<>("Player added successfully", HttpStatus.CREATED);
+        } catch (SQLException e) {
+            return new ResponseEntity<>("Error adding player", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Get all players
+    @GetMapping
+    public ResponseEntity<List<Player>> getAllPlayers() {
+        try {
+            List<Player> players = playerDao.getAllPlayers();
+            if (players.isEmpty()) {
+                return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+            }
+            return new ResponseEntity<>(players, HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Get player by ID
+    @GetMapping("/{id}")
+    public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
+        try {
+            Player player = playerDao.getPlayerById(id);
+            return new ResponseEntity<>(player, HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Update player
+    @PutMapping("/{id}")
+    public ResponseEntity<String> updatePlayer(@PathVariable int id, @RequestBody Player player) {
+        try {
+            Player existingPlayer = playerDao.getPlayerById(id);
+            if (existingPlayer == null) {
+                return new ResponseEntity<>("Player not found", HttpStatus.NOT_FOUND);
+            }
+            player.setPlayerId(id);
+            playerDao.updatePlayer(player);
+            return new ResponseEntity<>("Player updated successfully", HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>("Error updating player", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    // Delete player
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deletePlayer(@PathVariable int id) {
+        try {
+            Player existingPlayer = playerDao.getPlayerById(id);
+            if (existingPlayer == null) {
+                return new ResponseEntity<>("Player not found", HttpStatus.NOT_FOUND);
+            }
+            playerDao.deletePlayer(existingPlayer);
+            return new ResponseEntity<>("Player deleted successfully", HttpStatus.OK);
+        } catch (SQLException e) {
+            return new ResponseEntity<>("Error deleting player", HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
 }

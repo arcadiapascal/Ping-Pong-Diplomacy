@@ -55,46 +55,5 @@ public class UserController {
         }
     }
 
-    // HOST METHODS
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/hosts", method = RequestMethod.POST)
-    public void addHost(@RequestBody Host host) {
-        try {
-            hostDao.addHost(host);
-        } catch (SQLException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error adding host", e);
-        }
-    }
-
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/hosts/{id}", method = RequestMethod.PUT)
-    public void updateHost(@PathVariable int id, @RequestBody Host host) {
-        Host existingHost;
-        try {
-            existingHost = hostDao.getHostById(id);
-            if (existingHost == null) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Host not found");
-            }
-            existingHost.setHostName(host.getHostName());
-            existingHost.setDescription(host.getDescription());
-            existingHost.setCity(host.getCity());
-            existingHost.setState(host.getState());
-            existingHost.setUsername(host.getUsername());
-            hostDao.updateHost(existingHost);
-        } catch (SQLException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error updating host", e);
-        }
-    }
-
-    @RequestMapping(value = "/hosts", method = RequestMethod.GET)
-    public List<Host> getAllHosts() {
-        try {
-            return hostDao.getAllHosts();
-        } catch (SQLException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error getting hosts", e);
-        }
-    }
-
 
 }
