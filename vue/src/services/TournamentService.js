@@ -1,29 +1,27 @@
 import axios from 'axios';
 
-const http = axios.create({
-    baseURL: "http://localhost:9000"
-});
+
 
 export default {
 
     listTournaments() {
-        return http.get(`/tournaments`);
+        return axios.get(`/tournaments`);
     },
 
     getTournament(id) {
-        return http.get(`/tournaments/${id}`);
+        return axios.get(`/tournaments/${id}`);
     },
 
     create(tournament) {
-        return http.post(`/tournaments/`, tournament);
+        return axios.post(`/tournaments/`, tournament);
     },
 
     update(id, tournament) {
-        return http.put(`/tournaments/${id}`, tournament);
+        return axios.put(`/tournaments/${id}`, tournament);
     },
 
     delete(id) {
-        return http.delete(`/tournaments/${id}`);
+        return axios.delete(`/tournaments/${id}`);
     }
 
 
