@@ -76,6 +76,7 @@ CREATE TABLE player_team
     player_count int,
     tournament_date timestamp NOT NULL,
     tournament_address varchar(64) NOT NULL,
+	location varchar(64) NOT NULL, 
     skill_level varchar(64) NOT NULL,
     active boolean NOT NULL,
     registration_deadline date NOT NULL,
@@ -124,11 +125,11 @@ ADD CONSTRAINT FK_tournament_host FOREIGN KEY (tournament_id) REFERENCES tournam
 ADD CONSTRAINT FK_host_tournament FOREIGN KEY (host_id) REFERENCES host(host_id),
 
 ALTER TABLE player
-ADD CONSTRAINT FK_username_player FOREIGN (username) REFERENCES users(username),
+ADD CONSTRAINT FK_username_player FOREIGN KEY (username) REFERENCES users(username),
 
 
 ALTER TABLE host 
-ADD CONSTRAINT FK_username_host FOREIGN (username) REFERENCES users(username),
+ADD CONSTRAINT FK_username_host FOREIGN KEY (username) REFERENCES users(username),
  
     
   
