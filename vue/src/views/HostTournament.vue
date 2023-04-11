@@ -1,10 +1,12 @@
 <template>
   <div class="host-view">
       <h1>Host View</h1>
+      
       <bracket />
       <player-list />
       <results />
       <tournament />
+      </div>
 </template>
 
 <script>

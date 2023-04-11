@@ -5,6 +5,7 @@
       <player-list />
       <results />
       <tournament />
+  </div>
 </template>
 
 <script>
