@@ -1,18 +1,26 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Team;
-import com.techelevator.model.Tournament;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface TeamDao {
 
-    List<Team> findAll();
+    // Create
+    void addTeam(Team team) throws SQLException;
 
-    Team getTournamentById(int id);
+    // Read
+    List<Team> getAllTeams() throws SQLException;
+    List<Team> listTeamsInState(String state) throws SQLException;
+    List<Team> listTeamsInCity(String city) throws SQLException;
+    Team getTeamByName(String name) throws SQLException;
+    Team getTeamById(int id) throws SQLException;
 
-    Team findByTournamentName(String tournamentName);
+    // Update
+    void updateTeam(Team team) throws SQLException;
 
-    boolean create(int id, String teamName, String teamDescription, String address, String city, String state);
+    // Delete
+    void deleteTeam(Team team) throws SQLException;
 
 }

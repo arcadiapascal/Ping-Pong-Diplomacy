@@ -64,13 +64,13 @@ public class Tournament {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-   public String getDate(){
+    public String getDate(){
         return date;
-   }
+    }
 
-   public void setDate(String date){
+    public void setDate(String date){
         this.date = date;
-   }
+    }
 
     public String getLocation() {
         return location;
@@ -104,3 +104,7 @@ public class Tournament {
         this.registrationDeadline = registrationDeadline;
     }
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> a92e846c1471ad0743445da0eca98d24f5f9abc6

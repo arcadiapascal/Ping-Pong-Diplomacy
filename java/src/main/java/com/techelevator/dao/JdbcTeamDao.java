@@ -1,74 +1,112 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.Team;
-import com.techelevator.model.Tournament;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Component;
 
+import javax.sql.DataSource;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Component
 public class JdbcTeamDao implements TeamDao {
 
-    private final JdbcTemplate jdbcTemplate;
+    private JdbcTemplate jdbcTemplate;
 
-    public JdbcTeamDao(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
+    public JdbcTeamDao(DataSource dataSource) {
+        this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
     @Override
-   public List<Team> findAll(){
-        List<Team> teams = new ArrayList<>();
-        String sql = "select * from team";
+    public void addTeam(Team team) throws SQLException {
+        String sql = "INSERT INTO team (team_id, team_name, team_description, address, city, state) " +
+                "VALUES (DEFAULT, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, team.getTeamName(), team.getTeamDescription(),
+                team.getAddress(), team.getCity(), team.getState());
+    }
 
+    @Override
+    public List<Team> getAllTeams() throws SQLException {
+        List<Team> teams = new ArrayList<>();
+        String sql = "SELECT * FROM team";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             Team team = mapRowToTeam(results);
             teams.add(team);
         }
-
         return teams;
     }
 
     @Override
-  public Team getTournamentById(int id){
-        String sql = "SELECT * FROM users WHERE id = ?";
+    public List<Team> listTeamsInState(String state) throws SQLException {
+        List<Team> teams = new ArrayList<>();
+        String sql = "SELECT * FROM team WHERE state = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, state);
+        while (results.next()) {
+            Team team = mapRowToTeam(results);
+            teams.add(team);
+        }
+        return teams;
+    }
+
+    @Override
+    public List<Team> listTeamsInCity(String city) throws SQLException {
+        List<Team> teams = new ArrayList<>();
+        String sql = "SELECT * FROM team WHERE city = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, city);
+        while (results.next()) {
+            Team team = mapRowToTeam(results);
+            teams.add(team);
+        }
+        return teams;
+    }
+
+    @Override
+    public Team getTeamByName(String name) throws SQLException {
+        Team team = null;
+        String sql = "SELECT * FROM team WHERE team_name = ?";
+        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, name);
+        if (results.next()) {
+            team = mapRowToTeam(results);
+        }
+        return team;
+    }
+
+    @Override
+    public Team getTeamById(int id) throws SQLException {
+        Team team = null;
+        String sql = "SELECT * FROM team WHERE team_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         if (results.next()) {
-            return mapRowToTeam(results);
-        } else {
-            return null;
+            team = mapRowToTeam(results);
         }
+        return team;
     }
 
     @Override
-  public   Team findByTournamentName(String teamName){
-        if (teamName == null) throw new IllegalArgumentException("Username cannot be null");
-
-        for (Team team : this.findAll()) {
-            if (team.getTeamName().equalsIgnoreCase(teamName)) {
-                return team;
-            }
-        }
-        throw new UsernameNotFoundException("User " + teamName + " was not found.");
+    public void updateTeam(Team team) throws SQLException {
+        String sql = "UPDATE team SET team_name = ?, team_description = ?, address = ?, city = ?, state = ? " +
+                "WHERE team_id = ?";
+        jdbcTemplate.update(sql, team.getTeamName(), team.getTeamDescription(),
+                team.getAddress(), team.getCity(), team.getState(), team.getId());
     }
 
     @Override
-  public   boolean create(int id, String teamName, String teamDescription, String address, String city, String state){
-    String insertUserSql = "insert into teams (teamName,teamDescription,address,city,state) values (?,?,?,?,?)";
-        return jdbcTemplate.update(insertUserSql, teamName, teamDescription, address, city, state) == 1;
-}
+    public void deleteTeam(Team team) throws SQLException {
+        String sql = "DELETE FROM TEAM WHERE ID = ?";
+        jdbcTemplate.update(sql, team.getId());
+    }
 
-    private Team mapRowToTeam(SqlRowSet results) {
+    private Team mapRowToTeam(SqlRowSet rs) {
         Team team = new Team();
-        team.setId(results.getInt("team_id"));
-        team.setTeamName(results.getString("teamName"));
-        team.setTeamDescription(results.getString("teamDescription"));
-        team.setAddress(results.getString("address"));
-        team.setCity(results.getString("city"));
-        team.setState(results.getString("state"));
-
+        team.setId(rs.getInt("id"));
+        team.setTeamName(rs.getString("team_name"));
+        team.setTeamDescription(rs.getString("team_description"));
+        team.setAddress(rs.getString("address"));
+        team.setCity(rs.getString("city"));
+        team.setState(rs.getString("state"));
         return team;
     }
 

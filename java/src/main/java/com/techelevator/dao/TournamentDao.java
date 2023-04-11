@@ -2,16 +2,34 @@ package com.techelevator.dao;
 
 import com.techelevator.model.Tournament;
 
+import java.sql.SQLException;
 import java.util.List;
 
 public interface TournamentDao {
 
-    List<Tournament> findAll();
+    // Create
+    void addTournament(Tournament tournament) throws SQLException;
 
-    Tournament getTournamentById(int id);
+    // Read
+    List<Tournament> getAllTournaments() throws SQLException;
+    Tournament getTournamentById(int id) throws SQLException;
+//    List<Tournament> getTournamentsByLevel(String level) throws SQLException;
 
-    Tournament findByTournamentName(String tournamentName);
+    // Update
+    void updateTournament(Tournament tournament) throws SQLException;
 
-    boolean create(int id, String tournamentName, String tournamentDescription, int numberOfPlayers, String date, String location, String level, boolean active, String registrationDeadline);
+    // Delete
+    void deleteTournament(Tournament tournament) throws SQLException;
 
+    // POST A NEW TOURNAMENT
+
+    // EDIT A TOURNAMENT
+
+    // GET LIST OF ALL TOURNAMENTS
+
+    // GET LIST OF PAST TOURNAMENTS
+
+    // GET LIST OF PRESENT AND FUTURE TOURNAMENTS
+
+    // GET TOURNAMENT DETAILS
 }
