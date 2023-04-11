@@ -1,5 +1,7 @@
 package com.techelevator.controller;
 
+import com.techelevator.dao.HostDao;
+import com.techelevator.dao.PlayerDao;
 import com.techelevator.dao.UserDao;
 import com.techelevator.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,8 @@ public class UserController {
 
     @Autowired
     private UserDao userDao;
+    private PlayerDao playerDao;
+    private HostDao hostDao;
 
 
     // SHOW ALL APP USERS
@@ -30,6 +34,7 @@ public class UserController {
         return userDao.findAll();
     }
 
+    // GET SINGLE USER BY ID
     @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
     public User getUserById(@PathVariable int userId) {
         User user = userDao.getUserById(userId);
@@ -40,8 +45,7 @@ public class UserController {
         }
     }
 
-
-    // GET SINGLE USER BY ID
+    // GET SINGLE USER BY USERNAME
     @RequestMapping(path = "/{username}", method = RequestMethod.GET)
     public User findByUsername(@PathVariable String username) {
         User user = userDao.findByUsername(username);
@@ -52,7 +56,13 @@ public class UserController {
         }
     }
 
-    // GET
+    // POST A NEW HOST
+    // PUT A HOST
+    // GET ALL HOSTS
+
+    // POST NEW TEAM
+    // GET ALL TEAMS
+    // GET TEAM BY ...
 
 
 }
