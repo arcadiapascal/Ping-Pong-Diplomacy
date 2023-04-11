@@ -6,6 +6,14 @@ import Logout from '../views/Logout.vue'
 import Register from '../views/Register.vue'
 import store from '../store/index'
 
+import CreateTournament from '../views/CreateTournament.vue'
+import HostTournament from '../views/HostTournament.vue'
+import MyProfile from '../views/MyProfile.vue'
+import UserProfile from '../views/UserProfile.vue'
+import UserTournament from '../views/UserTournament.vue'
+
+
+
 Vue.use(Router)
 
 /**
@@ -52,7 +60,48 @@ const router = new Router({
       meta: {
         requiresAuth: false
       }
+    },
+   
+  {
+    path: "/createtournament",
+    name: "createTournament",
+    component: CreateTournament,
+    meta: {
+      requiresAuth: true
     }
+  },
+  {
+    path: "/hosttournament",
+    name: "hostTournament",
+    component: HostTournament,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/myprofile",
+    name: "myProfile",
+    component: MyProfile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/userprofile",
+    name: "userProfile",
+    component: UserProfile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/usertournament",
+    name: "userTournament",
+    component: UserTournament,
+    meta: {
+      requiresAuth: false
+    }
+  }
   ]
 })
 
