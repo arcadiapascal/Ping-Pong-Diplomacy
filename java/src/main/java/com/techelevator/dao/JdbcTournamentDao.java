@@ -87,4 +87,3 @@ public class JdbcTournamentDao implements TournamentDao {
         jdbcTemplate.update(sql, tournament.getId());
     }
 }
-

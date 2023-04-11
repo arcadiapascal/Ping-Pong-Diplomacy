@@ -104,7 +104,3 @@ public class Tournament {
         this.registrationDeadline = registrationDeadline;
     }
 }
-<<<<<<< HEAD
-=======
-
->>>>>>> a92e846c1471ad0743445da0eca98d24f5f9abc6
