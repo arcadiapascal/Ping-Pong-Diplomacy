@@ -63,7 +63,7 @@ CREATE TABLE tournament_team
     tournament_id int NOT NULL,
     team_id int NOT NULL,
 
-    CONSTRAINT PK_tournament_team PRIMARY KEY(team_id)
+   CONSTRAINT PK_tournament_team PRIMARY KEY (tournament_id, team_id)
 );
 
 CREATE TABLE player_team
@@ -71,7 +71,7 @@ CREATE TABLE player_team
     player_id int NOT NULL,
     team_id int NOT NULL,
 
-    CONSTRAINT PK_tournament_team PRIMARY KEY(team_id)
+    CONSTRAINT PK_player_team PRIMARY KEY (player_id, team_id)
 );
  CREATE TABLE tournament (
     tournament_id serial,
@@ -127,6 +127,10 @@ ADD CONSTRAINT FK_player_host FOREIGN KEY (username) REFERENCES host(username);
 ALTER TABLE tournament_team
 ADD CONSTRAINT FK_tournament_team FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id),
 ADD CONSTRAINT FK_team_tournament FOREIGN KEY (team_id) REFERENCES team(team_id);
+
+ALTER TABLE tournament 
+ADD CONSTRAINT FK_tournament_team1 FOREIGN KEY (tournament_id) REFERENCES tournament_player(tournament_id),
+ADD CONSTRAINT FK_team_tournament1 FOREIGN KEY (team_id) REFERENCES tournament_ team(team_id);
 
 COMMIT;
 ROLLBACK
