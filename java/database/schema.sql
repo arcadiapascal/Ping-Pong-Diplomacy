@@ -103,6 +103,12 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
+CREATE TABLE tournament_player(
+	tournament_id INT,
+	player_id INT, 
+	CONSTRAINT PK_tournament_host PRIMARY KEY (tournament_id, player_id)
+
+);
 
 
 ALTER TABLE player_team
