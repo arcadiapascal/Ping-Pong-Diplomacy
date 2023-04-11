@@ -1,13 +1,14 @@
 <template>
-    <div class="results">
-    </div>
-  
+<div>
+  </div>
 </template>
 
 <script>
-import tournamentService from "../services/TournamentService.js"
-
 export default {
 
 }
 </script>
+
+<style>
+
+</style>
