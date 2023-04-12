@@ -18,6 +18,7 @@ CREATE TABLE users (
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
+
 CREATE TABLE player
 (
     player_id serial NOT NULL,
