@@ -13,7 +13,7 @@ export default {
     },
 
     create(tournament) {
-        return axios.post(`/tournaments/`, tournament);
+        return axios.post(`/tournaments`, tournament);
     },
 
     update(id, tournament) {
