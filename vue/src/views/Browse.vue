@@ -1,13 +1,16 @@
 <template>
 <div id="browse">
-    <div class="title-form">
+    <form class="browse-by-form" v-on:submit.prevent>
         <label for="tournament-title">Tournament Title</label>
         <input type="text" id="tournament-title" />
-    </div>
-    <div class="location-form">
         <label for="location">Location</label>
         <input type="text" id="location" />
-    </div>
+        <label for="filter-by-active">Active/Inactive</label>
+        <select name="active" v-model="Tournament.active">
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>
+        </select>
+    </form>
 </div>
 </template>
 
@@ -22,6 +25,7 @@ export default {
                 this.$store.commit("SET_TOURNAMENTS", response.data);
             });
         }
+        
     }
 }
 </script>

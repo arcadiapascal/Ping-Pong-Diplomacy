@@ -10,7 +10,7 @@ export default {
     name: "player-list",
     methods: {
         getPlayers() {
-            profileService.list().then(response => {
+            profileService.listProfiles().then(response => {
                 this.$store.commit("SET_PROFILES", response.data);
             });
         }
