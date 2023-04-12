@@ -1,6 +1,7 @@
 <template>
     <div class="edit-profile">
-        <form class="edit-profile-form" v-on:submit.prevent="editProfile">
+        <h2>{{$store.state.user}}</h2>
+        <form class="edit-profile-form" v-on:submit.prevent>
             <label for="Username">Username</label>
             <input type="text" v-model="Profile.username"><br>
             <label for="First Name">First Name</label>
@@ -15,6 +16,7 @@
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
             </select>
+            <button type="submit" v-on:click="updateProfile()">Update Profile</button>
         </form>
     </div>
 </template>
@@ -25,19 +27,20 @@ import ProfileService from "../services/ProfileService.js";
 export default {
     data() {
       return {
-        Profile: {
-            username: '',
-            password: '',
-            firstName: '',
-            lastName: '',
-            location: '',
-            skillLevel: ''
-            },
+        currentuser: this.$store.state.user
       }
     },
     methods: {
-        editProfile() {
-            ProfileService.update(this.Profile).then(response => {
+        updateProfile() {
+            const updatedProfile = {
+                id: this.id,
+                username: this.username,
+                firstName: this.firstName,
+                lastName: this.lastName,
+                location: this.location,
+                skillLevel: this.skillLevel                
+            };
+            ProfileService.update(this.currentuser.id, updatedProfile).then(response => {
                 if(response.status === 200) {
                     this.$router.push('/');
                 }
@@ -48,7 +51,7 @@ export default {
             console.error(error);
         }
     });
-        }
+    }
     }
 
 
