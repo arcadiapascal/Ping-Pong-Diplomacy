@@ -12,6 +12,14 @@ export default {
         return axios.get(`/profiles`);
     },
 
+    update(id, profile) {
+        return http.put(`/profiles/${id}`, profile);
+    },
+
+    delete(id) {
+        return http.delete(`/profiles/${id}`);
+    }
+
     
 
 
