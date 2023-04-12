@@ -2,7 +2,7 @@
     <div class="create">
         <h1>Create A Tournament</h1>
         <create-form />
-        <bracket />
+      
         <player-list />
     </div>
 </template>
@@ -15,6 +15,7 @@ export default {
     name: 'createTournament',
     components: {
         CreateForm,
+        
         PlayerList
     }
 }

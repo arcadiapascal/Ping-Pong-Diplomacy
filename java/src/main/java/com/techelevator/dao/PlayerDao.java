@@ -9,7 +9,7 @@ public interface PlayerDao {
 
     // Create
     void addPlayer(Player player) throws SQLException;
-    Player makeUserPlayer(Player player);
+//    Player makeUserPlayer(Player player);
 
     // Read
     List<Player> getAllPlayers() throws SQLException;

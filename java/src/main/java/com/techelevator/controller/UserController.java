@@ -3,17 +3,16 @@ package com.techelevator.controller;
 import com.techelevator.dao.HostDao;
 import com.techelevator.dao.PlayerDao;
 import com.techelevator.dao.UserDao;
+import com.techelevator.model.Host;
 import com.techelevator.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
+import java.sql.SQLException;
 import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
@@ -55,14 +54,6 @@ public class UserController {
             return user;
         }
     }
-
-    // POST A NEW HOST
-    // PUT A HOST
-    // GET ALL HOSTS
-
-    // POST NEW TEAM
-    // GET ALL TEAMS
-    // GET TEAM BY ...
 
 
 }

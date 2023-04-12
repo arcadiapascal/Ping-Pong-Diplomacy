@@ -1,17 +1,15 @@
 import axios from 'axios';
 
-const http = axios.create({
-    baseURL: "http://localhost:9000"
-});
+
 
 export default {
 
-    get(id) {
-        return http.get(`/profiles/${id}`);
+    getProfile(id) {
+        return axios.get(`/profiles/${id}`);
     },
 
-    list() {
-        return http.get(`/profiles`);
+    listProfiles() {
+        return axios.get(`/profiles`);
     },
 
     update(id, profile) {
