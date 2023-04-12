@@ -11,6 +11,7 @@ import HostTournament from '../views/HostTournament.vue'
 import MyProfile from '../views/MyProfile.vue'
 import UserProfile from '../views/UserProfile.vue'
 import UserTournament from '../views/UserTournament.vue'
+import Browse from '../views/Browse.vue'
 
 
 
@@ -59,6 +60,14 @@ const router = new Router({
       component: Register,
       meta: {
         requiresAuth: false
+      }
+    },
+    {
+      path: "/browse",
+      name: "browse",
+      component: Browse,
+      meta: {
+        requiresAuth: true
       }
     },
    
