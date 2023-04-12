@@ -4,8 +4,8 @@ import axios from 'axios';
 
 export default {
 
-    listTournaments() {
-        return axios.get(`/tournaments`);
+    listTournaments(userId) {
+        return axios.get(`/tournaments${userId}`);
     },
 
     getTournament(id) {
@@ -13,7 +13,7 @@ export default {
     },
 
     create(tournament) {
-        return axios.post(`/tournaments`, tournament);
+        return axios.post(`/tournaments/create`, tournament);
     },
 
     update(id, tournament) {

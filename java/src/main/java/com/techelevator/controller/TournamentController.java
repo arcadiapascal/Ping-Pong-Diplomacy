@@ -22,10 +22,8 @@ import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
-@RequestMapping("")
 public class TournamentController {
 
-    @Autowired
     private UserDao userDao;
 
     @Autowired
