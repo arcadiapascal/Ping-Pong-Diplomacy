@@ -1,26 +1,37 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.sql.Date;
+import java.sql.Time;
+import java.sql.Timestamp;
+
 public class Tournament {
 
     private int id;
+    @JsonProperty("name")
     private String tournamentName;
+    @JsonProperty("description")
     private String tournamentDescription;
     private int numberOfPlayers;
-    private String date;
+    private Timestamp date;
     private String location;
+    private String address;
+    @JsonProperty("skillLevel")
     private String level;
     private boolean active;
-    private String registrationDeadline;
+    private Date registrationDeadline;
 
     public Tournament() { }
 
-    public Tournament(int id, String tournamentName, String tournamentDescription, int numberOfPlayers, String date, String location, String level, boolean active, String registrationDeadline) {
+    public Tournament(int id, String tournamentName, String tournamentDescription, int numberOfPlayers, Timestamp date, String location, String address, String level, boolean active, Date registrationDeadline) {
         this.id = id;
         this.tournamentName = tournamentName;
         this.tournamentDescription = tournamentDescription;
         this.numberOfPlayers = numberOfPlayers;
         this.date = date;
         this.location = location;
+        this.address = address;
         this.level = level;
         this.active = active;
         this.registrationDeadline = registrationDeadline;
@@ -59,11 +70,11 @@ public class Tournament {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public String getDate(){
+    public Timestamp getDate(){
         return date;
     }
 
-    public void setDate(String date){
+    public void setDate(Timestamp date){
         this.date = date;
     }
 
@@ -73,6 +84,14 @@ public class Tournament {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getLevel() {
@@ -91,11 +110,11 @@ public class Tournament {
         this.active = active;
     }
 
-    public String getRegistrationDeadline() {
+    public Date getRegistrationDeadline() {
         return registrationDeadline;
     }
 
-    public void setRegistrationDeadline(String registrationDeadline) {
+    public void setRegistrationDeadline(Date registrationDeadline) {
         this.registrationDeadline = registrationDeadline;
     }
 }

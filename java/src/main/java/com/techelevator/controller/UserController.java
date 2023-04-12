@@ -34,7 +34,7 @@ public class UserController {
     }
 
     // GET SINGLE USER BY ID
-    @RequestMapping(path = "/{userId}", method = RequestMethod.GET)
+    @RequestMapping(path = "/id/{userId}", method = RequestMethod.GET)
     public User getUserById(@PathVariable int userId) {
         User user = userDao.getUserById(userId);
         if (user == null) {
@@ -45,7 +45,7 @@ public class UserController {
     }
 
     // GET SINGLE USER BY USERNAME
-    @RequestMapping(path = "/{username}", method = RequestMethod.GET)
+    @RequestMapping(path = "/username/{username}", method = RequestMethod.GET)
     public User findByUsername(@PathVariable String username) {
         User user = userDao.findByUsername(username);
         if (user == null) {

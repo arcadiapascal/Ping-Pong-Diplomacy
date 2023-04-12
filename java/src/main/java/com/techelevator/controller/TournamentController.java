@@ -14,6 +14,10 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
+import java.sql.Timestamp;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
@@ -23,18 +27,32 @@ public class TournamentController {
 
     @Autowired
     private UserDao userDao;
+
+    @Autowired
     private PlayerDao playerDao;
+
+    @Autowired
     private HostDao hostDao;
+
+    @Autowired
     private TeamDao teamDao;
+
+    @Autowired
     private TournamentDao tournamentDao;
 
-    // POST A NEW TOURNAMENT
+
     @PostMapping("/tournaments/create")
     public ResponseEntity<Tournament> createTournament(@RequestBody Tournament tournament) {
         try {
+            // Parse date string into java.sql.Timestamp object
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
+            Date parsedDate = dateFormat.parse(tournament.getDate().toString());
+            Timestamp timestamp = new Timestamp(parsedDate.getTime());
+            tournament.setDate(timestamp);
+
             Tournament createdTournament = tournamentDao.createTournament(tournament);
             return new ResponseEntity<>(createdTournament, HttpStatus.CREATED);
-        } catch (SQLException e) {
+        } catch (SQLException | ParseException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating tournament", e);
         }
     }
