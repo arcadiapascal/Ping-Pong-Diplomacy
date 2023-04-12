@@ -1,7 +1,5 @@
 BEGIN TRANSACTION;
 
-
-
 DROP TABLE IF EXISTS player CASCADE;
 DROP TABLE IF EXISTS tournament CASCADE;
 DROP TABLE IF EXISTS tournament_player CASCADE;
@@ -39,8 +37,6 @@ CREATE TABLE player
     photo_file varchar (255),
     photo OID,
     team_name varchar(64),
-
-    
 
    CONSTRAINT PK_player PRIMARY KEY(player_id),
    CONSTRAINT chk_state_abbrev CHECK (state_abbrev IN ('AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'))
@@ -132,7 +128,6 @@ ADD CONSTRAINT FK_userid_player FOREIGN KEY (userid) REFERENCES users(userid),
 ALTER TABLE host 
 ADD CONSTRAINT FK_userid_host FOREIGN KEY (userid) REFERENCES users(userid),
  
-    
   
 COMMIT;
-ROLLBACK;
+ROLLBACK
