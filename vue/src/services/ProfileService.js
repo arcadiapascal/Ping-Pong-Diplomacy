@@ -6,13 +6,21 @@ const http = axios.create({
 
 export default {
 
-    getProfile(id) {
+    get(id) {
         return http.get(`/profiles/${id}`);
     },
 
-    listProfiles() {
+    list() {
         return http.get(`/profiles`);
     },
+
+    update(id, profile) {
+        return http.put(`/profiles/${id}`, profile);
+    },
+
+    delete(id) {
+        return http.delete(`/profiles/${id}`);
+    }
 
     
 

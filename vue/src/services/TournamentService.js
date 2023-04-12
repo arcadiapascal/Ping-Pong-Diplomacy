@@ -6,11 +6,11 @@ const http = axios.create({
 
 export default {
 
-    listTournaments() {
+    list() {
         return http.get(`/tournaments`);
     },
 
-    getTournament(id) {
+    get(id) {
         return http.get(`/tournaments/${id}`);
     },
 
