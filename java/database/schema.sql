@@ -1,14 +1,7 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS player CASCADE;
-DROP TABLE IF EXISTS tournament CASCADE;
-DROP TABLE IF EXISTS tournament_player CASCADE;
-DROP TABLE IF EXISTS team CASCADE;
-DROP TABLE IF EXISTS player_team CASCADE;
-DROP TABLE IF EXISTS host CASCADE;
-DROP TABLE IF EXISTS tournament_host CASCADE;
-DROP TABLE IF EXISTS users CASCADE;
-DROP TABLE IF EXISTS tournament_team CASCADE;
+DROP TABLE IF EXISTS player,tournament,team,host,tournament_player,player_team,tournament_host,tournament_team,users CASCADE;
+
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -22,7 +15,7 @@ CREATE TABLE users (
 CREATE TABLE player
 (
     player_id serial NOT NULL,
-    userid int NOT NULL
+    user_id int NOT NULL,
     player_name varchar(64) NOT NULL,
     age INT CHECK (age < 110),
     city varchar(30) NOT NULL,
@@ -57,6 +50,28 @@ CREATE TABLE team
 
 );
 
+CREATE TABLE host (
+    host_id serial,
+    host_name varchar(64) NOT NULL,
+    user_id int NOT NULL,
+    CONSTRAINT PK_host PRIMARY KEY(host_id)
+);
+
+CREATE TABLE tournament (
+    tournament_id serial NOT NULL,
+    tournament_name varchar(64) NOT NULL,
+    tournament_description varchar(255) NOT NULL,
+    player_count int,
+    tournament_date timestamp NOT NULL,
+    tournament_address varchar(64) NOT NULL,
+	location varchar(64) NOT NULL, 
+    skill_level varchar(64) NOT NULL,
+    active boolean NOT NULL,
+    registration_deadline date NOT NULL,
+    CONSTRAINT chk_skill_level CHECK (skill_level in ('Novice','Intermediate','Advanced')),
+    CONSTRAINT PK_tournament PRIMARY KEY (tournament_id)
+);
+
 CREATE TABLE tournament_team
 (
     tournament_id int NOT NULL,
@@ -72,34 +87,12 @@ CREATE TABLE player_team
 
     CONSTRAINT PK_player_team PRIMARY KEY (player_id, team_id)
 );
- CREATE TABLE tournament (
-    tournament_id serial NOT NULL,
-    tournament_name varchar(64) NOT NULL,
-    tournament_description varchar(255) NOT NULL,
-    player_count int,
-    tournament_date timestamp NOT NULL,
-    tournament_address varchar(64) NOT NULL,
-	location varchar(64) NOT NULL, 
-    skill_level varchar(64) NOT NULL,
-    active boolean NOT NULL,
-    registration_deadline date NOT NULL,
-    CONSTRAINT chk_skill_level CHECK (skill_level in ('Novice','Intermediate','Advanced')),
-    CONSTRAINT PK_tournament PRIMARY KEY (tournament_id)
-);
-CREATE TABLE host (
-    host_id serial,
-    host_name varchar(64) NOT NULL,
-    userid int NOT NULL,
-    CONSTRAINT PK_host PRIMARY KEY(host_id)
-
-
-);
+ 
 CREATE TABLE tournament_host (
     tournament_id INT,
     host_id INT,
    CONSTRAINT PK_tournament_host PRIMARY KEY (tournament_id, host_id)
 );    
-
 
 CREATE TABLE tournament_player(
 	tournament_id INT,
@@ -111,23 +104,23 @@ CREATE TABLE tournament_player(
 
 ALTER TABLE player_team
 ADD CONSTRAINT FK_player_team FOREIGN KEY (player_id) REFERENCES player(player_id),
-ADD CONSTRAINT FK_team_player FOREIGN KEY (team_id) REFERENCES team(team_id),
+ADD CONSTRAINT FK_team_player FOREIGN KEY (team_id) REFERENCES team(team_id);
 
 ALTER TABLE tournament_player
 ADD CONSTRAINT FK_tournament_player FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id),
-ADD CONSTRAINT FK_player_tournament FOREIGN KEY (player_id) REFERENCES player(player_id),
+ADD CONSTRAINT FK_player_tournament FOREIGN KEY (player_id) REFERENCES player(player_id);
 
 ALTER TABLE tournament_host
 ADD CONSTRAINT FK_tournament_host FOREIGN KEY (tournament_id) REFERENCES tournament(tournament_id),
-ADD CONSTRAINT FK_host_tournament FOREIGN KEY (host_id) REFERENCES host(host_id),
+ADD CONSTRAINT FK_host_tournament FOREIGN KEY (host_id) REFERENCES host(host_id);
 
 ALTER TABLE player
-ADD CONSTRAINT FK_userid_player FOREIGN KEY (userid) REFERENCES users(userid),
+ADD CONSTRAINT FK_userid_player FOREIGN KEY (user_id) REFERENCES users(user_id);
 
 
 ALTER TABLE host 
-ADD CONSTRAINT FK_userid_host FOREIGN KEY (userid) REFERENCES users(userid),
+ADD CONSTRAINT FK_userid_host FOREIGN KEY (user_id) REFERENCES users(user_id);
  
   
 COMMIT;
-ROLLBACK
+-- ROLLBACK
