@@ -18,7 +18,7 @@ import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
-@RequestMapping("/tournaments")
+@RequestMapping("")
 public class TournamentController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class TournamentController {
     private TournamentDao tournamentDao;
 
     // POST A NEW TOURNAMENT
-    @PostMapping
+    @PostMapping("/tournaments/create")
     public ResponseEntity<Tournament> createTournament(@RequestBody Tournament tournament) {
         try {
             Tournament createdTournament = tournamentDao.createTournament(tournament);
@@ -40,7 +40,7 @@ public class TournamentController {
     }
 
     // UPDATE A TOURNAMENT
-    @PutMapping("/{id}")
+    @PutMapping("/tournaments/{id}")
     public ResponseEntity<Tournament> updateTournament(@PathVariable int id, @RequestBody Tournament tournament) {
         try {
             tournamentDao.updateTournament(id, tournament);
@@ -52,7 +52,7 @@ public class TournamentController {
 
 
     // GET LIST OF ALL TOURNAMENTS
-    @GetMapping
+    @GetMapping("/tournaments")
     public List<Tournament> getAllTournaments() {
         try {
             return tournamentDao.getAllTournaments();
@@ -62,7 +62,7 @@ public class TournamentController {
     }
 
     // GET LIST OF PAST TOURNAMENTS
-    @GetMapping("/past")
+    @GetMapping("/tournaments/past")
     public List<Tournament> getPastTournaments() {
         try {
             return tournamentDao.getPastTournaments();
@@ -72,7 +72,7 @@ public class TournamentController {
     }
 
     // GET LIST OF PRESENT AND FUTURE TOURNAMENTS
-    @GetMapping("/present-future")
+    @GetMapping("/tournaments/upcoming")
     public List<Tournament> getPresentAndFutureTournaments() {
         try {
             return tournamentDao.getFutureTournaments();
@@ -82,7 +82,7 @@ public class TournamentController {
     }
 
     // GET TOURNAMENT DETAILS
-    @GetMapping("/{id}")
+    @GetMapping("/tournaments/{id}")
     public Tournament getTournamentDetails(@PathVariable int id) {
         try {
             Tournament tournament = tournamentDao.getTournamentById(id);
@@ -96,7 +96,7 @@ public class TournamentController {
     }
 
     // DELETE A TOURNAMENT
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/tournaments/{id}")
     public ResponseEntity<Void> deleteTournament(@PathVariable int id) {
         try {
             tournamentDao.deleteTournament(id);
@@ -116,7 +116,7 @@ public class TournamentController {
 
     // TEAM METHODS
     // POST NEW TEAM
-    @RequestMapping(path = "/teams", method = RequestMethod.POST)
+    @RequestMapping(path = "/teams/create", method = RequestMethod.POST)
     public void addTeam(@RequestBody Team team) throws SQLException {
         teamDao.addTeam(team);
     }
@@ -141,19 +141,19 @@ public class TournamentController {
     }
 
     // GET TEAM BY NAME
-    @RequestMapping(path = "/teams/name/{name}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/{name}", method = RequestMethod.GET)
     public Team getTeamByName(@PathVariable String name) throws SQLException {
         return teamDao.getTeamByName(name);
     }
 
     // GET TEAMS BY STATE
-    @RequestMapping(path = "/teams/state/{state}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/{state}", method = RequestMethod.GET)
     public List<Team> getTeamsByState(@PathVariable String state) throws SQLException {
         return teamDao.listTeamsInState(state);
     }
 
     // GET TEAMS BY CITY
-    @RequestMapping(path = "/teams/city/{city}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/{city}", method = RequestMethod.GET)
     public List<Team> getTeamsByCity(@PathVariable String city) throws SQLException {
         return teamDao.listTeamsInCity(city);
     }
@@ -164,7 +164,7 @@ public class TournamentController {
     // HOST METHODS
     // Create a new Host
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @RequestMapping(value = "/hosts", method = RequestMethod.POST)
+    @RequestMapping(value = "/hosts/create", method = RequestMethod.POST)
     public void addHost(@RequestBody Host host) {
         try {
             hostDao.addHost(host);
@@ -205,7 +205,7 @@ public class TournamentController {
 
     // PLAYER METHODS
     // Create a new player
-    @PostMapping
+    @PostMapping("/players/create")
     public ResponseEntity<String> addPlayer(@RequestBody Player player) {
         try {
             playerDao.addPlayer(player);
@@ -216,7 +216,7 @@ public class TournamentController {
     }
 
     // Get all players
-    @GetMapping
+    @GetMapping("/players")
     public ResponseEntity<List<Player>> getAllPlayers() {
         try {
             List<Player> players = playerDao.getAllPlayers();
@@ -230,7 +230,7 @@ public class TournamentController {
     }
 
     // Get player by ID
-    @GetMapping("/{id}")
+    @GetMapping("/players/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
         try {
             Player player = playerDao.getPlayerById(id);
@@ -241,7 +241,7 @@ public class TournamentController {
     }
 
     // Update player
-    @PutMapping("/{id}")
+    @PutMapping("/players/{id}")
     public ResponseEntity<String> updatePlayer(@PathVariable int id, @RequestBody Player player) {
         try {
             Player existingPlayer = playerDao.getPlayerById(id);
@@ -257,7 +257,7 @@ public class TournamentController {
     }
 
     // Delete player
-    @DeleteMapping("/{id}")
+    @DeleteMapping("players/{id}")
     public ResponseEntity<String> deletePlayer(@PathVariable int id) {
         try {
             Player existingPlayer = playerDao.getPlayerById(id);
