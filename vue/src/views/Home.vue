@@ -2,20 +2,23 @@
   <div class="home">
     <h1>Home</h1>
     <p>You must be authenticated to see this</p>
-    <search />
-    <browse />
+    <router-link :to="{ name: 'browse' }">Find A Tournament</router-link>
+    <router-link :to="{ name: 'myProfile' }">My Profile</router-link>
+    <router-view />
+    <recent-tournaments />
+    <my-tournaments />
   </div>
 </template>
 
 <script>
-import Search from '../components/Search.vue';
-import Browse from '../components/Browse.vue'
+import RecentTournaments from '../components/RecentTournaments.vue';
+import MyTournaments from '../components/MyTournaments.vue';
 
 export default {
   name: "home",
   components: {
-    Search,
-    Browse
+    MyTournaments,
+    RecentTournaments
   }
 };
 </script>
