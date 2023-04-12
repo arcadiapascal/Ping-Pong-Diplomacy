@@ -1,7 +1,5 @@
 package com.techelevator.model;
 
-import java.util.Date;
-
 public class Tournament {
 
     private int id;
