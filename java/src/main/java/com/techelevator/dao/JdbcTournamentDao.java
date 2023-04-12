@@ -21,14 +21,14 @@ public class JdbcTournamentDao implements TournamentDao {
 
     @Override
     public Tournament createTournament(Tournament tournament) {
-        String sql = "INSERT INTO tournaments (tournament_name, tournament_description, number_of_players, date, location, level, active, registration_deadline) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO tournament (tournament_name, tournament_description, player_count, tournament_date, tournament_address, location, skill_level, active, registration_deadline)\n" +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getTournamentDescription(),
-                tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(),
+                tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(), tournament.getAddress(),
                 tournament.getLevel(), tournament.isActive(), tournament.getRegistrationDeadline());
 
-        sql = "SELECT tournament_id, tournament_name, tournament_description, number_of_players, date, location, level, active, registration_deadline " +
-                "FROM tournaments WHERE tournament_name = ?";
+        sql = "SELECT tournament_name, tournament_description, player_count, tournament_date, tournament_address, location, skill_level, active, registration_deadline " +
+                "FROM tournament WHERE tournament_name = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournament.getTournamentName());
         if (results.next()) {
             return mapRowToTournament(results);
@@ -41,7 +41,7 @@ public class JdbcTournamentDao implements TournamentDao {
     @Override
     public List<Tournament> getAllTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
-        String sql = "SELECT * FROM tournaments";
+        String sql = "SELECT * FROM tournament";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
         while (results.next()) {
             Tournament tournament = mapRowToTournament(results);
@@ -139,12 +139,13 @@ public class JdbcTournamentDao implements TournamentDao {
         tournament.setId(results.getInt("tournament_id"));
         tournament.setTournamentName(results.getString("tournament_name"));
         tournament.setTournamentDescription(results.getString("tournament_description"));
-        tournament.setNumberOfPlayers(results.getInt("number_of_players"));
-        tournament.setDate(results.getString("date"));
+        tournament.setNumberOfPlayers(results.getInt("player_count"));
+        tournament.setDate(results.getTimestamp("tournament_date"));
+        tournament.setAddress(results.getString("tournament_address"));
         tournament.setLocation(results.getString("location"));
-        tournament.setLevel(results.getString("level"));
+        tournament.setLevel(results.getString("skill_level"));
         tournament.setActive(results.getBoolean("active"));
-        tournament.setRegistrationDeadline(results.getString("registration_deadline"));
+        tournament.setRegistrationDeadline(results.getDate("registration_deadline"));
         return tournament;
     }
 }
