@@ -40,7 +40,8 @@ export default {
             skillLevel:"",
             registrationDeadline:"",
             description: "",
-            active:true
+            active:true,
+            numberOfPlayers: 0
         },
         
       }

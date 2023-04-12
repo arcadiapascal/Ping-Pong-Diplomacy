@@ -18,17 +18,25 @@ import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
-@RequestMapping("")
 public class TournamentController {
 
-    @Autowired
     private UserDao userDao;
     private PlayerDao playerDao;
     private HostDao hostDao;
     private TeamDao teamDao;
     private TournamentDao tournamentDao;
 
+    public TournamentController(UserDao userDao, PlayerDao playerDao, HostDao hostDao, TeamDao teamDao, TournamentDao tournamentDao) {
+        this.userDao = userDao;
+        this.playerDao = playerDao;
+        this.hostDao = hostDao;
+        this.teamDao = teamDao;
+        this.tournamentDao = tournamentDao;
+
+    }
+
     // POST A NEW TOURNAMENT
+    @CrossOrigin
     @PostMapping("/tournaments/create")
     public ResponseEntity<Tournament> createTournament(@RequestBody Tournament tournament) {
         try {

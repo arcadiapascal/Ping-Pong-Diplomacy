@@ -1,13 +1,18 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Tournament {
 
     private int id;
+    @JsonProperty("name")
     private String tournamentName;
+    @JsonProperty("description")
     private String tournamentDescription;
     private int numberOfPlayers;
     private String date;
     private String location;
+    @JsonProperty("skillLevel")
     private String level;
     private boolean active;
     private String registrationDeadline;
