@@ -3,13 +3,12 @@ package com.techelevator.dao;
 import com.techelevator.model.Tournament;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 public interface TournamentDao {
 
     // Create
-    void createTournament(Tournament tournament) throws SQLException;
+    Tournament createTournament(Tournament tournament) throws SQLException;
 
     // Read
     List<Tournament> getAllTournaments() throws SQLException;
@@ -20,9 +19,10 @@ public interface TournamentDao {
     List<Tournament> getFutureTournaments() throws SQLException;
 
     // Update
-    void updateTournament(Tournament tournament) throws SQLException;
+    void updateTournament(int id, Tournament tournament) throws SQLException;
 
     // Delete
-    void deleteTournament(Tournament tournament) throws SQLException;
+    void deleteTournament(int id) throws SQLException;
+
 
 }

@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
@@ -30,12 +29,85 @@ public class TournamentController {
     private TournamentDao tournamentDao;
 
     // POST A NEW TOURNAMENT
-    // EDIT A TOURNAMENT
+    @PostMapping
+    public ResponseEntity<Tournament> createTournament(@RequestBody Tournament tournament) {
+        try {
+            Tournament createdTournament = tournamentDao.createTournament(tournament);
+            return new ResponseEntity<>(createdTournament, HttpStatus.CREATED);
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating tournament", e);
+        }
+    }
+
+    // UPDATE A TOURNAMENT
+    @PutMapping("/{id}")
+    public ResponseEntity<Tournament> updateTournament(@PathVariable int id, @RequestBody Tournament tournament) {
+        try {
+            tournamentDao.updateTournament(id, tournament);
+            return new ResponseEntity<>(HttpStatus.OK);
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error updating tournament", e);
+        }
+    }
+
+
     // GET LIST OF ALL TOURNAMENTS
+    @GetMapping
+    public List<Tournament> getAllTournaments() {
+        try {
+            return tournamentDao.getAllTournaments();
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error getting tournaments", e);
+        }
+    }
+
     // GET LIST OF PAST TOURNAMENTS
+    @GetMapping("/past")
+    public List<Tournament> getPastTournaments() {
+        try {
+            return tournamentDao.getPastTournaments();
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error getting past tournaments", e);
+        }
+    }
+
     // GET LIST OF PRESENT AND FUTURE TOURNAMENTS
+    @GetMapping("/present-future")
+    public List<Tournament> getPresentAndFutureTournaments() {
+        try {
+            return tournamentDao.getFutureTournaments();
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error getting present and future tournaments", e);
+        }
+    }
+
     // GET TOURNAMENT DETAILS
+    @GetMapping("/{id}")
+    public Tournament getTournamentDetails(@PathVariable int id) {
+        try {
+            Tournament tournament = tournamentDao.getTournamentById(id);
+            if (tournament == null) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Tournament not found");
+            }
+            return tournament;
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error getting tournament details", e);
+        }
+    }
+
     // DELETE A TOURNAMENT
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteTournament(@PathVariable int id) {
+        try {
+            tournamentDao.deleteTournament(id);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        } catch (SQLException e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error deleting tournament", e);
+        }
+    }
+
+
+
     // ADD A PLAYER TO A TOURNAMENT
     // REMOVE A PLAYER FROM A TOURNAMENT
     // ADD A TEAM TO A TOURNAMENT
@@ -86,8 +158,11 @@ public class TournamentController {
         return teamDao.listTeamsInCity(city);
     }
 
-    // HOST METHODS
+    // ADD A PLAYER TO A TEAM
+    // REMOVE A PLAYER FROM A TEAM
 
+    // HOST METHODS
+    // Create a new Host
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/hosts", method = RequestMethod.POST)
     public void addHost(@RequestBody Host host) {
