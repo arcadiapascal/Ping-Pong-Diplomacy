@@ -12,12 +12,19 @@ DROP TABLE IF EXISTS tournament_host CASCADE;
 DROP TABLE IF EXISTS users CASCADE;
 DROP TABLE IF EXISTS tournament_team CASCADE;
 
+CREATE TABLE users (
+	user_id SERIAL,
+	username varchar(50) NOT NULL UNIQUE,
+	password_hash varchar(200) NOT NULL,
+	role varchar(50) NOT NULL,
+	CONSTRAINT PK_user PRIMARY KEY (user_id)
+);
 
 
 CREATE TABLE player
 (
     player_id serial NOT NULL,
-    username varchar(64) NOT NULL,
+    userid int NOT NULL
     player_name varchar(64) NOT NULL,
     age INT CHECK (age < 110),
     city varchar(30) NOT NULL,
@@ -70,7 +77,7 @@ CREATE TABLE player_team
     CONSTRAINT PK_player_team PRIMARY KEY (player_id, team_id)
 );
  CREATE TABLE tournament (
-    tournament_id serial,
+    tournament_id serial NOT NULL,
     tournament_name varchar(64) NOT NULL,
     tournament_description varchar(255) NOT NULL,
     player_count int,
@@ -86,7 +93,7 @@ CREATE TABLE player_team
 CREATE TABLE host (
     host_id serial,
     host_name varchar(64) NOT NULL,
-    username varchar(64) NOT NULL,
+    userid int NOT NULL,
     CONSTRAINT PK_host PRIMARY KEY(host_id)
 
 
@@ -96,13 +103,7 @@ CREATE TABLE tournament_host (
     host_id INT,
    CONSTRAINT PK_tournament_host PRIMARY KEY (tournament_id, host_id)
 );    
-CREATE TABLE users (
-	user_id SERIAL,
-	username varchar(50) NOT NULL UNIQUE,
-	password_hash varchar(200) NOT NULL,
-	role varchar(50) NOT NULL,
-	CONSTRAINT PK_user PRIMARY KEY (user_id)
-);
+
 
 CREATE TABLE tournament_player(
 	tournament_id INT,
@@ -125,11 +126,11 @@ ADD CONSTRAINT FK_tournament_host FOREIGN KEY (tournament_id) REFERENCES tournam
 ADD CONSTRAINT FK_host_tournament FOREIGN KEY (host_id) REFERENCES host(host_id),
 
 ALTER TABLE player
-ADD CONSTRAINT FK_username_player FOREIGN KEY (username) REFERENCES users(username),
+ADD CONSTRAINT FK_userid_player FOREIGN KEY (userid) REFERENCES users(userid),
 
 
 ALTER TABLE host 
-ADD CONSTRAINT FK_username_host FOREIGN KEY (username) REFERENCES users(username),
+ADD CONSTRAINT FK_userid_host FOREIGN KEY (userid) REFERENCES users(userid),
  
     
   
