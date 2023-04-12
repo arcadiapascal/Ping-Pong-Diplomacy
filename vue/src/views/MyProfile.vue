@@ -1,19 +1,17 @@
 <template>
     <div class="my-profile">
-        <edit-profile />          
+        <router-link :to="{ name: 'EditProfile' }">Edit Profile</router-link>
+        <router-view />
         <profile-details />
     </div>
 </template>
 
 <script>
-import EditProfile from '../components/EditProfile.vue'
 import ProfileDetails from "../components/ProfileDetails.vue"
 
 export default {
     name: "myProfile",
     components: {
-        ProfileDetails,
-        EditProfile
-    }
+        ProfileDetails    }
 }
 </script>
