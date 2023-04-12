@@ -13,11 +13,11 @@ export default {
     },
 
     update(id, profile) {
-        return http.put(`/profiles/${id}`, profile);
+        return axios.put(`/profiles/${id}`, profile);
     },
 
     delete(id) {
-        return http.delete(`/profiles/${id}`);
+        return axios.delete(`/profiles/${id}`);
     }
 
     
