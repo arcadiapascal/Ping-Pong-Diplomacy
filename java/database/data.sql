@@ -41,15 +41,15 @@ INSERT INTO player_team (player_id, team_id) VALUES
 (1, 1),
 (2, 2);
 
--- Insert tournament_host
-INSERT INTO tournament_host (tournament_id, host_id) VALUES
-(1, 3),
-(2, 4);
+-- -- Insert tournament_host
+-- INSERT INTO tournament_host (tournament_id, host_id) VALUES
+-- (1, 3),
+-- (2, 4);
 
--- Insert tournament_player
-INSERT INTO tournament_player (tournament_id, player_id) VALUES
-(1, 1),
-(1, 2),
-(2, 1);
+-- -- Insert tournament_player
+-- INSERT INTO tournament_player (tournament_id, player_id) VALUES
+-- (1, 1),
+-- (1, 2),
+-- (2, 1);
 
 COMMIT TRANSACTION;

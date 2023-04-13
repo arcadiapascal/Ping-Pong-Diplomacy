@@ -1,8 +1,16 @@
-
 <template>
   <div>
       <h2>User Profile</h2>
-       <h1>{{$store.state.user.id}} user profile</h1> 
+       <h1>Username: {{$store.state.user.username}}</h1>
+        <ul class="player-details">
+          <li>Name: {{this.$store.state.player.playerName}}</li>
+          <li>Email: {{this.$store.state.player.email}}</li>
+          <li>Age: {{this.$store.state.player.age}}</li>
+          <li>City: {{this.$store.state.player.city}}</li>
+          <li>State: {{this.$store.state.player.state}}</li>
+          <li>Hand: {{this.$store.state.player.hand}}</li>
+          <li>Skill Level: {{this.$store.state.player.skillLevel}}</li>
+        </ul>
       <router-link v-bind:to="{name:'createTournament'}"><button>Create</button></router-link>
 
   </div>
@@ -12,7 +20,8 @@
 export default {
 data() {
       return {
-        currentuser: this.$store.state.user
+        currentUser: this.$store.state.user,
+        currentPlayer: this.$store.state.player
       };
 },
 }

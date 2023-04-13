@@ -257,6 +257,7 @@ public class TournamentController {
     }
 
     // Update player
+    @CrossOrigin
     @PutMapping("/players/{id}")
     public ResponseEntity<String> updatePlayer(@PathVariable int id, @RequestBody Player player) {
         try {

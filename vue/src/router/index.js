@@ -12,6 +12,7 @@ import MyProfile from '../views/MyProfile.vue'
 import UserProfile from '../views/UserProfile.vue'
 import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
+import EditMyProfile from '../views/EditMyProfile.vue'
 
 
 
@@ -99,6 +100,14 @@ const router = new Router({
     path: "/userprofile",
     name: "userProfile",
     component: UserProfile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
+    path: "/editprofile",
+    name: "editProfile",
+    component: EditMyProfile,
     meta: {
       requiresAuth: true
     }
