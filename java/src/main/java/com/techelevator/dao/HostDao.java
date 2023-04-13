@@ -9,7 +9,6 @@ public interface HostDao {
 
     // Create
     void addHost(Host host) throws SQLException;
-//    Host makeUserHost(Host host);
 
     // Read
     List<Host> getAllHosts() throws SQLException;
@@ -19,6 +18,6 @@ public interface HostDao {
     void updateHost(Host host) throws SQLException;
 
     // Delete
-    void deleteHost(Host host) throws SQLException;
+    void deleteHost(int id) throws SQLException;
 
 }

@@ -2,6 +2,7 @@ package com.techelevator.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.NotNull;
 import java.sql.Date;
 import java.sql.Time;
 import java.sql.Timestamp;
@@ -9,17 +10,25 @@ import java.sql.Timestamp;
 public class Tournament {
 
     private int id;
+    @NotNull
     @JsonProperty("name")
     private String tournamentName;
+    @NotNull
     @JsonProperty("description")
     private String tournamentDescription;
     private int numberOfPlayers;
+    @NotNull
     private Timestamp date;
+    @NotNull
     private String location;
+    @NotNull
     private String address;
+    @NotNull
     @JsonProperty("skillLevel")
     private String level;
+    @NotNull
     private boolean active;
+    @NotNull
     private Date registrationDeadline;
 
     public Tournament() { }
