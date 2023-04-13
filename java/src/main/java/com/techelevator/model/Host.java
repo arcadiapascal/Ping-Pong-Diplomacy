@@ -1,9 +1,12 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 
 public class Host {
 
+    @JsonProperty("hostId")
     private int id;
     @NotNull
     private String hostName;

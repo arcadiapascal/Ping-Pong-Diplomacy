@@ -46,13 +46,13 @@ public class JdbcPlayerDao implements PlayerDao {
     public void updatePlayer(Player player) throws SQLException {
         String sql = "UPDATE player SET user_id = ?, player_name = ?, age = ?, city = ?, " +
                 "state_abbrev = ?, wins = ?, losses = ?, win_percentage = ?, ranking = ?, " +
-                "total_points = ?, right_left_handed = ?, email = ?, photo_file = ?, photo = ?, " +
-                "team_name = ? WHERE player_id = ?";
+                "total_points = ?, right_left_handed = ?, email = ?, photo_file = ?, photo = ? " +
+                "WHERE player_id = ?";
         jdbcTemplate.update(sql, player.getUserId(), player.getPlayerName(), player.getAge(),
                 player.getCity(), player.getStateAbbrev(), player.getWins(), player.getLosses(),
                 player.getWinPercentage(), player.getRanking(), player.getTotalPoints(),
                 player.getRightLeftHanded(), player.getEmail(), player.getPhotoFile(), player.getPhoto(),
-                player.getTeamName(), player.getPlayerId());
+                player.getPlayerId());
     }
 
     // DELETES A PLAYER
@@ -82,7 +82,6 @@ public class JdbcPlayerDao implements PlayerDao {
             player.setEmail(rs.getString("email"));
             player.setPhotoFile(rs.getString("photo_file"));
             player.setPhoto(rs.getBytes("photo"));
-            player.setTeamName(rs.getString("team_name"));
             return player;
         }
     }

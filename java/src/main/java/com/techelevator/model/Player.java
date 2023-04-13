@@ -14,18 +14,17 @@ public class Player {
     private String city;
     @NotNull
     private String stateAbbrev;
-    private Integer wins;
-    private Integer losses;
+    private int wins;
+    private int losses;
     private BigDecimal winPercentage;
-    private Integer ranking;
-    private Integer totalPoints;
+    private int ranking;
+    private int totalPoints;
     @NotNull
     private char rightLeftHanded;
     @NotNull
     private String email;
     private String photoFile;
     private byte[] photo;
-    private String teamName;
 
     public Player() {}
 
@@ -160,14 +159,6 @@ public class Player {
         this.photo = photo;
     }
 
-    public String getTeamName() {
-        return teamName;
-    }
-
-    public void setTeamName(String teamName) {
-        this.teamName = teamName;
-    }
-
     @Override
     public String toString() {
         return "Player{" +
@@ -186,7 +177,6 @@ public class Player {
                 ", email='" + email + '\'' +
                 ", photoFile='" + photoFile + '\'' +
                 ", photo=" + photo +
-                ", teamName='" + teamName + '\'' +
                 '}';
     }
 

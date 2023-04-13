@@ -44,7 +44,7 @@ public class JdbcHostDao implements HostDao {
     @Override
     public Host getHostById(int id) throws SQLException {
         Host host = null;
-        String sql = "SELECT * FROM host WHERE id = ?";
+        String sql = "SELECT * FROM host WHERE host_id = ?";
         SqlRowSet result = jdbcTemplate.queryForRowSet(sql, id);
         if (result.next()) {
             host = mapRowToHost(result);
@@ -63,7 +63,7 @@ public class JdbcHostDao implements HostDao {
     // DELETE A HOST
     @Override
     public void deleteHost(int id) throws SQLException {
-        String sql = "DELETE FROM HOST WHERE id = ?";
+        String sql = "DELETE FROM HOST WHERE host_id = ?";
         jdbcTemplate.update(sql, id);
     }
 

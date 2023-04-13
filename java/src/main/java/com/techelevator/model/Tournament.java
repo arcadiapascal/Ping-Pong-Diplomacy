@@ -9,6 +9,7 @@ import java.sql.Timestamp;
 
 public class Tournament {
 
+    @JsonProperty("tournamentId")
     private int id;
     @NotNull
     @JsonProperty("name")
