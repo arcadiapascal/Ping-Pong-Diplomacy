@@ -38,9 +38,10 @@ public class TournamentController {
     @Autowired
     private TournamentDao tournamentDao;
 
-
+    @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     @PostMapping("/tournaments/create")
-    public ResponseEntity<Tournament> createTournament(@RequestBody Tournament tournament) {
+    public void createTournament(@RequestBody Tournament tournament) {
         try {
             // Parse date string into java.sql.Timestamp object
             SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
@@ -48,8 +49,8 @@ public class TournamentController {
             Timestamp timestamp = new Timestamp(parsedDate.getTime());
             tournament.setDate(timestamp);
 
-            Tournament createdTournament = tournamentDao.createTournament(tournament);
-            return new ResponseEntity<>(createdTournament, HttpStatus.CREATED);
+            tournamentDao.createTournament(tournament);
+//            return  ResponseEntity.status(HttpStatus.CREATED).build();
         } catch (SQLException | ParseException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating tournament", e);
         }

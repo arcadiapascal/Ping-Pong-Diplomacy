@@ -8,7 +8,7 @@ import java.util.List;
 public interface TournamentDao {
 
     // Create
-    Tournament createTournament(Tournament tournament) throws SQLException;
+    void createTournament(Tournament tournament) throws SQLException;
 
     // Read
     List<Tournament> getAllTournaments() throws SQLException;

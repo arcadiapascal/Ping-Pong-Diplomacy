@@ -20,21 +20,25 @@ public class JdbcTournamentDao implements TournamentDao {
     }
 
     @Override
-    public Tournament createTournament(Tournament tournament) {
+    public void createTournament(Tournament tournament) {
+        
         String sql = "INSERT INTO tournament (tournament_name, tournament_description, player_count, tournament_date, tournament_address, location, skill_level, active, registration_deadline)\n" +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getTournamentDescription(),
                 tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(), tournament.getAddress(),
                 tournament.getLevel(), tournament.isActive(), tournament.getRegistrationDeadline());
+        try {
+            sql = "SELECT tournament_name, tournament_description, player_count, tournament_date, tournament_address, location, skill_level, active, registration_deadline " +
+                    "FROM tournament WHERE tournament_name = ? RETURNING tournament_id";
+            Integer tournamentId = jdbcTemplate.queryForObject(sql, Integer.class, tournament.getTournamentName(), tournament.getTournamentDescription(),
+                    tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(), tournament.getAddress(),
+                    tournament.getLevel(), tournament.isActive(), tournament.getRegistrationDeadline());
 
-        sql = "SELECT tournament_name, tournament_description, player_count, tournament_date, tournament_address, location, skill_level, active, registration_deadline " +
-                "FROM tournament WHERE tournament_name = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournament.getTournamentName());
-        if (results.next()) {
-            return mapRowToTournament(results);
-        } else {
-            throw new RuntimeException("Error creating tournament");
         }
+        catch(Exception e){
+
+        }
+
     }
 
 
