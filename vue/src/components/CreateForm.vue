@@ -32,7 +32,10 @@ import TournamentService from "../services/TournamentService.js";
 export default {
     data() {
       return {
+        currentUser: this.$store.state.user,
         Tournament: {
+            id: 0,
+            hostId: this.currentUser.id,
             name: "",
             location:"",
             address:"",
@@ -40,15 +43,15 @@ export default {
             skillLevel:"",
             registrationDeadline:"",
             description: "",
-            active:true,
-            numberOfPlayers: 0
+            active: true,
+            players: []
         },
         
       }
       
 },
 methods: {
-            addTournament(){
+          addTournament() {
                 TournamentService.create(this.Tournament).then(response=> {
                     if(response.status === 201){
                         this.$router.push('/');
@@ -60,7 +63,32 @@ methods: {
             console.error(error);
           }
         });
-            }
+          },
+          editTournament() {
+            const updatedTournament = {
+              hostId: this.hostId,
+              name: this.name,
+              location: this.location,
+              address: this.address,
+              date: this.date,
+              skillLevel: this.skillLevel,
+              registrationDeadline: this.registrationDeadline,
+              description: this.description,
+              active: this.active,
+              players: this.players
+            };
+            TournamentService.update(this.Tournament.id, updatedTournament).then(response => {
+              if(response.status === 200) {
+                this.$router.push('/');
+              }
+            }).catch(error => {
+              if (error.response.status === 404) {
+                this.$router.push("/404");
+              } else {
+                console.error(error);
+              }
+            });
+          }
         }
 }
 </script>

@@ -118,4 +118,3 @@ public class Tournament {
         this.registrationDeadline = registrationDeadline;
     }
 }
-
