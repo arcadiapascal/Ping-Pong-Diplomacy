@@ -40,23 +40,17 @@ public class TournamentController {
 
 
     @PostMapping("/tournaments/create")
-    public ResponseEntity<Tournament> createTournament(@RequestBody Tournament tournament) {
+    public ResponseEntity<?> createTournament(@RequestBody Tournament tournament) {
         try {
-            // Parse date string into java.sql.Timestamp object
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-            Date parsedDate = dateFormat.parse(tournament.getDate().toString());
-            Timestamp timestamp = new Timestamp(parsedDate.getTime());
-            tournament.setDate(timestamp);
-
-            Tournament createdTournament = tournamentDao.createTournament(tournament);
-            return new ResponseEntity<>(createdTournament, HttpStatus.CREATED);
-        } catch (SQLException | ParseException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating tournament", e);
+            tournamentDao.createTournament(tournament);
+            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     // UPDATE A TOURNAMENT
-    @PutMapping("/tournaments/{id}")
+    @PutMapping("/tournaments/update/{id}")
     public ResponseEntity<Tournament> updateTournament(@PathVariable int id, @RequestBody Tournament tournament) {
         try {
             tournamentDao.updateTournament(id, tournament);
@@ -151,25 +145,25 @@ public class TournamentController {
     }
 
     // GET TEAM BY ID
-    @RequestMapping(path = "/teams/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/id/{id}", method = RequestMethod.GET)
     public Team getTeamById(@PathVariable int id) throws SQLException {
         return teamDao.getTeamById(id);
     }
 
     // GET TEAM BY NAME
-    @RequestMapping(path = "/teams/{name}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/name/{name}", method = RequestMethod.GET)
     public Team getTeamByName(@PathVariable String name) throws SQLException {
         return teamDao.getTeamByName(name);
     }
 
     // GET TEAMS BY STATE
-    @RequestMapping(path = "/teams/{state}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/state/{state}", method = RequestMethod.GET)
     public List<Team> getTeamsByState(@PathVariable String state) throws SQLException {
         return teamDao.listTeamsInState(state);
     }
 
     // GET TEAMS BY CITY
-    @RequestMapping(path = "/teams/{city}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/city/{city}", method = RequestMethod.GET)
     public List<Team> getTeamsByCity(@PathVariable String city) throws SQLException {
         return teamDao.listTeamsInCity(city);
     }
@@ -246,7 +240,7 @@ public class TournamentController {
     }
 
     // Get player by ID
-    @GetMapping("/players/{id}")
+    @GetMapping("/players/id/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
         try {
             Player player = playerDao.getPlayerById(id);
@@ -273,7 +267,7 @@ public class TournamentController {
     }
 
     // Delete player
-    @DeleteMapping("players/{id}")
+    @DeleteMapping("/players/{id}")
     public ResponseEntity<String> deletePlayer(@PathVariable int id) {
         try {
             Player existingPlayer = playerDao.getPlayerById(id);
