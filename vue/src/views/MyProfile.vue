@@ -1,6 +1,6 @@
 <template>
     <div class="my-profile">
-        <router-link :to="{ name: 'EditProfile' }">Edit Profile</router-link>
+        <router-link :to="{ name: 'editProfile' }">Edit Profile</router-link>
         <router-view />
         <profile-details />
     </div>
