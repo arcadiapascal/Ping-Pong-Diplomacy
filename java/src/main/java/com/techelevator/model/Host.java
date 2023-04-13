@@ -1,20 +1,19 @@
 package com.techelevator.model;
 
-public class Host {
-    private int id;
-    private String hostName;
-    private String description;
-    private String city;
-    private String state;
-    private String username;
+import javax.validation.constraints.NotNull;
 
-    public Host(int id, String hostName, String description, String city, String state, String username) {
+public class Host {
+
+    private int id;
+    @NotNull
+    private String hostName;
+    @NotNull
+    private int userId;
+
+    public Host(int id, String hostName, int userId) {
         this.id = id;
         this.hostName = hostName;
-        this.description = description;
-        this.city = city;
-        this.state = state;
-        this.username = username;
+        this.userId = userId;
     }
 
     public int getId() {
@@ -33,36 +32,12 @@ public class Host {
         this.hostName = hostName;
     }
 
-    public String getDescription() {
-        return description;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
     @Override
@@ -70,10 +45,7 @@ public class Host {
         return "Host{" +
                 "id=" + id +
                 ", hostName='" + hostName + '\'' +
-                ", description='" + description + '\'' +
-                ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
-                ", username='" + username + '\'' +
+                ", userId=" + userId +
                 '}';
     }
 }

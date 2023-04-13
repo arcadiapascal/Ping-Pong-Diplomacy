@@ -23,4 +23,8 @@ public interface TeamDao {
     // Delete
     void deleteTeam(Team team) throws SQLException;
 
+    // other methods...
+    void addPlayerToTeam(int teamId, int playerId) throws SQLException;
+    void removePlayerFromTeam(int teamId, int playerId) throws SQLException;
+
 }

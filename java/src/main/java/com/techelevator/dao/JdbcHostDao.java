@@ -19,14 +19,15 @@ public class JdbcHostDao implements HostDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // CREATE A NEW HOST
     @Override
     public void addHost(Host host) throws SQLException {
-        String sql = "INSERT INTO host (id, host_name, description, city, state, username) " +
-                "VALUES (?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, host.getId(), host.getHostName(), host.getDescription(),
-                host.getCity(), host.getState(), host.getUsername());
+        String sql = "INSERT INTO host (host_name, user_id) " +
+                "VALUES (?, ?)";
+        jdbcTemplate.update(sql, host.getHostName(), host.getUserId());
     }
 
+    // LIST ALL HOSTS
     @Override
     public List<Host> getAllHosts() throws SQLException {
         List<Host> hosts = new ArrayList<>();
@@ -39,6 +40,7 @@ public class JdbcHostDao implements HostDao {
         return hosts;
     }
 
+    // GET HOST BY ID
     @Override
     public Host getHostById(int id) throws SQLException {
         Host host = null;
@@ -50,27 +52,25 @@ public class JdbcHostDao implements HostDao {
         return host;
     }
 
+    // UPDATE A HOST
     @Override
     public void updateHost(Host host) throws SQLException {
-        String sql = "UPDATE host SET host_name = ?, description = ?, city = ?, state = ?, " +
-                "username = ? WHERE id = ?";
-        jdbcTemplate.update(sql, host.getHostName(), host.getDescription(), host.getCity(),
-                host.getState(), host.getUsername(), host.getId());
+        String sql = "UPDATE host SET host_name = ?, user_id = ? " +
+                "WHERE host_id = ?";
+        jdbcTemplate.update(sql, host.getHostName(), host.getUserId(), host.getId());
     }
 
+    // DELETE A HOST
     @Override
-    public void deleteHost(Host host) throws SQLException {
-        String sql = "DELETE FROM host WHERE id = ?";
-        jdbcTemplate.update(sql, host.getId());
+    public void deleteHost(int id) throws SQLException {
+        String sql = "DELETE FROM HOST WHERE id = ?";
+        jdbcTemplate.update(sql, id);
     }
 
     private Host mapRowToHost(SqlRowSet result) {
-        int id = result.getInt("id");
+        int id = result.getInt("host_id");
         String hostName = result.getString("host_name");
-        String description = result.getString("description");
-        String city = result.getString("city");
-        String state = result.getString("state");
-        String username = result.getString("username");
-        return new Host(id, hostName, description, city, state, username);
+        int userId = result.getInt("user_id");
+        return new Host(id, hostName, userId);
     }
 }
