@@ -1,33 +1,43 @@
 package com.techelevator.model;
 
+import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
+
 public class Player {
+
     private int playerId;
-    private String username;
-    private String name;
+    private int userId;
+    @NotNull
+    private String playerName;
     private int age;
+    @NotNull
     private String city;
-    private String state;
+    @NotNull
+    private String stateAbbrev;
     private int wins;
     private int losses;
+    private BigDecimal winPercentage;
+    private int ranking;
     private int totalPoints;
-    private double ppg;
-    private String rightOrLeftHanded;
+    @NotNull
+    private char rightLeftHanded;
+    @NotNull
+    private String email;
+    private String photoFile;
+    private byte[] photo;
 
-    public Player(int playerId, String username, String name, int age, String city, String state,
-                  int wins, int losses, int totalPoints, double ppg, String rightOrLeftHanded) {
-        this.playerId = playerId;
-        this.username = username;
-        this.name = name;
+    public Player() {}
+
+    public Player(int userId, String playerName, int age, String city, String stateAbbrev,
+                  char rightLeftHanded, String email) {
+        this.userId = userId;
+        this.playerName = playerName;
         this.age = age;
         this.city = city;
-        this.state = state;
-        this.wins = wins;
-        this.losses = losses;
-        this.totalPoints = totalPoints;
-        this.ppg = ppg;
-        this.rightOrLeftHanded = rightOrLeftHanded;
+        this.stateAbbrev = stateAbbrev;
+        this.rightLeftHanded = rightLeftHanded;
+        this.email = email;
     }
-
 
     public int getPlayerId() {
         return playerId;
@@ -37,20 +47,20 @@ public class Player {
         this.playerId = playerId;
     }
 
-    public String getUsername() {
-        return username;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public String getName() {
-        return name;
+    public String getPlayerName() {
+        return playerName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setPlayerName(String playerName) {
+        this.playerName = playerName;
     }
 
     public int getAge() {
@@ -69,69 +79,106 @@ public class Player {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
+    public String getStateAbbrev() {
+        return stateAbbrev;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setStateAbbrev(String stateAbbrev) {
+        this.stateAbbrev = stateAbbrev;
     }
 
-    public int getWins() {
+    public Integer getWins() {
         return wins;
     }
 
-    public void setWins(int wins) {
+    public void setWins(Integer wins) {
         this.wins = wins;
     }
 
-    public int getLosses() {
+    public Integer getLosses() {
         return losses;
     }
 
-    public void setLosses(int losses) {
+    public void setLosses(Integer losses) {
         this.losses = losses;
     }
 
-    public int getTotalPoints() {
+    public BigDecimal getWinPercentage() {
+        return winPercentage;
+    }
+
+    public void setWinPercentage(BigDecimal winPercentage) {
+        this.winPercentage = winPercentage;
+    }
+
+    public Integer getRanking() {
+        return ranking;
+    }
+
+    public void setRanking(Integer ranking) {
+        this.ranking = ranking;
+    }
+
+    public Integer getTotalPoints() {
         return totalPoints;
     }
 
-    public void setTotalPoints(int totalPoints) {
+    public void setTotalPoints(Integer totalPoints) {
         this.totalPoints = totalPoints;
     }
 
-    public double getPpg() {
-        return ppg;
+    public char getRightLeftHanded() {
+        return rightLeftHanded;
     }
 
-    public void setPpg(double ppg) {
-        this.ppg = ppg;
+    public void setRightLeftHanded(char rightLeftHanded) {
+        this.rightLeftHanded = rightLeftHanded;
     }
 
-    public String getRightOrLeftHanded() {
-        return rightOrLeftHanded;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRightOrLeftHanded(String rightOrLeftHanded) {
-        this.rightOrLeftHanded = rightOrLeftHanded;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhotoFile() {
+        return photoFile;
+    }
+
+    public void setPhotoFile(String photoFile) {
+        this.photoFile = photoFile;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     @Override
     public String toString() {
         return "Player{" +
                 "playerId=" + playerId +
-                ", username='" + username + '\'' +
-                ", name='" + name + '\'' +
+                ", userId=" + userId +
+                ", playerName='" + playerName + '\'' +
                 ", age=" + age +
                 ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
+                ", stateAbbrev='" + stateAbbrev + '\'' +
                 ", wins=" + wins +
                 ", losses=" + losses +
+                ", winPercentage=" + winPercentage +
+                ", ranking=" + ranking +
                 ", totalPoints=" + totalPoints +
-                ", ppg=" + ppg +
-                ", rightOrLeftHanded='" + rightOrLeftHanded + '\'' +
+                ", rightLeftHanded=" + rightLeftHanded +
+                ", email='" + email + '\'' +
+                ", photoFile='" + photoFile + '\'' +
+                ", photo=" + photo +
                 '}';
     }
+
 }
 

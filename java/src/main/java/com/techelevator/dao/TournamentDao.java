@@ -8,7 +8,7 @@ import java.util.List;
 public interface TournamentDao {
 
     // Create
-    Tournament createTournament(Tournament tournament) throws SQLException;
+    void createTournament(Tournament tournament) throws SQLException;
 
     // Read
     List<Tournament> getAllTournaments() throws SQLException;
@@ -23,6 +23,18 @@ public interface TournamentDao {
 
     // Delete
     void deleteTournament(int id) throws SQLException;
+
+    // ADD A PLAYER TO A TOURNAMENT
+    public void addPlayerToTournament(int tournamentId, int playerId) throws SQLException;
+
+    // REMOVE A PLAYER FROM A TOURNAMENT
+    public void removePlayerFromTournament(int tournamentId, int playerId) throws SQLException;
+
+    // ADD A TEAM TO A TOURNAMENT
+    public void addTeamToTournament(int tournamentId, int teamId) throws SQLException;
+
+    // REMOVE A TEAM FROM A TOURNAMENT
+    public void removeTeamFromTournament(int tournamentId, int teamId) throws SQLException;
 
 
 }

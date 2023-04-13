@@ -7,7 +7,9 @@ import org.springframework.stereotype.Component;
 
 import javax.sql.DataSource;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,25 +21,30 @@ public class JdbcTournamentDao implements TournamentDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // CREATE A NEW TOURNAMENT
     @Override
-    public Tournament createTournament(Tournament tournament) {
-        String sql = "INSERT INTO tournament (tournament_name, tournament_description, player_count, tournament_date, tournament_address, location, skill_level, active, registration_deadline)\n" +
+    public void createTournament(Tournament tournament) {
+        String sql = "INSERT INTO tournaments (name, description, num_of_players, date, location, address, skill_level, active, registration_deadline) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getTournamentDescription(),
-                tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(), tournament.getAddress(),
-                tournament.getLevel(), tournament.isActive(), tournament.getRegistrationDeadline());
-
-        sql = "SELECT tournament_name, tournament_description, player_count, tournament_date, tournament_address, location, skill_level, active, registration_deadline " +
-                "FROM tournament WHERE tournament_name = ?";
-        SqlRowSet results = jdbcTemplate.queryForRowSet(sql, tournament.getTournamentName());
-        if (results.next()) {
-            return mapRowToTournament(results);
-        } else {
-            throw new RuntimeException("Error creating tournament");
-        }
+                tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(),
+                tournament.getAddress(), tournament.getLevel(), tournament.isActive(),
+                tournament.getRegistrationDeadline());
     }
 
+    // UPDATE A TOURNAMENT
+    @Override
+    public void updateTournament(int id, Tournament tournament) throws SQLException {
+        String sql = "UPDATE tournament SET tournament_name = ?, tournament_description = ?, " +
+                "player_count = ?, tournament_date = ?, location = ?, tournament_address = ?, skill_level = ?, active = ?, " +
+                "registration_deadline = ? WHERE tournament_id = ?";
+        jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getTournamentDescription(),
+                tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(), tournament.getAddress(),
+                tournament.getLevel(), tournament.isActive(), tournament.getRegistrationDeadline(),
+                id);
+    }
 
+    // LIST ALL TOURNAMENTS
     @Override
     public List<Tournament> getAllTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
@@ -50,9 +57,10 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET TOURNAMENT BY ID
     @Override
     public Tournament getTournamentById(int id) {
-        String sql = "SELECT * FROM tournaments WHERE tournament_id = ?";
+        String sql = "SELECT * FROM tournament WHERE tournament_id = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, id);
         if (results.next()) {
             return mapRowToTournament(results);
@@ -61,10 +69,11 @@ public class JdbcTournamentDao implements TournamentDao {
         }
     }
 
+    // GET TOURNAMENTS BY SKILL LEVEL
     @Override
     public List<Tournament> getTournamentsByLevel(String level) {
         List<Tournament> tournaments = new ArrayList<>();
-        String sql = "SELECT * FROM tournaments WHERE level = ?";
+        String sql = "SELECT * FROM tournament WHERE skill_level = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, level);
         while (results.next()) {
             Tournament tournament = mapRowToTournament(results);
@@ -73,10 +82,11 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET ACTIVE TOURNAMENTS
     @Override
     public List<Tournament> getActiveTournaments(boolean active) {
         List<Tournament> tournaments = new ArrayList<>();
-        String sql = "SELECT * FROM tournaments WHERE active = ?";
+        String sql = "SELECT * FROM tournament WHERE active = ?";
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, active);
         while (results.next()) {
             Tournament tournament = mapRowToTournament(results);
@@ -85,11 +95,12 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET PAST TOURNAMENTS
     @Override
     public List<Tournament> getPastTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
-        String sql = "SELECT * FROM tournament WHERE date < ?";
-        LocalDate today = LocalDate.now();
+        String sql = "SELECT * FROM tournament WHERE tournament_date < ?";
+        Timestamp today = Timestamp.valueOf(LocalDateTime.now());
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, today);
         while (results.next()) {
             Tournament tournament = mapRowToTournament(results);
@@ -98,10 +109,11 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET FUTURE TOURNAMENTS
     @Override
     public List<Tournament> getFutureTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
-        String sql = "SELECT * FROM tournaments WHERE date >= ?";
+        String sql = "SELECT * FROM tournament WHERE tournament_date >= ?";
         LocalDate today = LocalDate.now();
         SqlRowSet results = jdbcTemplate.queryForRowSet(sql, today);
         while (results.next()) {
@@ -111,28 +123,40 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
-    @Override
-    public void updateTournament(int id, Tournament tournament) throws SQLException {
-        String sql = "UPDATE tournaments SET tournament_name = ?, tournament_description = ?, " +
-                "number_of_players = ?, date = ?, location = ?, level = ?, active = ?, " +
-                "registration_deadline = ? WHERE id = ?";
-        jdbcTemplate.update(sql, tournament.getTournamentName(), tournament.getTournamentDescription(),
-                tournament.getNumberOfPlayers(), tournament.getDate(), tournament.getLocation(),
-                tournament.getLevel(), tournament.isActive(), tournament.getRegistrationDeadline(),
-                id);
-    }
-
+    // DELETE TOURNAMENT
     @Override
     public void deleteTournament(int id) throws SQLException {
-        String sql = "DELETE FROM tournaments WHERE id = ?";
+        String sql = "DELETE FROM tournament WHERE tournament_id = ?";
         jdbcTemplate.update(sql, id);
     }
 
     // ADD A PLAYER TO A TOURNAMENT
-    // REMOVE A PLAYER FROM A TOURNAMENT
-    // ADD A TEAM TO A TOURNAMENT
-    // REMOVE A TEAM FROM A TOURNAMENT
+    @Override
+    public void addPlayerToTournament(int tournamentId, int playerId) {
+        String sql = "INSERT INTO tournament_player (tournament_id, player_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql, tournamentId, playerId);
+    }
 
+    // REMOVE A PLAYER FROM A TOURNAMENT
+    @Override
+    public void removePlayerFromTournament(int tournamentId, int playerId) {
+        String sql = "DELETE FROM tournament_player WHERE tournament_id = ? AND player_id = ?";
+        jdbcTemplate.update(sql, tournamentId, playerId);
+    }
+
+    // ADD A TEAM TO A TOURNAMENT
+    @Override
+    public void addTeamToTournament(int tournamentId, int teamId) {
+        String sql = "INSERT INTO tournament_team (tournament_id, team_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql, tournamentId, teamId);
+    }
+
+    // REMOVE A TEAM FROM A TOURNAMENT
+    @Override
+    public void removeTeamFromTournament(int tournamentId, int teamId) {
+        String sql = "DELETE FROM tournament_team WHERE tournament_id = ? AND team_id = ?";
+        jdbcTemplate.update(sql, tournamentId, teamId);
+    }
 
     private Tournament mapRowToTournament (SqlRowSet results){
         Tournament tournament = new Tournament();
