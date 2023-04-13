@@ -1,7 +1,6 @@
 <template>
   <div>
-
-      <form class="new-tournament-form" v-on:submit.prevent="addTournament">
+      <form class="edit-tournament-form" v-on:submit.prevent="addTournament">
           <label for="Tournament Name">Tournament Name</label>
           <input  type="text" v-model="Tournament.name"><br>
            <label for="Tournament Location">Location</label>
@@ -51,20 +50,31 @@ export default {
       
 },
 methods: {
-          addTournament() {
-                TournamentService.create(this.Tournament).then(response=> {
-                    if(response.status === 201){
-                        this.$router.push('/');
-                    }
-                }).catch(error => {
-          if (error.response.status === 404) {
-            this.$router.push("/404");
-          } else {
-            console.error(error);
+          editTournament() {
+            const updatedTournament = {
+              hostId: this.hostId,
+              name: this.name,
+              location: this.location,
+              address: this.address,
+              date: this.date,
+              skillLevel: this.skillLevel,
+              registrationDeadline: this.registrationDeadline,
+              description: this.description,
+              active: this.active,
+              players: this.players
+            };
+            TournamentService.update(this.Tournament.id, updatedTournament).then(response => {
+              if(response.status === 200) {
+                this.$router.push('/');
+              }
+            }).catch(error => {
+              if (error.response.status === 404) {
+                this.$router.push("/404");
+              } else {
+                console.error(error);
+              }
+            });
           }
-        });
-          },
-          
         }
 }
 </script>
