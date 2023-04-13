@@ -125,13 +125,13 @@ public class TournamentController {
         tournamentDao.removePlayerFromTournament(id, playerId);
     }
 
-    // Add a team to a tournament
+    // *Add a team to a tournament
     @RequestMapping(path = "/tournaments/{id}/teams", method = RequestMethod.POST)
     public void addTeamToTournament(@PathVariable int id, @RequestBody Team team) throws SQLException {
         tournamentDao.addTeamToTournament(id, team.getId());
     }
 
-    // Remove a team from a tournament
+    // *Remove a team from a tournament
     @RequestMapping(path = "/tournaments/{id}/teams/{teamId}", method = RequestMethod.DELETE)
     public void removeTeamFromTournament(@PathVariable int id, @PathVariable int teamId) throws SQLException {
         tournamentDao.removeTeamFromTournament(id, teamId);
@@ -153,7 +153,7 @@ public class TournamentController {
     }
 
     // GET ALL TEAMS
-    @RequestMapping(path = "/teams", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/all", method = RequestMethod.GET)
     public List<Team> getAllTeams() throws SQLException {
         return teamDao.getAllTeams();
     }
@@ -180,18 +180,6 @@ public class TournamentController {
     @RequestMapping(path = "/teams/city/{city}", method = RequestMethod.GET)
     public List<Team> getTeamsByCity(@PathVariable String city) throws SQLException {
         return teamDao.listTeamsInCity(city);
-    }
-
-    // ADDS A PLAYER TO A TEAM
-    @PostMapping("/teams/{teamId}/players")
-    public void addPlayerToTeam(@PathVariable int teamId, @RequestParam int playerId) throws SQLException {
-        teamDao.addPlayerToTeam(teamId, playerId);
-    }
-
-    // REMOVE PLAYER FROM TEAM
-    @DeleteMapping("/teams/{teamId}/players/{playerId}")
-    public void removePlayerFromTeam(@PathVariable int teamId, @PathVariable int playerId) throws SQLException {
-        teamDao.removePlayerFromTeam(teamId, playerId);
     }
 
     // DELETE A TEAM
@@ -276,6 +264,18 @@ public class TournamentController {
         } catch (SQLException e) {
             return new ResponseEntity<>("Error adding player", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // ADDS A PLAYER TO A TEAM
+    @PostMapping("/teams/{teamId}/players")
+    public void addPlayerToTeam(@PathVariable int teamId, @RequestBody Player player) throws SQLException {
+        teamDao.addPlayerToTeam(teamId, player.getPlayerId());
+    }
+
+    // REMOVE PLAYER FROM TEAM
+    @DeleteMapping("/teams/{teamId}/players/{playerId}")
+    public void removePlayerFromTeam(@PathVariable int teamId, @PathVariable int playerId) throws SQLException {
+        teamDao.removePlayerFromTeam(teamId, playerId);
     }
 
     // Get all players

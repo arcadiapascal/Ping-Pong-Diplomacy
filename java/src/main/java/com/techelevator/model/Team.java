@@ -1,9 +1,12 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 
 public class Team {
 
+    @JsonProperty("teamId")
     private int id;
     @NotNull
     private String teamName;
