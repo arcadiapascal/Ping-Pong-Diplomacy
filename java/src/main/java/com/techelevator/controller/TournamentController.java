@@ -38,7 +38,8 @@ public class TournamentController {
     @Autowired
     private TournamentDao tournamentDao;
 
-
+    @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     @PostMapping("/tournaments/create")
     public ResponseEntity<?> createTournament(@RequestBody Tournament tournament) {
         try {
