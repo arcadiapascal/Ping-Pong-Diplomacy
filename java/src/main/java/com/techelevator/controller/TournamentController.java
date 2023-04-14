@@ -21,20 +21,22 @@ import java.util.List;
 @RestController
 public class TournamentController {
 
-    private UserDao userDao;
 
+    // WIRES THE JDBCDAO CLASSES TOGETHER WITH THE CONTROLLER.
+    @Autowired
+    private UserDao userDao;
     @Autowired
     private PlayerDao playerDao;
-
     @Autowired
     private HostDao hostDao;
-
     @Autowired
     private TeamDao teamDao;
-
     @Autowired
     private TournamentDao tournamentDao;
 
+
+    // TOURNAMENT METHODS
+    // CREATES A NEW TOURNAMENT
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin
     @PostMapping("/tournaments/create")
@@ -339,6 +341,13 @@ public class TournamentController {
         } catch (SQLException e) {
             return new ResponseEntity<>("Error deleting player", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // GETS A USER ID FROM THEIR USERNAME
+    @GetMapping("/users/username/{username}/id")
+    public int getUserIdByUsername(@PathVariable String username) {
+        int userId = userDao.findIdByUsername(username);
+        return userId;
     }
 
 }
