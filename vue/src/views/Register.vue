@@ -1,5 +1,6 @@
 <template>
   <div id="register" class="text-center">
+    <div>
     <form @submit.prevent="register">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
@@ -21,12 +22,22 @@
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
+  <div>
+    <player-registration/>
+  </div>
+ 
+    
+    </div>
 </template>
 
 <script>
 import authService from '../services/AuthService';
+import PlayerRegistration from "../components/playerRegistration"
 
 export default {
+  components: {
+    PlayerRegistration
+},
   name: 'register',
   data() {
     return {
@@ -36,10 +47,12 @@ export default {
         confirmPassword: '',
         role: 'user',
       },
+      
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
   },
+  
   methods: {
     register() {
       if (this.user.password != this.user.confirmPassword) {
@@ -50,10 +63,8 @@ export default {
           .register(this.user)
           .then((response) => {
             if (response.status == 201) {
-              this.$router.push({
-                path: '/login',
-                query: { registration: 'success' },
-              });
+              this.$store.state.userName = this.userName;
+              this.$router.push("/register/1");
             }
           })
           .catch((error) => {

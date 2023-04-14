@@ -4,6 +4,18 @@ import axios from 'axios';
 
 export default {
 
+    getTeams(){
+        return axios.get(`/teams`);
+    },
+
+    getHosts(){
+        return axios.get(`/hosts`);
+    },
+
+    getPlayers(){
+        return axios.get(`/players`);
+    },
+
     getProfile(id) {
         return axios.get(`/players/${id}`);
     },
@@ -17,7 +29,10 @@ export default {
     },
 
     delete(id) {
-        return axios.delete(`/players/${id}`);
+        return axios.delete(`/profiles/${id}`);
+    },
+    getUserIdByUsername(userName){
+        return axios.get(`/profiles/${userName}`)
     }
 
     

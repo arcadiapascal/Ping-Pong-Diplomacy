@@ -20,6 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+
 @PreAuthorize("isAuthenticated()")
 @RestController
 public class TournamentController {
@@ -56,7 +57,8 @@ public class TournamentController {
     }
 
     // UPDATE A TOURNAMENT
-    @PutMapping("/tournaments/{id}")
+    @CrossOrigin
+    @PutMapping("/tournaments/update/{id}")
     public ResponseEntity<Tournament> updateTournament(@PathVariable int id, @RequestBody Tournament tournament) {
         try {
             tournamentDao.updateTournament(id, tournament);
@@ -68,6 +70,7 @@ public class TournamentController {
 
 
     // GET LIST OF ALL TOURNAMENTS
+    @CrossOrigin
     @GetMapping("/tournaments")
     public List<Tournament> getAllTournaments() {
         try {
@@ -138,6 +141,7 @@ public class TournamentController {
     }
 
     // PUT EXISTING TEAM
+    @CrossOrigin
     @RequestMapping(path = "/teams/{id}", method = RequestMethod.PUT)
     public void updateTeam(@PathVariable int id, @RequestBody Team team) throws SQLException {
         team.setId(id);
@@ -189,6 +193,8 @@ public class TournamentController {
         }
     }
 
+    // UPDATE A HOST
+    @CrossOrigin
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/hosts/{id}", method = RequestMethod.PUT)
     public void updateHost(@PathVariable int id, @RequestBody Host host) {
