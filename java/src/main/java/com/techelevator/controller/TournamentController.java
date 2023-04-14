@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 
@@ -39,20 +35,15 @@ public class TournamentController {
     @Autowired
     private TournamentDao tournamentDao;
 
-
+    @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     @PostMapping("/tournaments/create")
-    public ResponseEntity<Tournament> createTournament(@RequestBody Tournament tournament) {
+    public ResponseEntity<?> createTournament(@RequestBody Tournament tournament) {
         try {
-            // Parse date string into java.sql.Timestamp object
-            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss.SSS");
-            Date parsedDate = dateFormat.parse(tournament.getDate().toString());
-            Timestamp timestamp = new Timestamp(parsedDate.getTime());
-            tournament.setDate(timestamp);
-
-            Tournament createdTournament = tournamentDao.createTournament(tournament);
-            return new ResponseEntity<>(createdTournament, HttpStatus.CREATED);
-        } catch (SQLException | ParseException e) {
-            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error creating tournament", e);
+            tournamentDao.createTournament(tournament);
+            return ResponseEntity.status(HttpStatus.CREATED).body(null);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
@@ -125,12 +116,29 @@ public class TournamentController {
         }
     }
 
+    // Add a player to a tournament
+    @RequestMapping(path = "/tournaments/{id}/players", method = RequestMethod.POST)
+    public void addPlayerToTournament(@PathVariable int id, @RequestBody Player player) throws SQLException {
+        tournamentDao.addPlayerToTournament(id, player.getPlayerId());
+    }
 
+    // Remove a player from a tournament
+    @RequestMapping(path = "/tournaments/{id}/players/{playerId}", method = RequestMethod.DELETE)
+    public void removePlayerFromTournament(@PathVariable int id, @PathVariable int playerId) throws SQLException {
+        tournamentDao.removePlayerFromTournament(id, playerId);
+    }
 
-    // ADD A PLAYER TO A TOURNAMENT
-    // REMOVE A PLAYER FROM A TOURNAMENT
-    // ADD A TEAM TO A TOURNAMENT
-    // REMOVE A TEAM FROM A TOURNAMENT
+    // *Add a team to a tournament
+    @RequestMapping(path = "/tournaments/{id}/teams", method = RequestMethod.POST)
+    public void addTeamToTournament(@PathVariable int id, @RequestBody Team team) throws SQLException {
+        tournamentDao.addTeamToTournament(id, team.getId());
+    }
+
+    // *Remove a team from a tournament
+    @RequestMapping(path = "/tournaments/{id}/teams/{teamId}", method = RequestMethod.DELETE)
+    public void removeTeamFromTournament(@PathVariable int id, @PathVariable int teamId) throws SQLException {
+        tournamentDao.removeTeamFromTournament(id, teamId);
+    }
 
 
     // TEAM METHODS
@@ -149,37 +157,45 @@ public class TournamentController {
     }
 
     // GET ALL TEAMS
-    @RequestMapping(path = "/teams", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/all", method = RequestMethod.GET)
     public List<Team> getAllTeams() throws SQLException {
         return teamDao.getAllTeams();
     }
 
     // GET TEAM BY ID
-    @RequestMapping(path = "/teams/{id}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/id/{id}", method = RequestMethod.GET)
     public Team getTeamById(@PathVariable int id) throws SQLException {
         return teamDao.getTeamById(id);
     }
 
     // GET TEAM BY NAME
-    @RequestMapping(path = "/teams/{name}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/name/{name}", method = RequestMethod.GET)
     public Team getTeamByName(@PathVariable String name) throws SQLException {
         return teamDao.getTeamByName(name);
     }
 
     // GET TEAMS BY STATE
-    @RequestMapping(path = "/teams/{state}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/state/{state}", method = RequestMethod.GET)
     public List<Team> getTeamsByState(@PathVariable String state) throws SQLException {
         return teamDao.listTeamsInState(state);
     }
 
     // GET TEAMS BY CITY
-    @RequestMapping(path = "/teams/{city}", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/city/{city}", method = RequestMethod.GET)
     public List<Team> getTeamsByCity(@PathVariable String city) throws SQLException {
         return teamDao.listTeamsInCity(city);
     }
 
-    // ADD A PLAYER TO A TEAM
-    // REMOVE A PLAYER FROM A TEAM
+    // DELETE A TEAM
+    @DeleteMapping("/teams/id/{id}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable int id) throws SQLException {
+        Team teamToDelete = teamDao.getTeamById(id);
+        if (teamToDelete == null) {
+            return ResponseEntity.notFound().build();
+        }
+        teamDao.deleteTeam(teamToDelete);
+        return ResponseEntity.noContent().build();
+    }
 
     // HOST METHODS
     // Create a new Host
@@ -198,23 +214,20 @@ public class TournamentController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/hosts/{id}", method = RequestMethod.PUT)
     public void updateHost(@PathVariable int id, @RequestBody Host host) {
-        Host existingHost;
         try {
-            existingHost = hostDao.getHostById(id);
+            Host existingHost = hostDao.getHostById(id);
             if (existingHost == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Host not found");
             }
             existingHost.setHostName(host.getHostName());
-            existingHost.setDescription(host.getDescription());
-            existingHost.setCity(host.getCity());
-            existingHost.setState(host.getState());
-            existingHost.setUsername(host.getUsername());
+            existingHost.setUserId(host.getUserId());
             hostDao.updateHost(existingHost);
         } catch (SQLException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error updating host", e);
         }
     }
 
+    // GET ALL HOSTS
     @RequestMapping(value = "/hosts", method = RequestMethod.GET)
     public List<Host> getAllHosts() {
         try {
@@ -224,6 +237,27 @@ public class TournamentController {
         }
     }
 
+    // GET SINGLE HOST
+    @GetMapping("/hosts/{id}")
+    public Host getHostById(@PathVariable int id) {
+        Host host = null;
+        try {
+            host = hostDao.getHostById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return host;
+    }
+
+    // DELETE A HOST
+    @DeleteMapping("/hosts/{id}")
+    public void deleteHost(@PathVariable int id) {
+        try {
+            hostDao.deleteHost(id);
+        } catch (SQLException e) {
+            e.getStackTrace();
+        }
+    }
 
     // PLAYER METHODS
     // Create a new player
@@ -235,6 +269,18 @@ public class TournamentController {
         } catch (SQLException e) {
             return new ResponseEntity<>("Error adding player", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // ADDS A PLAYER TO A TEAM
+    @PostMapping("/teams/{teamId}/players")
+    public void addPlayerToTeam(@PathVariable int teamId, @RequestBody Player player) throws SQLException {
+        teamDao.addPlayerToTeam(teamId, player.getPlayerId());
+    }
+
+    // REMOVE PLAYER FROM TEAM
+    @DeleteMapping("/teams/{teamId}/players/{playerId}")
+    public void removePlayerFromTeam(@PathVariable int teamId, @PathVariable int playerId) throws SQLException {
+        teamDao.removePlayerFromTeam(teamId, playerId);
     }
 
     // Get all players
@@ -253,8 +299,7 @@ public class TournamentController {
     }
 
     // Get player by ID
-    @CrossOrigin
-    @GetMapping("/players/{id}")
+    @GetMapping("/players/id/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
         try {
             Player player = playerDao.getPlayerById(id);
@@ -282,7 +327,7 @@ public class TournamentController {
     }
 
     // Delete player
-    @DeleteMapping("players/{id}")
+    @DeleteMapping("/players/{id}")
     public ResponseEntity<String> deletePlayer(@PathVariable int id) {
         try {
             Player existingPlayer = playerDao.getPlayerById(id);

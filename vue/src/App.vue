@@ -4,7 +4,7 @@
       <h1>Paddle Me!</h1>
           <div id="links">
             <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-            <router-link v-bind:to="{ name: 'browse' }">Browse</router-link>&nbsp;|&nbsp;
+            <router-link v-bind:to="{ name: 'tournament-list' }">Browse</router-link>&nbsp;|&nbsp;
             <router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link>&nbsp;|&nbsp;
             <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
           </div>
