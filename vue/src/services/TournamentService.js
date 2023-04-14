@@ -4,8 +4,20 @@ import axios from 'axios';
 
 export default {
 
-    listTournaments(userId) {
-        return axios.get(`/tournaments${userId}`);
+    getTeams(){
+        return axios.get(`/teams`);
+    },
+
+    getHosts(){
+        return axios.get(`/hosts`);
+    },
+
+    getPlayers(){
+        return axios.get(`/players`);
+    },
+
+    listTournaments() {
+        return axios.get(`/tournaments`);
     },
 
     getTournament(id) {

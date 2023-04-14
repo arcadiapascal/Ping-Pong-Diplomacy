@@ -59,6 +59,7 @@ public class TournamentController {
 
 
     // GET LIST OF ALL TOURNAMENTS
+    @CrossOrigin
     @GetMapping("/tournaments")
     public List<Tournament> getAllTournaments() {
         try {
@@ -279,6 +280,7 @@ public class TournamentController {
     }
 
     // Get all players
+    @CrossOrigin
     @GetMapping("/players")
     public ResponseEntity<List<Player>> getAllPlayers() {
         try {
