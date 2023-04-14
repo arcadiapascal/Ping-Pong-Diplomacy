@@ -1,21 +1,19 @@
 <template>
     <div class="create">
-        <h1>Create A Tournament</h1>
+        <h2>Create A Tournament</h2>
         <create-form />
       
-        <player-list />
     </div>
 </template>
 
 <script>
 import CreateForm from "../components/CreateForm.vue"
-import PlayerList from "../components/PlayerList.vue"
+
 
 export default {
     name: 'createTournament',
     components: {
-        CreateForm,
-        PlayerList
+        CreateForm
     }
 }
 </script>

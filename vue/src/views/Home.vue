@@ -1,10 +1,8 @@
 <template>
   <div class="home">
-    <h1>Home</h1>
+    <h2>Home</h2>
     <p>You must be authenticated to see this</p>
-    <router-link :to="{ name: 'browse' }">Find A Tournament</router-link>
-    <router-link :to="{ name: 'myProfile' }">My Profile</router-link>
-    <router-view />
+    <display-users />
     <recent-tournaments />
     <my-tournaments />
   </div>
@@ -13,12 +11,14 @@
 <script>
 import RecentTournaments from '../components/RecentTournaments.vue';
 import MyTournaments from '../components/MyTournaments.vue';
+import DisplayUsers from '../components/DisplayUsers.vue';
 
 export default {
   name: "home",
   components: {
+    DisplayUsers,
     MyTournaments,
-    RecentTournaments
+    RecentTournaments    
   }
 };
 </script>

@@ -112,7 +112,7 @@ const router = new Router({
     }
   },
   {
-    path: "/editprofile",
+    path: "/editprofile/:id",
     name: "editProfile",
     component: EditMyProfile,
     meta: {
