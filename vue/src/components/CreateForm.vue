@@ -36,7 +36,7 @@ export default {
         Tournament: {
             id: 0,
             hostId: this.currentUser.id,
-            name: "",
+            name: "", 
             location:"",
             address:"",
             date:"",

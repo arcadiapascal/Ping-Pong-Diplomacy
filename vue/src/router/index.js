@@ -12,9 +12,8 @@ import MyProfile from '../views/MyProfile.vue'
 import UserProfile from '../views/UserProfile.vue'
 import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
+import PlayerForm  from '../views/PlayerForm.vue'
 import EditMyProfile from '../views/EditMyProfile.vue'
-
-
 
 Vue.use(Router)
 
@@ -64,6 +63,14 @@ const router = new Router({
       }
     },
     {
+      path: "/register/:id",
+      name: "playerRegister",
+      component: PlayerForm,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
       path: "/browse",
       name: "browse",
       component: Browse,
@@ -105,7 +112,7 @@ const router = new Router({
     }
   },
   {
-    path: "/editprofile",
+    path: "/editprofile/:id",
     name: "editProfile",
     component: EditMyProfile,
     meta: {

@@ -1,7 +1,6 @@
 <template>
   <div>
-      <h2>User Profile</h2>
-       <h1>Username: {{$store.state.user.username}}</h1>
+       <h2>Username: {{$store.state.user.username}}</h2>
         <ul class="player-details">
           <li>Name: {{this.$store.state.player.playerName}}</li>
           <li>Email: {{this.$store.state.player.email}}</li>
