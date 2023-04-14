@@ -232,6 +232,7 @@ public class TournamentController {
     }
 
     // Get all players
+    @CrossOrigin
     @GetMapping("/players")
     public ResponseEntity<List<Player>> getAllPlayers() {
         try {
@@ -246,6 +247,7 @@ public class TournamentController {
     }
 
     // Get player by ID
+    @CrossOrigin
     @GetMapping("/players/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
         try {

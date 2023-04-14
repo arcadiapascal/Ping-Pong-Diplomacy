@@ -19,7 +19,7 @@
                 <option value="Left">Left Handed</option>
             </select>
             <label for="Skill Level">Skill Level: {{this.$store.state.player.skillLevel}}</label>
-            <select required name="Category" v-model="Profile.skillLevel"><br>
+            <select name="Category" v-model="Profile.skillLevel"><br>
                 <option value="Novice">Novice</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
@@ -33,6 +33,8 @@
 import ProfileService from "../services/ProfileService.js";
 
 export default {
+    name: "edit-profile",
+    props: ["id"],
     data() {
       return {
         currentuser: this.$store.state.user,
@@ -40,11 +42,15 @@ export default {
         Profile: {
                 id: "",
                 username: "",
-                email: "",
                 playerName: "",
+                email: "",
                 age: "",
                 city: "",
                 state: "",
+                wins: "",
+                losses: "",
+                totalPoints: "",
+                ppg: "",
                 hand: "", 
                 skillLevel: ""                
             }
@@ -52,19 +58,9 @@ export default {
     },
     methods: {
         updateProfile() {
-            // const Profile = {
-            //     username: this.username,
-            //     email: this.email,
-            //     playerName: this.playerName,
-            //     age: this.age,
-            //     city: this.city,
-            //     state: this.state,
-            //     hand: this.hand,
-            //     skillLevel: this.skillLevel
-            // };
             ProfileService.update(this.currentuser.id, this.Profile).then(response => {
                 if(response.status === 200) {
-                    this.$router.push('/');
+                    this.$router.push({ name: "editProfile", params: { id: this.id } });
                 }
             }).catch(error => {
           if (error.response.status === 404) {
@@ -74,8 +70,19 @@ export default {
         }
     });
     }
+    },
+    created() {
+        ProfileService.get(this.id).then(response => {
+            this.$store.commit("SET_ACTIVE_PROFILE", response.data);
+            this.Profile = response.data.Profile;
+        })
+        .catch(error => {
+            if (error.response.status == 404) {
+                this.$router.push({name: 'NotFound'});
+            }
+        });
     }
-}
+};
 </script>
 
 <style>

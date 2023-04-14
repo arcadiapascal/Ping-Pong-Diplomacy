@@ -1,5 +1,6 @@
 <template>
 <div id="browse">
+    <h2>Browse</h2>
     <form class="browse-by-form" v-on:submit.prevent>
         <label for="tournament-title">Tournament Title</label>
         <input type="text" id="tournament-title" />
@@ -18,7 +19,7 @@
 import tournamentService from "../services/TournamentService.js";
 
 export default {
-    name: "tournament-list",
+    name: "browse",
     methods: {
         getTournaments() {
             tournamentService.listTournaments().then(response => {

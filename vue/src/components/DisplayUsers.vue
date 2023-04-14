@@ -1,16 +1,18 @@
 <template>
   <div class="display-users">
+    <h2>Users</h2>
       <tbody>
         <tr v-for="user in users" :key="user.id" class="user">
           <td>{{ user.id }}</td>
           <td>{{ user.name }}</td>
           <td>{{ user.email }}</td>
         </tr>
+      </tbody>
   </div>
 </template>
 
 <script>
-import ContestService from '../services/ContestService.js';
+import ProfileService from '../services/ProfileService.js';
 
 export default {
   name: 'display-users',
@@ -20,10 +22,23 @@ export default {
     }
   },
   created(){
-    ContestService.getUsers().then(response => {
+    ProfileService.listProfiles().then(response => {
+      console.log(response.data);
       this.users = response.data;
+    }).catch(error => {
+      console.error(error);
     })
-  }
+  },
+  // methods: {
+  // displayUsers() {
+  //           const list = document.getElementById('users');
+  //           this.users.forEach((item) => {
+  //               const li = document.createElement('li');
+  //               li.innerText = item;
+  //               list.appendChild(li);
+  //           });
+  //       }
+  // }
 }
 </script>
 
