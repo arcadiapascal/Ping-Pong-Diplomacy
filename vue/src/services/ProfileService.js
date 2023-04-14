@@ -18,6 +18,9 @@ export default {
 
     delete(id) {
         return axios.delete(`/profiles/${id}`);
+    },
+    getUserIdByUsername(userName){
+        return axios.get(`/profiles/${userName}`)
     }
 
     

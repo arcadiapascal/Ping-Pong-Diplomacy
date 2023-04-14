@@ -12,7 +12,7 @@ import MyProfile from '../views/MyProfile.vue'
 import UserProfile from '../views/UserProfile.vue'
 import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
-
+import PlayerForm  from '../views/PlayerForm.vue'
 
 
 Vue.use(Router)
@@ -58,6 +58,14 @@ const router = new Router({
       path: "/register",
       name: "register",
       component: Register,
+      meta: {
+        requiresAuth: false
+      }
+    },
+    {
+      path: "/register/:id",
+      name: "playerRegister",
+      component: PlayerForm,
       meta: {
         requiresAuth: false
       }
