@@ -62,6 +62,7 @@ public class TournamentController {
 
 
     // GET LIST OF ALL TOURNAMENTS
+    @CrossOrigin
     @GetMapping("/tournaments")
     public List<Tournament> getAllTournaments() {
         try {
@@ -139,6 +140,7 @@ public class TournamentController {
     }
 
     // GET ALL TEAMS
+    @CrossOrigin
     @RequestMapping(path = "/teams", method = RequestMethod.GET)
     public List<Team> getAllTeams() throws SQLException {
         return teamDao.getAllTeams();
@@ -203,6 +205,7 @@ public class TournamentController {
         }
     }
 
+    @CrossOrigin
     @RequestMapping(value = "/hosts", method = RequestMethod.GET)
     public List<Host> getAllHosts() {
         try {
@@ -226,6 +229,7 @@ public class TournamentController {
     }
 
     // Get all players
+    @CrossOrigin
     @GetMapping("/players")
     public ResponseEntity<List<Player>> getAllPlayers() {
         try {
