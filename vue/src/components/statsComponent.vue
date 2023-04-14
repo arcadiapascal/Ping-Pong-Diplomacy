@@ -19,9 +19,9 @@
       </thead>
       <tbody>
         <tr v-for="player in sortedPlayers" :key="player.id">
-          <td>{{ player.playerId }}</td>
+          
           <td>{{ player.userName }}</td>
-          <td>{{ player.name }}</td>
+          <td>{{ player.playerName }}</td>
           <td>{{ player.age }}</td>
           <td>{{ player.city }}</td>
           <td>{{ player.state }}</td>
@@ -58,5 +58,32 @@ export default {
   },
 };
 </script>
-<style>
+<style scoped>
+div {
+  
+    width: 100px;
+    height: 100px;
+  font-size: 0.5rem;
+  margin: 0;
+  padding: 0;
+}
+
+h1 {
+  font-size: 1rem;
+  margin: 0;
+  padding: 0.2rem;
+}
+
+table {
+  font-size: 0.7rem;
+  margin: 0;
+  padding: 0;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+th, td {
+  border: 1px solid black;
+  padding: 0.2rem;
+}
 </style>
