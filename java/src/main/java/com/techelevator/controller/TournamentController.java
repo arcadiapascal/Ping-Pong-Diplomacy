@@ -16,6 +16,7 @@ import org.springframework.web.server.ResponseStatusException;
 import java.sql.SQLException;
 import java.util.List;
 
+
 @PreAuthorize("isAuthenticated()")
 @RestController
 public class TournamentController {
@@ -47,6 +48,7 @@ public class TournamentController {
     }
 
     // UPDATE A TOURNAMENT
+    @CrossOrigin
     @PutMapping("/tournaments/update/{id}")
     public ResponseEntity<Tournament> updateTournament(@PathVariable int id, @RequestBody Tournament tournament) {
         try {
@@ -147,6 +149,7 @@ public class TournamentController {
     }
 
     // PUT EXISTING TEAM
+    @CrossOrigin
     @RequestMapping(path = "/teams/{id}", method = RequestMethod.PUT)
     public void updateTeam(@PathVariable int id, @RequestBody Team team) throws SQLException {
         team.setId(id);
@@ -207,6 +210,7 @@ public class TournamentController {
     }
 
     // UPDATE A HOST
+    @CrossOrigin
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/hosts/{id}", method = RequestMethod.PUT)
     public void updateHost(@PathVariable int id, @RequestBody Host host) {
