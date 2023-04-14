@@ -15,6 +15,7 @@ import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/users")
 public class UserController {
 
@@ -52,5 +53,8 @@ public class UserController {
             return user;
         }
     }
+
+    // GETS A USER ID FROM THEIR USERNAME
+
 
 }

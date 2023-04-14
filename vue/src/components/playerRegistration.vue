@@ -53,10 +53,7 @@ export default {
       
       
 },
- created() {
-   this.id = this.$route.params.id;
-   this.getUserId();
-  },
+
 methods: {
             secondForm(){
                 
@@ -65,13 +62,10 @@ methods: {
             thirdForm(){ 
                 this.$router.push(`/register/3`);
             },
-            submitPlayer(){
-                this.$router.push(`/`);
-            },
-            getUserId(){
-              ProfileService.getUserIdByUsername(this.$store.state.userName).then(response => {
+            submitPlayer(){ProfileService.getUserIdByUsername(this.$store.state.userName).then(response => {
                 if(response.status == 200){
                   this.userid = response.data;
+                   this.$router.push(`/`);
                 }
               }).catch(error => {
           if (error.response.status === 404) {
@@ -80,6 +74,10 @@ methods: {
             console.error(error);
           }
         });
+               
+            },
+            getUserId(){
+              
             }
           
         }
