@@ -12,90 +12,77 @@ import java.util.List;
 
 @Component
 public class JdbcPlayerDao implements PlayerDao {
-    private JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public JdbcPlayerDao(DataSource dataSource) {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
-    // Create
+    // CREATES A NEW PLAYER
     @Override
     public void addPlayer(Player player) throws SQLException {
-        String sql = "INSERT INTO players (username, name, age, city, state, wins, losses, total_points, ppg, right_or_left_handed) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-        jdbcTemplate.update(sql, player.getUsername(), player.getName(), player.getAge(), player.getCity(),
-                player.getState(), player.getWins(), player.getLosses(), player.getTotalPoints(), player.getPpg(),
-                player.getRightOrLeftHanded());
+        String sql = "INSERT INTO player (user_id, player_name, age, city, state_abbrev, " +
+                "right_left_handed, email) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        jdbcTemplate.update(sql, player.getUserId(), player.getPlayerName(), player.getAge(),
+                player.getCity(), player.getStateAbbrev(), player.getRightLeftHanded(), player.getEmail());
     }
 
-//    @Override
-//    public Player makeUserPlayer(Player player) {
-//        // Logic to create user player
-//    }
-
-    // Read
+    // LISTS ALL PLAYERS
     @Override
     public List<Player> getAllPlayers() throws SQLException {
-        String sql = "SELECT * FROM players";
-        List<Player> players = jdbcTemplate.query(sql, new RowMapper<Player>() {
-            @Override
-            public Player mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Player(
-                        resultSet.getInt("player_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("age"),
-                        resultSet.getString("city"),
-                        resultSet.getString("state"),
-                        resultSet.getInt("wins"),
-                        resultSet.getInt("losses"),
-                        resultSet.getInt("total_points"),
-                        resultSet.getDouble("ppg"),
-                        resultSet.getString("right_or_left_handed")
-                );
-            }
-        });
-        return players;
+        String sql = "SELECT * FROM player";
+        return jdbcTemplate.query(sql, new PlayerMapper());
     }
 
+    // GETS A PLAYER BY ID
     @Override
     public Player getPlayerById(int id) throws SQLException {
-        String sql = "SELECT * FROM players WHERE player_id = ?";
-        Player player = jdbcTemplate.queryForObject(sql, new Object[]{id}, new RowMapper<Player>() {
-            @Override
-            public Player mapRow(ResultSet resultSet, int i) throws SQLException {
-                return new Player(
-                        resultSet.getInt("player_id"),
-                        resultSet.getString("username"),
-                        resultSet.getString("name"),
-                        resultSet.getInt("age"),
-                        resultSet.getString("city"),
-                        resultSet.getString("state"),
-                        resultSet.getInt("wins"),
-                        resultSet.getInt("losses"),
-                        resultSet.getInt("total_points"),
-                        resultSet.getDouble("ppg"),
-                        resultSet.getString("right_or_left_handed")
-                );
-            }
-        });
-        return player;
+        String sql = "SELECT * FROM player WHERE player_id = ?";
+        return jdbcTemplate.queryForObject(sql, new PlayerMapper(), id);
     }
 
-    // Update
+    // UPDATES A PLAYER
     @Override
     public void updatePlayer(Player player) throws SQLException {
-        String sql = "UPDATE players SET username = ?, name = ?, age = ?, city = ?, state = ?, " +
-                "wins = ?, losses = ?, total_points = ?, ppg = ?, right_or_left_handed = ? WHERE player_id = ?";
-        jdbcTemplate.update(sql, player.getUsername(), player.getName(), player.getAge(), player.getCity(),
-                player.getState(), player.getWins(), player.getLosses(), player.getTotalPoints(), player.getPpg(),
-                player.getRightOrLeftHanded(), player.getPlayerId());
+        String sql = "UPDATE player SET user_id = ?, player_name = ?, age = ?, city = ?, " +
+                "state_abbrev = ?, wins = ?, losses = ?, win_percentage = ?, ranking = ?, " +
+                "total_points = ?, right_left_handed = ?, email = ?, photo_file = ?, photo = ? " +
+                "WHERE player_id = ?";
+        jdbcTemplate.update(sql, player.getUserId(), player.getPlayerName(), player.getAge(),
+                player.getCity(), player.getStateAbbrev(), player.getWins(), player.getLosses(),
+                player.getWinPercentage(), player.getRanking(), player.getTotalPoints(),
+                player.getRightLeftHanded(), player.getEmail(), player.getPhotoFile(), player.getPhoto(),
+                player.getPlayerId());
     }
 
-    // Delete
+    // DELETES A PLAYER
     @Override
     public void deletePlayer(Player player) throws SQLException {
-        String sql = "DELETE FROM players WHERE player_id = ?";
+        String sql = "DELETE FROM player WHERE player_id = ?";
         jdbcTemplate.update(sql, player.getPlayerId());
+    }
+
+    private static final class PlayerMapper implements RowMapper<Player> {
+
+        @Override
+        public Player mapRow(ResultSet rs, int rowNum) throws SQLException {
+            Player player = new Player();
+            player.setPlayerId(rs.getInt("player_id"));
+            player.setUserId(rs.getInt("user_id"));
+            player.setPlayerName(rs.getString("player_name"));
+            player.setAge(rs.getInt("age"));
+            player.setCity(rs.getString("city"));
+            player.setStateAbbrev(rs.getString("state_abbrev"));
+            player.setWins(rs.getInt("wins"));
+            player.setLosses(rs.getInt("losses"));
+            player.setWinPercentage(rs.getBigDecimal("win_percentage"));
+            player.setRanking(rs.getInt("ranking"));
+            player.setTotalPoints(rs.getInt("total_points"));
+            player.setRightLeftHanded(rs.getString("right_left_handed").charAt(0));
+            player.setEmail(rs.getString("email"));
+            player.setPhotoFile(rs.getString("photo_file"));
+            player.setPhoto(rs.getBytes("photo"));
+            return player;
+        }
     }
 }

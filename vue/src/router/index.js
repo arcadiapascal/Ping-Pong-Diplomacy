@@ -112,6 +112,14 @@ const router = new Router({
     }
   },
   {
+    path: "/editprofile",
+    name: "editProfile",
+    component: EditMyProfile,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  {
     path: "/usertournament",
     name: "userTournament",
     component: UserTournament,
