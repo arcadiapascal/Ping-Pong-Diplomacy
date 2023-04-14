@@ -11,10 +11,10 @@
             <input type="text" v-model="Profile.age"><br>
             <label for="City">City: {{this.$store.state.player.city}}</label>
             <input type="text" v-model="Profile.city"><br>
-            <label for="State">State Abbreviation: {{this.$store.state.player.state}}</label>
+            <label for="State">State Abbreviation: {{this.$store.state.player.stateAbbrev}}</label>
             <input type="text" v-model="Profile.state"><br>
-            <label for="Hand">Left Handed or Right Handed: {{this.$store.state.player.rightHandedOrLeftHanded}}</label>
-            <select name="Hand" v-model="Profile.hand"><br>
+            <label for="Hand">Left Handed or Right Handed: {{this.$store.state.player.rightLeftHanded}}</label>
+            <select name="Hand" v-model="Profile.rightLeftHanded"><br>
                 <option value="Right">Right Handed</option>
                 <option value="Left">Left Handed</option>
             </select>
@@ -43,15 +43,11 @@ export default {
                 id: "",
                 username: "",
                 playerName: "",
-                email: "",
                 age: "",
                 city: "",
-                state: "",
-                wins: "",
-                losses: "",
-                totalPoints: "",
-                ppg: "",
-                hand: "", 
+                stateAbbrev: "",
+                rightLeftHanded: "", 
+                email: "",
                 skillLevel: ""                
             }
       }
@@ -72,7 +68,7 @@ export default {
     }
     },
     created() {
-        ProfileService.get(this.id).then(response => {
+        ProfileService.getProfile(this.id).then(response => {
             this.$store.commit("SET_ACTIVE_PROFILE", response.data);
             this.Profile = response.data.Profile;
         })
