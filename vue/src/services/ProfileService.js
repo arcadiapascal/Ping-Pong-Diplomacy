@@ -17,19 +17,19 @@ export default {
     },
 
     getProfile(id) {
-        return axios.get(`/profiles/${id}`);
+        return axios.get(`/players/${id}`);
     },
 
     listProfiles() {
-        return axios.get(`/profiles`);
+        return axios.get(`/players`);
     },
 
     update(id, profile) {
-        return axios.put(`/profiles/${id}`, profile);
+        return axios.put(`/players/${id}`, profile);
     },
 
     delete(id) {
-        return axios.delete(`/profiles/${id}`);
+        return axios.delete(`/players/${id}`);
     }
 
     

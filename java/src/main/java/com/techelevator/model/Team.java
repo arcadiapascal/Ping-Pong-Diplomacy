@@ -1,22 +1,28 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.validation.constraints.NotNull;
+
 public class Team {
 
+    @JsonProperty("teamId")
     private int id;
+    @NotNull
     private String teamName;
     private String teamDescription;
-    private String address;
+    @NotNull
     private String city;
+    @NotNull
     private String state;
 
 
     public Team() { }
 
-    public Team(int id, String teamName, String teamDescription, String address, String city, String state) {
+    public Team(int id, String teamName, String teamDescription, String city, String state) {
         this.id = id;
         this.teamName = teamName;
         this.teamDescription = teamDescription;
-        this.address = address;
         this.city = city;
         this.state = state;
 
@@ -45,14 +51,6 @@ public class Team {
 
     public void setTeamDescription(String teamDescription) {
         this.teamDescription = teamDescription;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public String getCity() {

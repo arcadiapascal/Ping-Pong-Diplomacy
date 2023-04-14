@@ -14,10 +14,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.sql.SQLException;
-import java.sql.Timestamp;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
@@ -38,7 +34,8 @@ public class TournamentController {
     @Autowired
     private TournamentDao tournamentDao;
 
-
+    @ResponseStatus(HttpStatus.CREATED)
+    @CrossOrigin
     @PostMapping("/tournaments/create")
     public ResponseEntity<?> createTournament(@RequestBody Tournament tournament) {
         try {
@@ -117,12 +114,29 @@ public class TournamentController {
         }
     }
 
+    // Add a player to a tournament
+    @RequestMapping(path = "/tournaments/{id}/players", method = RequestMethod.POST)
+    public void addPlayerToTournament(@PathVariable int id, @RequestBody Player player) throws SQLException {
+        tournamentDao.addPlayerToTournament(id, player.getPlayerId());
+    }
 
+    // Remove a player from a tournament
+    @RequestMapping(path = "/tournaments/{id}/players/{playerId}", method = RequestMethod.DELETE)
+    public void removePlayerFromTournament(@PathVariable int id, @PathVariable int playerId) throws SQLException {
+        tournamentDao.removePlayerFromTournament(id, playerId);
+    }
 
-    // ADD A PLAYER TO A TOURNAMENT
-    // REMOVE A PLAYER FROM A TOURNAMENT
-    // ADD A TEAM TO A TOURNAMENT
-    // REMOVE A TEAM FROM A TOURNAMENT
+    // *Add a team to a tournament
+    @RequestMapping(path = "/tournaments/{id}/teams", method = RequestMethod.POST)
+    public void addTeamToTournament(@PathVariable int id, @RequestBody Team team) throws SQLException {
+        tournamentDao.addTeamToTournament(id, team.getId());
+    }
+
+    // *Remove a team from a tournament
+    @RequestMapping(path = "/tournaments/{id}/teams/{teamId}", method = RequestMethod.DELETE)
+    public void removeTeamFromTournament(@PathVariable int id, @PathVariable int teamId) throws SQLException {
+        tournamentDao.removeTeamFromTournament(id, teamId);
+    }
 
 
     // TEAM METHODS
@@ -140,8 +154,7 @@ public class TournamentController {
     }
 
     // GET ALL TEAMS
-    @CrossOrigin
-    @RequestMapping(path = "/teams", method = RequestMethod.GET)
+    @RequestMapping(path = "/teams/all", method = RequestMethod.GET)
     public List<Team> getAllTeams() throws SQLException {
         return teamDao.getAllTeams();
     }
@@ -170,8 +183,16 @@ public class TournamentController {
         return teamDao.listTeamsInCity(city);
     }
 
-    // ADD A PLAYER TO A TEAM
-    // REMOVE A PLAYER FROM A TEAM
+    // DELETE A TEAM
+    @DeleteMapping("/teams/id/{id}")
+    public ResponseEntity<Void> deleteTeam(@PathVariable int id) throws SQLException {
+        Team teamToDelete = teamDao.getTeamById(id);
+        if (teamToDelete == null) {
+            return ResponseEntity.notFound().build();
+        }
+        teamDao.deleteTeam(teamToDelete);
+        return ResponseEntity.noContent().build();
+    }
 
     // HOST METHODS
     // Create a new Host
@@ -185,27 +206,24 @@ public class TournamentController {
         }
     }
 
+    // UPDATE A HOST
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(value = "/hosts/{id}", method = RequestMethod.PUT)
     public void updateHost(@PathVariable int id, @RequestBody Host host) {
-        Host existingHost;
         try {
-            existingHost = hostDao.getHostById(id);
+            Host existingHost = hostDao.getHostById(id);
             if (existingHost == null) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Host not found");
             }
             existingHost.setHostName(host.getHostName());
-            existingHost.setDescription(host.getDescription());
-            existingHost.setCity(host.getCity());
-            existingHost.setState(host.getState());
-            existingHost.setUsername(host.getUsername());
+            existingHost.setUserId(host.getUserId());
             hostDao.updateHost(existingHost);
         } catch (SQLException e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error updating host", e);
         }
     }
 
-    @CrossOrigin
+    // GET ALL HOSTS
     @RequestMapping(value = "/hosts", method = RequestMethod.GET)
     public List<Host> getAllHosts() {
         try {
@@ -215,6 +233,27 @@ public class TournamentController {
         }
     }
 
+    // GET SINGLE HOST
+    @GetMapping("/hosts/{id}")
+    public Host getHostById(@PathVariable int id) {
+        Host host = null;
+        try {
+            host = hostDao.getHostById(id);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return host;
+    }
+
+    // DELETE A HOST
+    @DeleteMapping("/hosts/{id}")
+    public void deleteHost(@PathVariable int id) {
+        try {
+            hostDao.deleteHost(id);
+        } catch (SQLException e) {
+            e.getStackTrace();
+        }
+    }
 
     // PLAYER METHODS
     // Create a new player
@@ -226,6 +265,18 @@ public class TournamentController {
         } catch (SQLException e) {
             return new ResponseEntity<>("Error adding player", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    // ADDS A PLAYER TO A TEAM
+    @PostMapping("/teams/{teamId}/players")
+    public void addPlayerToTeam(@PathVariable int teamId, @RequestBody Player player) throws SQLException {
+        teamDao.addPlayerToTeam(teamId, player.getPlayerId());
+    }
+
+    // REMOVE PLAYER FROM TEAM
+    @DeleteMapping("/teams/{teamId}/players/{playerId}")
+    public void removePlayerFromTeam(@PathVariable int teamId, @PathVariable int playerId) throws SQLException {
+        teamDao.removePlayerFromTeam(teamId, playerId);
     }
 
     // Get all players
@@ -255,6 +306,7 @@ public class TournamentController {
     }
 
     // Update player
+    @CrossOrigin
     @PutMapping("/players/{id}")
     public ResponseEntity<String> updatePlayer(@PathVariable int id, @RequestBody Player player) {
         try {

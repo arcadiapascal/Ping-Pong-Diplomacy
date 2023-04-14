@@ -1,7 +1,8 @@
 <template>
   <div class="host-view">
       <h1>Host View</h1>
-      
+      <router-link :to="{ name: 'EditTournament' }">Edit Tournament</router-link>
+      <router-view />
       <player-list />
       <results />
       <tournament />

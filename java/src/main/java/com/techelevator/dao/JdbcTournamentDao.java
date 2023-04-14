@@ -21,6 +21,7 @@ public class JdbcTournamentDao implements TournamentDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // CREATE A NEW TOURNAMENT
     @Override
     public void createTournament(Tournament tournament) {
         String sql = "INSERT INTO tournaments (name, description, num_of_players, date, location, address, skill_level, active, registration_deadline) " +
@@ -31,6 +32,7 @@ public class JdbcTournamentDao implements TournamentDao {
                 tournament.getRegistrationDeadline());
     }
 
+    // UPDATE A TOURNAMENT
     @Override
     public void updateTournament(int id, Tournament tournament) throws SQLException {
         String sql = "UPDATE tournament SET tournament_name = ?, tournament_description = ?, " +
@@ -42,6 +44,7 @@ public class JdbcTournamentDao implements TournamentDao {
                 id);
     }
 
+    // LIST ALL TOURNAMENTS
     @Override
     public List<Tournament> getAllTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
@@ -54,6 +57,7 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET TOURNAMENT BY ID
     @Override
     public Tournament getTournamentById(int id) {
         String sql = "SELECT * FROM tournament WHERE tournament_id = ?";
@@ -65,6 +69,7 @@ public class JdbcTournamentDao implements TournamentDao {
         }
     }
 
+    // GET TOURNAMENTS BY SKILL LEVEL
     @Override
     public List<Tournament> getTournamentsByLevel(String level) {
         List<Tournament> tournaments = new ArrayList<>();
@@ -77,6 +82,7 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET ACTIVE TOURNAMENTS
     @Override
     public List<Tournament> getActiveTournaments(boolean active) {
         List<Tournament> tournaments = new ArrayList<>();
@@ -89,6 +95,7 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET PAST TOURNAMENTS
     @Override
     public List<Tournament> getPastTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
@@ -102,6 +109,7 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // GET FUTURE TOURNAMENTS
     @Override
     public List<Tournament> getFutureTournaments() {
         List<Tournament> tournaments = new ArrayList<>();
@@ -115,6 +123,7 @@ public class JdbcTournamentDao implements TournamentDao {
         return tournaments;
     }
 
+    // DELETE TOURNAMENT
     @Override
     public void deleteTournament(int id) throws SQLException {
         String sql = "DELETE FROM tournament WHERE tournament_id = ?";
@@ -122,10 +131,32 @@ public class JdbcTournamentDao implements TournamentDao {
     }
 
     // ADD A PLAYER TO A TOURNAMENT
-    // REMOVE A PLAYER FROM A TOURNAMENT
-    // ADD A TEAM TO A TOURNAMENT
-    // REMOVE A TEAM FROM A TOURNAMENT
+    @Override
+    public void addPlayerToTournament(int tournamentId, int playerId) {
+        String sql = "INSERT INTO tournament_player (tournament_id, player_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql, tournamentId, playerId);
+    }
 
+    // REMOVE A PLAYER FROM A TOURNAMENT
+    @Override
+    public void removePlayerFromTournament(int tournamentId, int playerId) {
+        String sql = "DELETE FROM tournament_player WHERE tournament_id = ? AND player_id = ?";
+        jdbcTemplate.update(sql, tournamentId, playerId);
+    }
+
+    // ADD A TEAM TO A TOURNAMENT
+    @Override
+    public void addTeamToTournament(int tournamentId, int teamId) {
+        String sql = "INSERT INTO tournament_team (tournament_id, team_id) VALUES (?, ?)";
+        jdbcTemplate.update(sql, tournamentId, teamId);
+    }
+
+    // REMOVE A TEAM FROM A TOURNAMENT
+    @Override
+    public void removeTeamFromTournament(int tournamentId, int teamId) {
+        String sql = "DELETE FROM tournament_team WHERE tournament_id = ? AND team_id = ?";
+        jdbcTemplate.update(sql, tournamentId, teamId);
+    }
 
     private Tournament mapRowToTournament (SqlRowSet results){
         Tournament tournament = new Tournament();
