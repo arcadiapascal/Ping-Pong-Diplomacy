@@ -17,6 +17,7 @@ import java.util.List;
 
 @PreAuthorize("isAuthenticated()")
 @RestController
+@CrossOrigin(origins="*")
 @RequestMapping("/users")
 public class UserController {
 
@@ -56,10 +57,6 @@ public class UserController {
     }
 
     // GETS A USER ID FROM THEIR USERNAME
-    @GetMapping("username/{username}/id")
-    public int getUserIdByUsername(@PathVariable String username) {
-        int userId = userDao.findIdByUsername(username);
-        return userId;
-    }
+
 
 }

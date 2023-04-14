@@ -9,6 +9,7 @@ import com.techelevator.model.Tournament;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
@@ -339,6 +340,14 @@ public class TournamentController {
         } catch (SQLException e) {
             return new ResponseEntity<>("Error deleting player", HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+    // Test
+    @PreAuthorize("permitAll()")
+    @CrossOrigin
+    @GetMapping("/users/username/{username}/id")
+    public int getUserIdByUsername(@PathVariable String username) {
+        int userId = userDao.findIdByUsername(username);
+        return userId;
     }
 
 }

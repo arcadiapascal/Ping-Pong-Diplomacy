@@ -29,10 +29,12 @@ export default {
     },
 
     delete(id) {
-        return axios.delete(`/profiles/${id}`);
+        return axios.delete(`/players/${id}`);
     },
-    getUserIdByUsername(userName){
-        return axios.get(`/profiles/${userName}`)
+    
+    getUserIdByUsername(username){
+        username
+        return axios.get(`/users/username/{username}/id`)
     }
 
     

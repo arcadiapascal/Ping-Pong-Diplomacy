@@ -63,7 +63,7 @@ export default {
           .register(this.user)
           .then((response) => {
             if (response.status == 201) {
-              this.$store.state.userName = this.userName;
+              this.$store.state.userName = this.username;
               this.$router.push("/register/1");
             }
           })
