@@ -1,24 +1,23 @@
 <template>
   <div class="host-view">
-      <h1>Host View</h1>
+      <h2>Host View</h2>
       <router-link :to="{ name: 'EditTournament' }">Edit Tournament</router-link>
       <router-view />
-      <player-list />
       <results />
       <tournament />
       </div>
 </template>
 
 <script>
-import PlayerList from '../components/PlayerList.vue'
 import Results from '../components/Results.vue'
 import Tournament from '../components/Tournament.vue'
 
+
 export default {
   components: {
-      PlayerList,
       Results,
-      Tournament
+      Tournament,
+      
       }
 }
 </script>

@@ -3,7 +3,6 @@ package com.techelevator.controller;
 import com.techelevator.dao.HostDao;
 import com.techelevator.dao.PlayerDao;
 import com.techelevator.dao.UserDao;
-import com.techelevator.model.Host;
 import com.techelevator.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
-import java.sql.SQLException;
 import java.util.List;
 
 @PreAuthorize("isAuthenticated()")

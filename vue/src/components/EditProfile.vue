@@ -11,15 +11,15 @@
             <input type="text" v-model="Profile.age"><br>
             <label for="City">City: {{this.$store.state.player.city}}</label>
             <input type="text" v-model="Profile.city"><br>
-            <label for="State">State Abbreviation: {{this.$store.state.player.state}}</label>
+            <label for="State">State Abbreviation: {{this.$store.state.player.stateAbbrev}}</label>
             <input type="text" v-model="Profile.state"><br>
-            <label for="Hand">Left Handed or Right Handed: {{this.$store.state.player.rightHandedOrLeftHanded}}</label>
-            <select name="Hand" v-model="Profile.hand"><br>
+            <label for="Hand">Left Handed or Right Handed: {{this.$store.state.player.rightLeftHanded}}</label>
+            <select name="Hand" v-model="Profile.rightLeftHanded"><br>
                 <option value="Right">Right Handed</option>
                 <option value="Left">Left Handed</option>
             </select>
             <label for="Skill Level">Skill Level: {{this.$store.state.player.skillLevel}}</label>
-            <select required name="Category" v-model="Profile.skillLevel"><br>
+            <select name="Category" v-model="Profile.skillLevel"><br>
                 <option value="Novice">Novice</option>
                 <option value="Intermediate">Intermediate</option>
                 <option value="Advanced">Advanced</option>
@@ -33,6 +33,8 @@
 import ProfileService from "../services/ProfileService.js";
 
 export default {
+    name: "edit-profile",
+    props: ["id"],
     data() {
       return {
         currentuser: this.$store.state.user,
@@ -40,31 +42,21 @@ export default {
         Profile: {
                 id: "",
                 username: "",
-                email: "",
                 playerName: "",
                 age: "",
                 city: "",
-                state: "",
-                hand: "", 
+                stateAbbrev: "",
+                rightLeftHanded: "", 
+                email: "",
                 skillLevel: ""                
             }
       }
     },
     methods: {
         updateProfile() {
-            // const Profile = {
-            //     username: this.username,
-            //     email: this.email,
-            //     playerName: this.playerName,
-            //     age: this.age,
-            //     city: this.city,
-            //     state: this.state,
-            //     hand: this.hand,
-            //     skillLevel: this.skillLevel
-            // };
             ProfileService.update(this.currentuser.id, this.Profile).then(response => {
                 if(response.status === 200) {
-                    this.$router.push('/');
+                    this.$router.push({ name: "editProfile", params: { id: this.id } });
                 }
             }).catch(error => {
           if (error.response.status === 404) {
@@ -74,8 +66,19 @@ export default {
         }
     });
     }
+    },
+    created() {
+        ProfileService.getProfile(this.id).then(response => {
+            this.$store.commit("SET_ACTIVE_PROFILE", response.data);
+            this.Profile = response.data.Profile;
+        })
+        .catch(error => {
+            if (error.response.status == 404) {
+                this.$router.push({name: 'NotFound'});
+            }
+        });
     }
-}
+};
 </script>
 
 <style>

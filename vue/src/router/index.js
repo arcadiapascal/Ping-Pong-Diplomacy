@@ -14,7 +14,7 @@ import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
 import EditMyProfile from '../views/EditMyProfile.vue'
 import PlayerForm  from '../views/PlayerForm.vue'
-
+import EditMyProfile from '../views/EditMyProfile.vue'
 
 
 Vue.use(Router)
@@ -114,7 +114,7 @@ const router = new Router({
     }
   },
   {
-    path: "/editprofile",
+    path: "/editprofile/:id",
     name: "editProfile",
     component: EditMyProfile,
     meta: {
