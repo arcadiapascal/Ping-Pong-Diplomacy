@@ -19,6 +19,7 @@ public class Tournament {
     private String tournamentDescription;
     private int numberOfPlayers;
     @NotNull
+    @JsonProperty("tournamentDate")
     private Timestamp date;
     @NotNull
     private String location;

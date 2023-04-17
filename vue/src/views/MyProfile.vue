@@ -1,7 +1,7 @@
 <template>
     <div class="my-profile">
         <h2>My Profile</h2>
-        <router-link :to="{ name: 'editProfile' }">Edit Profile</router-link>
+        <router-link id="editButton" :to="{ name: 'editProfile' }">Edit Profile</router-link>
         <router-view />
         <profile-details />
     </div>
@@ -18,3 +18,7 @@ export default {
        }
 }
 </script>
+
+<style>
+
+</style>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bracket Generator</title>
+  <link rel="stylesheet" href="bracket.css"> <!-- Update the href to the correct path of your bracket.css file -->
+  <style>
+    /* Add any custom CSS styles here */
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f0f0f0;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    label {
+      font-weight: bold;
+    }
+
+    input[type="number"] {
+      width: 80px;
+      margin-right: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+
+    #output {
+      margin-top: 20px;
+      white-space: pre;
+      font-family: monospace;
+    }
+
+    .bracket {
+      display: flex;
+      flex-direction: row; /* Update to display bracket horizontally */
+      justify-content: center; /* Add to center align the bracket */
+      margin-top: 50px;
+    }
+
+    .tier {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    .match {
+      display: flex;
+      flex-direction: column; /* Update to display matches in columns */
+      align-items: center; /* Add to center align match items */
+      margin: 0 10px;
+    }
+
+    .team {
+      border: 1px solid #000;
+      padding: 5px;
+      margin: 5px 0; /* Update to add vertical margin and remove horizontal margin */
+      text-align: center;
+      width: 100px;
+    }
+  </style>
+  <script>
+  function generateBracket(size) {
+  if (size <= 1) {
+    return "Bracket size must be greater than 1.";
+  }
+
+  let bracketContainer = document.getElementById("bracketContainer");
+  bracketContainer.innerHTML = ""; // Clear previous bracket if any
+
+  let bracket = [];
+  let tiers = [];
+  let numTeams = size;
+
+  while (numTeams > 1) {
+    let tier = [];
+    for (let i = 0; i < numTeams; i += 2) {
+      let match = {
+        team1: { name: "Player " + (i + 1), score: 0 }, // Add score property for team1
+        team2: { name: "Player " + (i + 2), score: 0 } // Add score property for team2
+      };
+      tier.push(match);
+    }
+    tiers.push(tier);
+    numTeams = Math.ceil(numTeams / 2);
+  }
+
+  bracket = tiers[tiers.length - 1];
+
+  // Add final tier with only 1 team
+  tiers.push([{ team1: { name: "Winner 1", score: 0 }, team2: null }]);
+
+  for (let i = 0; i < tiers.length; i++) {
+    let tierElement = document.createElement("div");
+    tierElement.className = "tier";
+
+    for (let j = 0; j < tiers[i].length; j++) {
+      let matchElement = document.createElement("div");
+      matchElement.className = "match";
+
+      let team1Element = document.createElement("div");
+      team1Element.className = "team";
+      team1Element.textContent = tiers[i][j].team1.name + " (" + tiers[i][j].team1.score + ")"; // Update team1 display to include score
+
+      let team2Element = document.createElement("div");
+      team2Element.className = "team";
+      team2Element.textContent = tiers[i][j].team2 ? tiers[i][j].team2.name + " (" + tiers[i][j].team2.score + ")" : ""; // Update team2 display to include score
+
+      matchElement.appendChild(team1Element);
+      matchElement.appendChild(team2Element);
+
+      tierElement.appendChild(matchElement);
+    }
+
+    bracketContainer.appendChild(tierElement);
+  }
+}
+
+  </script>
+</head>
+<body>
+  <h1>Bracket Generator</h1>
+  <label for="bracketSize">Enter Bracket Size:</label>
+  <input type="number" id="bracketSize" min="2" max="64">
+  <button onclick="generateBracket(2)">Generate Bracket</button>
+  <button onclick="generateBracket(4)">4-Team Bracket</button>
+  <button onclick="generateBracket(8)">8-Team Bracket</button>
+  <button onclick="generateBracket(16)">16-Team Bracket</button>
+  <button onclick="generateBracket(32)">32-Team Bracket</button>
+  <button onclick="generateBracket(64)">64-Team Bracket</button>
+  <h2>Games in the Series</h2>
+  <label for="BestOf">Number of Games in the Series</label>
+  <input type='number' id='winsNeeded' min='1' max='7'>
+  <div id="bracketContainer" class="bracket"></div>
+</body>
+</html>
