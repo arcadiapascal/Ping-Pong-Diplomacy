@@ -111,14 +111,14 @@ const router = new Router({
       requiresAuth: true
     }
   },
-  {
-    path: "/editprofile/:id",
-    name: "editProfile",
-    component: EditMyProfile,
-    meta: {
-      requiresAuth: true
-    }
-  },
+  // {
+  //   path: "/editprofile/:id",
+  //   name: "editProfile",
+  //   component: EditMyProfile,
+  //   meta: {
+  //     requiresAuth: true
+  //   }
+  // },
   {
     path: "/usertournament",
     name: "userTournament",

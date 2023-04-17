@@ -86,7 +86,7 @@ export default {
   }
 
   th {
-    background-color: #4CAF50;
+    background-color: #00ADEE;
     color: white;
   }
 

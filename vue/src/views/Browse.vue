@@ -1,6 +1,6 @@
 <template>
 <div id="browse">
-    <ping-pong-game/>
+    <!-- <ping-pong-game/> -->
     <search-navagation-component/>
     <!-- <search-tournaments/> -->
     <!-- <stats-component/> -->
@@ -21,7 +21,7 @@
 
 <script>
 import tournamentService from "../services/TournamentService.js";
-import pingPongGame from "../components/pingPongGame.vue";
+// import pingPongGame from "../components/pingPongGame.vue";
 import searchNavagationComponent from '../components/searchNavagationComponent.vue';
 // import searchTournaments from "../components/SearchTournaments.vue";
 // import statsComponent from "../components/statsComponent.vue";
@@ -29,7 +29,7 @@ import searchNavagationComponent from '../components/searchNavagationComponent.v
 
 export default {
     components: {
-        pingPongGame,
+        // pingPongGame,
         searchNavagationComponent
         // searchTournaments,
         // statsComponent,
