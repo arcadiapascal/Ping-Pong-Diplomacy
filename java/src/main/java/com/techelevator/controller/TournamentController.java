@@ -351,12 +351,12 @@ public class TournamentController {
         int userId = userDao.findIdByUsername(username);
         return userId;
     }
-
-    // GETS A USER ID FROM THEIR USERNAME
-    @GetMapping("/users/username/{username}/id")
-    public int getUserIdByUsername(@PathVariable String username) {
-        int userId = userDao.findIdByUsername(username);
-        return userId;
-    }
+//
+//    // GETS A USER ID FROM THEIR USERNAME
+//    @GetMapping("/users/username/{username}/id")
+//    public int getUserIdByUsername(@PathVariable String username) {
+//        int userId = userDao.findIdByUsername(username);
+//        return userId;
+//    }
 
 }

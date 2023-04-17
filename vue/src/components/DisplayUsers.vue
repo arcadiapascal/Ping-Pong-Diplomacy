@@ -56,4 +56,5 @@ export default {
 .topic:last-child {
   border: 0px;
 }
+
 </style>
