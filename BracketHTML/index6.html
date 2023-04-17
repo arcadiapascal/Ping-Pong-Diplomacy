@@ -133,9 +133,14 @@
   <label for="bracketSize">Enter Bracket Size:</label>
   <input type="number" id="bracketSize" min="2" max="64">
   <button onclick="generateBracketAndDisplay()">Generate Bracket</button>
-  <button onclick="generateBracketAndDisplayWithSize(4)">Generate 4-Team Bracket</button>
-  <button onclick="generateBracketAndDisplayWithSize(8)">Generate 8-Team Bracket</button>
-  <button onclick="generateBracketAndDisplayWithSize(16)">Generate 16-Team Bracket</button>
+  <button onclick="generateBracketAndDisplayWithSize(4)">4-Team Bracket</button>
+  <button onclick="generateBracketAndDisplayWithSize(8)">8-Team Bracket</button>
+  <button onclick="generateBracketAndDisplayWithSize(16)">16-Team Bracket</button>
+  <button onclick="generateBracketAndDisplayWithSize(32)">32-Team Bracket</button>
+  <button onclick="generateBracketAndDisplayWithSize(64)">64-Team Bracket</button>
+  <h2>Games in the Series</h2>
+  <label for="BestOf">Number of Games in the Series</label>
+  <input type='number' id='winsNeeded' min='1' max='7'>
   <div id="bracketContainer" class="bracket"></div>
 </body>
 </html>
