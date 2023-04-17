@@ -65,6 +65,7 @@ export default {
             if (response.status == 201) {
               this.$store.state.userName = this.username;
               this.$router.push("/register/1");
+              this.registerlogin();
             }
           })
           .catch((error) => {
@@ -76,12 +77,34 @@ export default {
           });
       }
     },
+    
     clearErrors() {
       this.registrationErrors = false;
       this.registrationErrorMsg = 'There were problems registering this user.';
     },
+    registerlogin() {
+      authService
+        .login(this.user)
+        .then(response => {
+          if (response.status == 200) {
+            this.$store.commit("SET_AUTH_TOKEN", response.data.token);
+            this.$store.commit("SET_USER", response.data.user);
+            this.$router.push("/register/1");
+          }
+        })
+        .catch(error => {
+          const response = error.response;
+
+          if (response.status === 401) {
+            this.invalidCredentials = true;
+          }
+        });
+ }
   },
-};
+   
+ 
+
+}
 </script>
 
 <style scoped>

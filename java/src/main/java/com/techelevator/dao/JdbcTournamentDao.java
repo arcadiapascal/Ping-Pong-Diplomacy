@@ -158,6 +158,10 @@ public class JdbcTournamentDao implements TournamentDao {
         jdbcTemplate.update(sql, tournamentId, teamId);
     }
 
+
+
+
+
     private Tournament mapRowToTournament (SqlRowSet results){
         Tournament tournament = new Tournament();
         tournament.setId(results.getInt("tournament_id"));

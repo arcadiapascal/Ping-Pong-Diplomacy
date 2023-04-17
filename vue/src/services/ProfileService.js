@@ -33,8 +33,12 @@ export default {
     },
     
     getUserIdByUsername(username){
-        username
-        return axios.get(`/users/username/{username}/id`)
+        username="corico23"
+        return axios.get(`username/1/${username}`)
+                           
+    },
+    createPlayer(player){
+        return axios.post(`/players/create`,player)              
     }
 
     

@@ -11,6 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
@@ -344,7 +345,14 @@ public class TournamentController {
         }
     }
     // Test
-    @PreAuthorize("permitAll()")
+//    @CrossOrigin
+//    @GetMapping("/users/username/{username}/id")
+//    public int youThere( @PathVariable String username){
+////        var user = SecurityContextHolder.getContext().getAuthentication();
+////        boolean authenticated = user.isAuthenticated();
+//            var user = userDao.findByUsername(username);
+//            return user.getId();
+//    }
     @CrossOrigin
     @GetMapping("/users/username/{username}/id")
     public int getUserIdByUsername(@PathVariable String username) {
@@ -352,11 +360,7 @@ public class TournamentController {
         return userId;
     }
 
-    // GETS A USER ID FROM THEIR USERNAME
-    @GetMapping("/users/username/{username}/id")
-    public int getUserIdByUsername(@PathVariable String username) {
-        int userId = userDao.findIdByUsername(username);
-        return userId;
-    }
+//     GETS A USER ID FROM THEIR USERNAME
+
 
 }
