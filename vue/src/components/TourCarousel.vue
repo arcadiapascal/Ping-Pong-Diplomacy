@@ -1,62 +1,67 @@
 <template>
   <div class="carousel">
     <div class="carousel-inner">
-      <div v-for="tournament in tournaments" :key="tournament.tournament_id" :class="{ active: tournament === activeTournament }">
-        <h3>{{ tournament.tournament_name }}</h3>
-        <p>{{ tournament.tournament_description }}</p>
-        <ul>
-          <li>Number of players: {{ tournament.player_count }}</li>
-          <li>Date: {{ tournament.tournament_date }}</li>
-          <li>Location: {{ tournament.tournament_address }}, {{ tournament.location }}</li>
-          <li>Skill level: {{ tournament.skill_level }}</li>
-          <li>Registration deadline: {{ tournament.registration_deadline }}</li>
-        </ul>
+      <div v-for="tournament in tournaments" :key="tournament.tournamentId" :class="{ active: tournament === activeTournament }">
+        <h3>{{ tournament.name }}</h3>
+        <div class="description">
+          <p>{{ tournament.description }}</p>
+          <ul>
+            <li>Players: {{ tournament.numberOfPlayers }}</li>
+            <li>Date: {{ formatDate(tournament.tournamentDate) }}</li>
+            <li>Location: {{ tournament.address }}, {{ tournament.location }}</li>
+            <li>Skill: {{ tournament.skillLevel }}</li>
+          </ul>
+        </div>
+        <div class="btn-container">
+          <router-link :to="'/tournament/'+tournament.tournamentId" class="btn btn-primary">View Details</router-link>
+        </div>
       </div>
     </div>
     <a class="carousel-control-prev" href="#" role="button" @click.prevent="prevTournament">
       <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-      <span class="sr-only">Previous</span>
+      <!-- <span class="sr-only">Previous</span> -->
     </a>
     <a class="carousel-control-next" href="#" role="button" @click.prevent="nextTournament">
       <span class="carousel-control-next-icon" aria-hidden="true"></span>
-      <span class="sr-only">Next</span>
+      <!-- <span class="sr-only">Next</span> -->
     </a>
   </div>
 </template>
 
 <script>
-import axios from 'axios';
+import tournament from '../services/TournamentService.js';
 
 export default {
   name: 'TournamentCarousel',
   data() {
     return {
       tournaments: [],
-      activeTournament: null,
       currentIndex: 0
     };
   },
+  computed: {
+    activeTournament() {
+      return this.tournaments[this.currentIndex];
+    }
+  },
   created() {
-    axios.get('/tournaments/upcoming')
-      .then(response => {
+    tournament.listTournaments().then((response)=> {
         this.tournaments = response.data;
-        this.activeTournament = this.tournaments[this.currentIndex];
-      })
-      .catch(error => {
-        console.log(error);
-      });
+    })
   },
   methods: {
     prevTournament() {
       this.currentIndex = (this.currentIndex === 0) ? this.tournaments.length - 1 : this.currentIndex - 1;
-      this.activeTournament = this.tournaments[this.currentIndex];
     },
     nextTournament() {
       this.currentIndex = (this.currentIndex === this.tournaments.length - 1) ? 0 : this.currentIndex + 1;
-      this.activeTournament = this.tournaments[this.currentIndex];
+    },
+    formatDate(date) {
+      const options = { year: 'numeric', month: 'long', day: 'numeric' };
+      return new Date(date).toLocaleDateString('en-US', options);
     }
   }
-};
+}
 </script>
 
 <style scoped>
@@ -65,12 +70,16 @@ export default {
   position: relative;
   margin: 0 auto;
   width: 100%;
-  max-width: 800px;
+  max-width: 1140px;
   height: 400px;
   background-color: #fff;
   border-radius: 10px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel-inner {
@@ -87,6 +96,12 @@ export default {
   height: 100%;
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
+  background-color: #f5f5f5;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
 }
 
 .carousel-inner > div.active {
@@ -97,13 +112,13 @@ export default {
   font-size: 2rem;
   font-weight: bold;
   margin-bottom: 0.5rem;
-  color: #2B4F60;
+  color: #222;
 }
 
 .carousel-inner p {
   font-size: 1.5rem;
   margin-bottom: 1rem;
-  color: #556268;
+  color: #666;
 }
 
 .carousel-inner ul {
@@ -115,7 +130,24 @@ export default {
 .carousel-inner li {
   font-size: 1.25rem;
   margin-bottom: 0.5rem;
-  color: #556268;
+  color: #666;
+}
+
+.carousel-inner a {
+  display: inline-block;
+  background-color: #4caf50;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  text-decoration: none;
+  margin-top: 1rem;
+  font-size: 1.25rem;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.carousel-inner a:hover {
+  background-color: #333;
+  color: #fff;
 }
 
 .carousel-control-prev,
@@ -126,36 +158,33 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #DAE8F2;
-  color: #2B4F60;
+  background-color: #fff;
+  color: #222;
   text-align: center;
   font-size: 1.5rem;
   line-height: 1.2;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  background-color: #2B4F60;
-  color: #DAE8F2;
+  background-color: #4caf50;
+  color: #fff;
+  box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-control-prev {
-  left: 20px;
-}
-
-.carousel-control-prev .carousel-control-prev-icon {
-  display: inline-block;
-  margin-right: 5px;
-  width: 0;
-  height: 0;
-  border-top: 10px solid transparent;
-  border-bottom: 10px solid transparent;
-  border-right: 10px solid #2B4F60;
+  left: 0;
+  margin-left: 20px;
 }
 
 .carousel-control-next {
-  right: 20px;
+  right: 0;
+  margin-right: 20px;
 }
 
 .carousel-control-next .carousel-control-next-icon {
