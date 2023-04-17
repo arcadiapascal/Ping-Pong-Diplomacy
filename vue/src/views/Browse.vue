@@ -1,27 +1,39 @@
 <template>
 <div id="browse">
-    <search-tournaments/>
-    <form class="browse-by-form" v-on:submit.prevent>
+    <ping-pong-game/>
+    <search-navagation-component/>
+    <!-- <search-tournaments/> -->
+    <!-- <stats-component/> -->
+    <!-- <tournament-and-host-component/> -->
+    <!-- <form class="browse-by-form" v-on:submit.prevent>
         <label for="tournament-title">Tournament Title</label>
         <input type="text" id="tournament-title" />
         <label for="location">Location</label>
         <input type="text" id="location" />
-        <label for="filter-by-active">Active/Inactive</label>
+        <label for="filter-by-active">Active/Inactive</label> -->
         <!-- <select name="active" v-model="Tournament.active">
             <option value="Active">Active</option>
             <option value="Inactive">Inactive</option>
-        </select> -->
-    </form>
+        </select>
+    </form> -->
 </div>
 </template>
 
 <script>
 import tournamentService from "../services/TournamentService.js";
-import searchTournaments from "../components/SearchTournaments.vue";
+import pingPongGame from "../components/pingPongGame.vue";
+import searchNavagationComponent from '../components/searchNavagationComponent.vue';
+// import searchTournaments from "../components/SearchTournaments.vue";
+// import statsComponent from "../components/statsComponent.vue";
+// import tournamentAndHostComponent from "../components/TournamentAndHostComponent.vue";
 
 export default {
     components: {
-        searchTournaments,
+        pingPongGame,
+        searchNavagationComponent
+        // searchTournaments,
+        // statsComponent,
+        // tournamentAndHostComponent
     },
     name: "tournament-list",
     methods: {

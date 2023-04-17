@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bracket Generator</title>
+  <link rel="stylesheet" href="bracket.css"> <!-- Update the href to the correct path of your bracket.css file -->
+  <style>
+    /* Add any custom CSS styles here */
+  </style>
+  <script>
+    function generateBracket(size) {
+      if (size <= 1) {
+        return "Bracket size must be greater than 1.";
+      }
+
+      let bracket = [];
+      let tiers = [];
+      let numTeams = size;
+
+      while (numTeams > 1) {
+        let tier = [];
+        for (let i = 0; i < numTeams; i += 2) {
+          let match = {
+            team1: "Player " + (i + 1),
+            team2: "Player " + (i + 2)
+          };
+          tier.push(match);
+        }
+        tiers.push(tier);
+        numTeams = Math.ceil(numTeams / 2);
+      }
+
+      bracket = tiers[tiers.length - 1];
+
+      // Add final tier with only 1 team
+      tiers.push([{ team1: "Winner 1", team2: null }]);
+      
+      let result = {
+        bracket: bracket,
+        tiers: tiers
+      };
+
+      return result;
+    }
+
+    function generateBracketAndDisplay() {
+      let bracketSize = parseInt(document.getElementById("bracketSize").value);
+      let result = generateBracket(bracketSize);
+      displayBracket(result.tiers);
+    }
+
+    function generateBracketAndDisplayWithSize(size) {
+      let result = generateBracket(size);
+      displayBracket(result.tiers);
+    }
+
+    function displayBracket(tiers) {
+      let output = document.getElementById("output");
+      let bracketOutput = "Bracket:\n";
+      for (let i = 0; i < tiers.length; i++) {
+        bracketOutput += "Tier " + (i + 1) + ":\n" + JSON.stringify(tiers[i], null, 2) + "\n";
+      }
+      output.innerHTML = bracketOutput;
+    }
+  </script>
+</head>
+<body>
+  <h1>Bracket Generator</h1>
+  <label for="bracketSize">Bracket Size: </label>
+  <input type="number" id="bracketSize"  list="bracketsAllowed">
+    <button onclick="generateBracketAndDisplay()">Generate Bracket</button>
+  <br>
+  <button onclick="generateBracketAndDisplayWithSize(4)">Generate 4-Team Bracket</button>
+  <button onclick="generateBracketAndDisplayWithSize(8)">Generate 8-Team Bracket</button>
+  <button onclick="generateBracketAndDisplayWithSize(16)">Generate 16-Team Bracket</button>
+  <!-- Add any additional HTML elements for displaying the bracket -->
+  <pre id="output"></pre>
+</body>
+</html>

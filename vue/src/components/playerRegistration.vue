@@ -1,30 +1,30 @@
 <template>
-  <div>
+  <div  id="player-reg">
 
-   <form @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
-        <label  for="playerName">Player Name</label>
-        <input type="text" id="confirmPassword" v-model="player.name" required />
-        <button type="submit">Next</button>        
-      <label for="email">Email</label>
-        <input type="text" id="confirmPassword" v-model="player.Email" required />
+   <form id="form-1" @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
+        <label  for="playerName">Player Name:</label>
+        <input type="text" id="confirmPassword" v-model="player.name" required /><br>        
+        <label for="email">Email:</label>
+        <input type="text" id="confirmPassword" v-model="player.Email" required /><br>
+        <button type="submit">Next</button>
       </form>
 
-      <form @submit.prevent="thirdForm" v-if="this.$route.params.id == 2">
+      <form id="form-2" @submit.prevent="thirdForm" v-if="this.$route.params.id == 2">
       <div>
-      <label for="playerCity">City</label>
-        <input type="text" id="confirmPassword" v-model="player.city" required />
+      <label for="playerCity">City:</label>
+        <input type="text" id="confirmPassword" v-model="player.city" required /><br>
       </div>
       <div>
-      <label for="playerState">State</label>
-        <input type="text" id="confirmPassword" v-model="player.state" required />
+      <label for="playerState">State:</label>
+        <input type="text" id="confirmPassword" v-model="player.state" required /><br>
       </div>
       <button type="submit">Next</button>
       </form>
 
       <div>
-          <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 3">
-        <label for="rightLeftHanded">Right or Left</label>
-        <input type="text" id="confirmPassword" v-model="player.rightOrLeftHanded" required />
+          <form id="form-3" @submit.prevent="submitPlayer" v-if="this.$route.params.id == 3">
+        <label for="rightLeftHanded">Right or Left Hand:</label>
+        <input type="text" id="confirmPassword" v-model="player.rightOrLeftHanded" required /><br>
         <button type="submit">Create Account</button>
         </form>
   </div>
@@ -85,5 +85,14 @@ methods: {
 </script>
 
 <style>
+#player-reg {
+  text-align: center;
+  margin: 25px;
+  
+}
+
+input {
+  margin: 10px;
+}
 
 </style>

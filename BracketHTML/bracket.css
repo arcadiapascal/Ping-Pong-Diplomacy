@@ -1,0 +1,55 @@
+/* bracket.css */
+
+/* Add any custom CSS styles here */
+.bracket-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .tier {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .match {
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .team {
+    padding: 0.5rem;
+    background-color: #f0f0f0;
+    border: 1px solid #000;
+    border-radius: 4px;
+    flex: 1;
+  }
+  
+  .team input {
+    width: 100%;
+    border: none;
+  }
+  
+  .team input:focus {
+    outline: none;
+  }
+  
+  .team .team1 {
+    border-right: none;
+  }
+  
+  .team .team2 {
+    border-left: none;
+  }
+  
+  .team input[type="number"] {
+    width: 3rem;
+  }
+  
+  .winner {
+    background-color: #c0e2c0;
+  }
+  
