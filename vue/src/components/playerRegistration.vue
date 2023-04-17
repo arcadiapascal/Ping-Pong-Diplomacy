@@ -62,10 +62,14 @@ methods: {
             thirdForm(){ 
                 this.$router.push(`/register/3`);
             },
-            submitPlayer(){ProfileService.getUserIdByUsername(this.$store.state.userName).then(response => {
-                if(response.status == 200){
-                  this.userid = response.data;
-                   this.$router.push(`/`);
+            submitPlayer(){
+              
+              this.$store.user.forEach(element => {
+                this.userid = element;
+              });
+              ProfileService.createPlayer(this.player).then(response => {
+                if(response.status === 201){
+                  this.$router.push(`/`);
                 }
               }).catch(error => {
           if (error.response.status === 404) {
