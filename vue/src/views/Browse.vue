@@ -1,7 +1,10 @@
 <template>
 <div id="browse">
-    <search-tournaments/>
-    <stats-component/>
+    <ping-pong-game/>
+    <search-navagation-component/>
+    <!-- <search-tournaments/> -->
+    <!-- <stats-component/> -->
+    <!-- <tournament-and-host-component/> -->
     <!-- <form class="browse-by-form" v-on:submit.prevent>
         <label for="tournament-title">Tournament Title</label>
         <input type="text" id="tournament-title" />
@@ -18,13 +21,19 @@
 
 <script>
 import tournamentService from "../services/TournamentService.js";
-import searchTournaments from "../components/SearchTournaments.vue";
-import statsComponent from "../components/statsComponent.vue"
+import pingPongGame from "../components/pingPongGame.vue";
+import searchNavagationComponent from '../components/searchNavagationComponent.vue';
+// import searchTournaments from "../components/SearchTournaments.vue";
+// import statsComponent from "../components/statsComponent.vue";
+// import tournamentAndHostComponent from "../components/TournamentAndHostComponent.vue";
 
 export default {
     components: {
-        searchTournaments,
-        statsComponent
+        pingPongGame,
+        searchNavagationComponent
+        // searchTournaments,
+        // statsComponent,
+        // tournamentAndHostComponent
     },
     name: "tournament-list",
     methods: {
