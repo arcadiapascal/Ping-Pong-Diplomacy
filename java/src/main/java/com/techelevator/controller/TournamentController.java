@@ -18,7 +18,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-@PreAuthorize("isAuthenticated()")
 @RestController
 public class TournamentController {
 
@@ -38,6 +37,7 @@ public class TournamentController {
 
     // TOURNAMENT METHODS
     // CREATES A NEW TOURNAMENT
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin
     @PostMapping("/tournaments/create")
@@ -51,6 +51,7 @@ public class TournamentController {
     }
 
     // UPDATE A TOURNAMENT
+    @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @PutMapping("/tournaments/update/{id}")
     public ResponseEntity<Tournament> updateTournament(@PathVariable int id, @RequestBody Tournament tournament) {
