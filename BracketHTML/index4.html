@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bracket Generator</title>
+  <script>
+   function generateBracket(size) {
+      let bracket = [];
+      for (let i = 0; i < size; i++) {
+        let match = {
+          team1: "Team " + (i + 1),
+          team2: "Team " + (i + 1)
+        };
+        bracket.push(match);
+      }
+
+      let tierTwoBracket = [];
+      for (let i = 0; i < size / 2; i++) {
+        let match = {
+          team1: "Winner " + (i + 1),
+          team2: "Winner " + (i + 1)
+        };
+        tierTwoBracket.push(match);
+      }
+
+      let tierThreeBracket = [];
+      for (let i = 0; i < size / 2 / 2; i++) {
+        let match = {
+          team1: "Winner " + (i + 1),
+          team2: "Winner " + (i + 1)
+        };
+        tierThreeBracket.push(match);
+      }
+
+
+      let result = {
+        bracket: bracket,
+        tierTwoBracket: tierTwoBracket,
+        tierThreeBracket: tierThreeBracket
+      };
+
+      return result;
+    }
+
+    function generateBracketAndDisplay() {
+      let bracketSize = parseInt(document.getElementById("bracketSize").value);
+      let result = generateBracket(bracketSize);
+      displayBracket(result.bracket,result.tierTwoBracket,result.tierThreeBracket);
+    }
+
+    function displayBracket(bracket,tierTwoBracket, tierThreeBracket) {
+      let output = document.getElementById("output");
+      let bracketOutput = "Bracket: " + JSON.stringify(bracket, null, 2);
+      let tierTwoBracketOutput = "Tier Two Bracket: " + JSON.stringify(tierTwoBracket, null, 2);
+      let tierThreeBracketOutput = "Tier Three Bracket: " + JSON.stringify(tierThreeBracket, null, 2);
+      output.innerHTML = bracketOutput + "\n\n" + tierTwoBracketOutput + "\n\n" + tierThreeBracketOutput;
+    }
+  </script>
+</head>
+<body>
+  <h1>Bracket Generator</h1>
+  <label for="bracketSize">Bracket Size: </label>
+  <input type="number" id="bracketSize"  list = "bracketsAllowed">
+  <datalist id = "bracketsAllowed">  
+  <option value = "4"></option>
+  <option value = "8"></option>
+  <option value = "16"></option>
+  <option value = "32"></option>
+  <option value = "64"></option>
+  </datalist>
+  <button onclick="generateBracketAndDisplay()">Generate Bracket</button>
+  <pre id="output"></pre>
+</body>
+</html>

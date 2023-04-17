@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link style rel="stylesheet" href="bracket.css">
+    <title>Bracket</title>
+</head>
+
+<body>
+    <div id="app"> <!-- Vue.js app container -->
+        <div class="container"> <!-- contains everything-->
+            <div class="branch_1"> <!-- contains the matches-->
+                <div class="match" v-for="(match, index) in matches"> <!-- use v-for to loop through matches -->
+                    <div class="object_1"> <!-- name of players -->
+                        <div>
+                            <select class="Name" v-model="match.player1"> <!-- use v-model to bind selected player to data -->
+                                <option v-for="player in players" :value="player">{{ player }}</option> <!-- use v-for to loop through players -->
+                            </select>
+                        </div>
+                        <div>
+                            <form :name="'FormId' + (index * 2 + 1)" class="Result"> <!-- use dynamic form name based on index -->
+                                <select v-model="match.result1"> <!-- use v-model to bind selected result to data -->
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </form>
+                        </div>
+                        <div>
+                            <select class="Name" v-model="match.player2">
+                                <option v-for="player in players" :value="player">{{ player }}</option>
+                            </select>
+                        </div>
+                        <div>
+                            <form :name="'FormId' + (index * 2 + 2)" class="Result"> <!-- use dynamic form name based on index -->
+                                <select v-model="match.result2">
+                                    <option value="0">0</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                </select>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+        new Vue({
+            el: "#app",
+            data: {
+                players: [], // array to store players
+                matches: [] // array to store matches
+            },
+            mounted() {
+                // Fetch players data from your database or API here and assign it to players array
+                // Example:
+                this.players = ["Player1", "Player2", "Player3", "Player4"]; // replace with actual player data
+
+                // Calculate number of matches based on number of players
+                let numPlayers = this.players.length;
+                let numMatches = Math.floor(numPlayers / 2);
+                this.matches = Array.from({length: numMatches}, () => ({
+                    player1: "",
+                    result1: 0,
+                    player2: "",
+                    result2: 0
+                }));
+            }
+        });
+    </script>
+</body>
+
+</html>
