@@ -9,11 +9,11 @@
         Thank you for registering, please sign in.
       </div>
       <div class="form-input-group">
-        <label for="username">Username</label>
+        <label for="username">Username:</label>
         <input type="text" id="username" v-model="user.username" required autofocus />
       </div>
       <div class="form-input-group">
-        <label for="password">Password</label>
+        <label for="password">Password:</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
       <button type="submit">Sign in</button>
@@ -62,6 +62,9 @@ export default {
 </script>
 
 <style scoped>
+#login {
+  text-align: center;
+}
 .form-input-group {
   margin-bottom: 1rem;
 }
