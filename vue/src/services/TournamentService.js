@@ -8,9 +8,9 @@ export default {
         return axios.post(`/tournaments/${id}/players`, player);
       },
 
-    getPlayerObject(id, player){
-        return axios.get('/players/id/{id}', player)
-    },
+      getPlayerObject(userId, player) {
+        return axios.get(`/players/id/${userId}`, player);
+    },    
 
     getTeams(){
         return axios.get(`/teams/all`);

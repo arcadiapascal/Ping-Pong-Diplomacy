@@ -1,7 +1,6 @@
 <template>
     <div class="my-profile">
         <h2>My Profile</h2>
-        <router-link id="editButton" :to="{ name: 'editProfile' }">Edit Profile</router-link>
         <profile-details />
         <my-tournaments />
         <player-stats />

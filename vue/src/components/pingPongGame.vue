@@ -42,6 +42,7 @@ export default {
   justify-content: center;
   height: 7vh;
   background-color: #4D565E;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .fact-container {

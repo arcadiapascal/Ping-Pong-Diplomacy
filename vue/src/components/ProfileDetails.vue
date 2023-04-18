@@ -1,30 +1,85 @@
 <template>
-  <div>
-       <h2>Username: {{$store.state.user.username}}</h2>
-        <ul class="player-details">
-          <li>Name: {{this.$store.state.player.playerName}}</li>
-          <li>Email: {{this.$store.state.player.email}}</li>
-          <li>Age: {{this.$store.state.player.age}}</li>
-          <li>City: {{this.$store.state.player.city}}</li>
-          <li>State: {{this.$store.state.player.state}}</li>
-          <li>Hand: {{this.$store.state.player.hand}}</li>
-          <li>Skill Level: {{this.$store.state.player.skillLevel}}</li>
-        </ul>
-
+  <div class="profile-box">
+    <div class ="profile-header">
+      <h2 class="profile-title">Profile Details</h2>
+      <h4>Username: {{$store.state.user.username}}</h4>
+    </div>
+    <ul class="player-details">
+      <li>Name: {{player.playerName}}</li>
+      <li>Email: {{player.email}}</li>
+      <li>City: {{player.city}}</li>
+      <li>State: {{player.stateAbbrev}}</li>
+    </ul>
+     <router-link id="editButton" :to="{ name: 'editProfile' }" class="btn btn-primary">Edit Profile</router-link>
   </div>
 </template>
 
 <script>
+import axios from 'axios';
 export default {
-data() {
-      return {
-        currentUser: this.$store.state.user,
-        currentPlayer: this.$store.state.player
-      };
-},
-}
+  data() {
+    return {
+      player: {},
+    };
+  },
+  computed: {
+    currentUser() {
+      return this.$store.state.user;
+    },
+  },
+  mounted() {
+    this.getPlayerObject(this.currentUser.id)
+      .then((response) => {
+        this.player = response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  methods: {
+    getPlayerObject(id) {
+      return axios.get(`/players/id/${id}`);
+    },
+  },
+};
 </script>
 
-<style>
+<style scoped>
+.profile-box {
+  background-color: #fff;
+  width: 33vh;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  padding: 20px;
+}
 
+.profile-header{
+  text-align: center;
+}
+
+.profile-title {
+  margin-top: 0;
+}
+
+#editButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #FF6359;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
+}
+
+#editButton:hover {
+  background-color: #4d565e;
+}
 </style>

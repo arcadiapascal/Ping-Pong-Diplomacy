@@ -37,7 +37,7 @@ public class JdbcPlayerDao implements PlayerDao {
     // GETS A PLAYER BY ID
     @Override
     public Player getPlayerById(int id) throws SQLException {
-        String sql = "SELECT * FROM player WHERE player_id = ?";
+        String sql = "SELECT * FROM player WHERE user_id = ?";
         return jdbcTemplate.queryForObject(sql, new PlayerMapper(), id);
     }
 
