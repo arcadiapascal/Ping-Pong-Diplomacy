@@ -1,16 +1,26 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <h1>Paddle Me!</h1>
-      <h3>Ping Pong Tournaments</h3>
-          <div id="links">
-            <router-link v-bind:to="{ name: 'home' }">Home</router-link>&nbsp;|&nbsp;
-            <router-link v-bind:to="{ name: 'browse' }">Browse</router-link>&nbsp;|&nbsp;
-            <router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link>&nbsp;|&nbsp;
-            <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
-          </div>
-    </div>
+    <div id="nav-bar">
+      <div id="user">
+        <ul>
+          <li><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
+          <li><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+        </ul>
+      </div>
+      <div id="header">
+        <h1>Paddle Me!</h1>
+        <h3>Ping Pong Tournaments</h3>
+          <ul id="nav">
+            <li><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>&nbsp;|&nbsp;
+            <li><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
+          </ul>
+      </div>       
+      <div id="button">
+        <router-link v-bind:to="{ name: 'createTournament' }">Create a Tournament!</router-link>
+      </div>
+      </div>
     <router-view />
+    
   </div>
 </template>
 
@@ -24,35 +34,57 @@ name: 'app'
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
-#nav {
+#nav-bar {
     background-color: #00ADEE;
     overflow: hidden;   
+    display: flex;
+    justify-content: space-between
+    
 
 }
 body {
   margin: 0px;
 }
 h1 {
-    color: #4D565E;
-    text-align: center;
-    font-style: italic;
-    font-family: 'Permanent Marker', cursive;
-    font-size: 40px;
+  font-size: 40px;
+  color: #4D565E;
+  font-style: italic;
+  font-family: 'Permanent Marker', cursive;
 }
 h3 {
-    color: #4D565E;
-    text-align: center;
-    font-style: italic;
-    font-family: 'Permanent Marker', cursive;
-}
-h2 {
-  text-align: center;
+  color: #4D565E;
+  font-style: italic;
+  font-family: 'Permanent Marker', cursive;
 }
 
-#links {
-  color: #4D565E;
-  text-align: center;
+#header {
+    
+}
+
+ul {
+  list-style-type: none;
+  margin: 10px;
+  padding: 0;
+  
+}
+li {
+  margin: 5px;
+}
+
+#button {
+  display: flex;
+  align-items:flex-end;
   margin: 20px;
   
+}
+#user {
+  display: flex;
+  align-items:flex-end;
+  margin: 20px;
+
+}
+#nav {
+  display: flex;
+  align-items: center;
 }
 </style>

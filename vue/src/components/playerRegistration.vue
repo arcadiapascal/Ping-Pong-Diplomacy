@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div  id="player-reg">
 
    <form @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
         <label  for="playerName">Player Name</label>
@@ -11,8 +11,8 @@
 
       <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 2">
       <div>
-      <label for="playerCity">City</label>
-        <input type="text" id="confirmPassword" v-model="player.city" required />
+      <label for="playerCity">City:</label>
+        <input type="text" id="confirmPassword" v-model="player.city" required /><br>
       </div>
       <div>
       <label for="playerState">State</label>
@@ -86,5 +86,14 @@ methods: {
 </script>
 
 <style>
+#player-reg {
+  text-align: center;
+  margin: 25px;
+  
+}
+
+input {
+  margin: 10px;
+}
 
 </style>

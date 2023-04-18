@@ -19,7 +19,6 @@ import java.sql.SQLException;
 import java.util.List;
 
 
-@PreAuthorize("isAuthenticated()")
 @RestController
 public class TournamentController {
 
@@ -39,6 +38,7 @@ public class TournamentController {
 
     // TOURNAMENT METHODS
     // CREATES A NEW TOURNAMENT
+    @PreAuthorize("isAuthenticated()")
     @ResponseStatus(HttpStatus.CREATED)
     @CrossOrigin
     @PostMapping("/tournaments/create")
@@ -52,6 +52,7 @@ public class TournamentController {
     }
 
     // UPDATE A TOURNAMENT
+    @PreAuthorize("hasRole('ADMIN')")
     @CrossOrigin
     @PutMapping("/tournaments/update/{id}")
     public ResponseEntity<Tournament> updateTournament(@PathVariable int id, @RequestBody Tournament tournament) {
@@ -121,6 +122,7 @@ public class TournamentController {
     }
 
     // Add a player to a tournament
+    @CrossOrigin
     @RequestMapping(path = "/tournaments/{id}/players", method = RequestMethod.POST)
     public void addPlayerToTournament(@PathVariable int id, @RequestBody Player player) throws SQLException {
         tournamentDao.addPlayerToTournament(id, player.getPlayerId());
@@ -161,6 +163,7 @@ public class TournamentController {
     }
 
     // GET ALL TEAMS
+    @CrossOrigin
     @RequestMapping(path = "/teams/all", method = RequestMethod.GET)
     public List<Team> getAllTeams() throws SQLException {
         return teamDao.getAllTeams();
@@ -232,6 +235,7 @@ public class TournamentController {
     }
 
     // GET ALL HOSTS
+    @CrossOrigin
     @RequestMapping(value = "/hosts", method = RequestMethod.GET)
     public List<Host> getAllHosts() {
         try {
@@ -304,6 +308,7 @@ public class TournamentController {
     }
 
     // Get player by ID
+    @CrossOrigin
     @GetMapping("/players/id/{id}")
     public ResponseEntity<Player> getPlayerById(@PathVariable int id) {
         try {

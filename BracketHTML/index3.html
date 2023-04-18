@@ -1,0 +1,44 @@
+<template>
+    <div>
+      <h1>March Madness Bracket Generator</h1>
+      <label for="numPlayers">Select Number of Players:</label>
+      <input type="number" id="numPlayers" v-model="numPlayers" min="4" max="64" step="4">
+      <button @click="generateBracket">Generate Bracket</button>
+      <br>
+      <br>
+      <Bracket v-if="bracket" :numPlayers="numPlayers" :matches="bracket"></Bracket>
+    </div>
+  </template>
+  
+  <script>
+  import Bracket from './components/Bracket.vue';
+  
+  export default {
+    data() {
+      return {
+        numPlayers: 16,
+        bracket: null
+      };
+    },
+    components: {
+      Bracket
+    },
+    methods: {
+      generateBracket() {
+        // Generate bracket based on the selected number of players
+        const numMatches = this.numPlayers / 2;
+        const matches = [];
+        for (let i = 0; i < numMatches; i++) {
+          matches.push({
+            player1: '',
+            result1: '',
+            player2: '',
+            result2: ''
+          });
+        }
+        this.bracket = matches;
+      }
+    }
+  };
+  </script>
+  
