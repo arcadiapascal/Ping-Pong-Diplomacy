@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="title">Ping Pong Tournament Manager</h1>
     <div class="buttons">
-      <router-link to="/create-tournament" class="btn btn-primary">Build a Tournament</router-link>
+      <router-link to="/createtournament" class="btn btn-primary">Build a Tournament</router-link>
       <router-link to="/browse" class="btn btn-secondary">Join a Tournament</router-link>
     </div>
   </div>
