@@ -1,5 +1,9 @@
 <template>
   <div id="app">
+    <div id="header">
+      <h1>Paddle Me!</h1>
+      <h3>Ping Pong Tournaments</h3>
+    </div>
     <div id="nav-bar">
       <div id="user">
         <ul>
@@ -7,14 +11,11 @@
           <li><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
         </ul>
       </div>
-      <div id="header">
-        <h1>Paddle Me!</h1>
-        <h3>Ping Pong Tournaments</h3>
-          <ul id="nav">
-            <li><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>&nbsp;|&nbsp;
-            <li><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
-          </ul>
-      </div>       
+      <ul id="nav">
+        <li><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>
+        <li><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
+        <li><router-link v-bind:to="{ name: 'createTournament' }">Create a Tournament!</router-link></li>
+      </ul>
       <div id="button">
         <router-link v-bind:to="{ name: 'createTournament' }">Create a Tournament!</router-link>
       </div>

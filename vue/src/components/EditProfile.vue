@@ -14,10 +14,10 @@
             <label for="State">State Abbreviation: {{this.$store.state.player.stateAbbrev}}</label>
             <input type="text" v-model="Profile.state"><br>
             <label for="Hand">Left Handed or Right Handed: {{this.$store.state.player.rightLeftHanded}}</label>
-            <select name="Hand" v-model="Profile.rightLeftHanded"><br>
+            <!-- <select name="Hand" v-model="Profile.rightLeftHanded"><br>
                 <option value="Right">Right Handed</option>
                 <option value="Left">Left Handed</option>
-            </select>
+            </select> -->
             <label for="Skill Level">Skill Level: {{this.$store.state.player.skillLevel}}</label>
             <select name="Category" v-model="Profile.skillLevel"><br>
                 <option value="Novice">Novice</option>
@@ -46,7 +46,7 @@ export default {
                 age: "",
                 city: "",
                 stateAbbrev: "",
-                rightLeftHanded: "", 
+                // rightLeftHanded: "", 
                 email: "",
                 skillLevel: ""                
             }
