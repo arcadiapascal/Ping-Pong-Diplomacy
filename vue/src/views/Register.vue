@@ -1,6 +1,6 @@
 <template>
   <div id="register" class="text-center">
-    <div>
+    <div class="registration form">
     <form @submit.prevent="register">
       <h1>Create Account</h1>
       <div role="alert" v-if="registrationErrors">
@@ -128,6 +128,7 @@ export default {
     border-radius: 0.3rem;
     border: none;
     border-bottom: 2px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   input[type="text"]:focus,
@@ -145,6 +146,7 @@ export default {
     border: none;
     border-radius: 0.3rem;
     cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   button[type="submit"]:hover {
@@ -157,6 +159,9 @@ export default {
     align-items: center;
     margin: 25px;
     font-size: 1.2rem;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    padding: 20px;
+    border-radius: 5px;
   }
 
   h1 {
@@ -185,4 +190,5 @@ export default {
     font-weight: bold;
   }
 </style>
+
 
