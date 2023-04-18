@@ -10,7 +10,6 @@
           <li>Hand: {{this.$store.state.player.hand}}</li>
           <li>Skill Level: {{this.$store.state.player.skillLevel}}</li>
         </ul>
-      <router-link v-bind:to="{name:'createTournament'}"><button>Create</button></router-link>
 
   </div>
 </template>
