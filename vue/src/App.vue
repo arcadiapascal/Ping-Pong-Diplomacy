@@ -29,7 +29,7 @@ name: 'app',
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 .top-nav {
-  height: 17vh;
+  height: 23vh;
 }
 
 #nav-bar {

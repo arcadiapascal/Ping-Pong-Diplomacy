@@ -108,15 +108,81 @@ export default {
 </script>
 
 <style scoped>
-.form-input-group {
-  margin-bottom: 1rem;
-}
-label {
-  margin-right: 0.5rem;
-}
+  .form-input-group {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1rem;
+  }
 
-#register {
-  text-align: center;
-  margin: 25px;
-}
+  label {
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    text-align: left;
+  }
+
+  input[type="text"],
+  input[type="password"] {
+    font-size: 1.2rem;
+    padding: 0.5rem;
+    border-radius: 0.3rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+  }
+
+  input[type="text"]:focus,
+  input[type="password"]:focus {
+    outline: none;
+    border-bottom-color: #888;
+  }
+
+  button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.5rem 1.5rem;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 0.3rem;
+    cursor: pointer;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #5cbf62;
+  }
+
+  #register {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 25px;
+    font-size: 1.2rem;
+  }
+
+  h1 {
+    margin-bottom: 1rem;
+    font-size: 2rem;
+  }
+
+  p {
+    margin-top: 1rem;
+    font-size: 1rem;
+    color: #888;
+  }
+
+  router-link {
+    color: #4CAF50;
+  }
+
+  router-link:hover {
+    text-decoration: underline;
+  }
+
+  [role="alert"] {
+    margin-bottom: 1rem;
+    color: #f44336;
+    font-size: 1rem;
+    font-weight: bold;
+  }
 </style>
+
