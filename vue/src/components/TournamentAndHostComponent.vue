@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="search-container">
-      <h2>Event List</h2>
-      <input type="text" placeholder="Search Tournaments" v-model="tournamentSearchTerm">
+    <h1>Tournament's</h1>
+    <div class="search-bar-container">
+      <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
     <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
       <h3>{{ tournament.name }}</h3>
@@ -76,11 +76,35 @@ export default {
 </script>
 
 <style scoped>
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+  }
+
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  .search-bar {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    font-size: 1.2rem;
+    outline: none;
+  }
+
 .tournament-card .tournament-details div:nth-child(2) p {
   margin: 0;
   font-size: 20px;
   font-weight: bold;
   color: #00ADEE;
+  font-family: inherit;
 }
 
 .tournament-details div:first-child p{
@@ -88,6 +112,7 @@ export default {
   font-size: 20px;
   font-weight: bold;
   color: #00ADEE;
+  font-family: inherit;
 }
 
 .tournament-card h3 {
@@ -95,6 +120,7 @@ export default {
   font-size: 50px;
   font-weight: bold;
   color: #000;
+  font-family: inherit;
 }
 
 .tournament-card p{
@@ -102,13 +128,7 @@ export default {
   font-size: 50px;
   font-weight: bold;
   color: #00ADEE;
-}
-
-.search-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+  font-family: inherit;
 }
 
 input[type="text"] {
@@ -117,6 +137,7 @@ input[type="text"] {
     border: 1px solid #ccc;
     margin-bottom: 20px;
     width: 300px;
+    font-family: inherit;
   }
 
 .tournament-card {
@@ -145,12 +166,14 @@ input[type="text"] {
   font-size: 20px;
   font-weight: bold;
   color: #000;
+  font-family: inherit;
 }
 
 .tournament-description {
   font-size: 14px;
   color: #999;
   margin-bottom: 8px;
+  font-family: inherit;
 }
 
 .tournament-details {
@@ -168,9 +191,11 @@ input[type="text"] {
   margin: 0;
   font-size: 14px;
   color: #999;
+  font-family: inherit;
 }
 
 .tournament-details p strong {
    font-weight: 700;
+   font-family: inherit;
 }
-  </style>
+</style>

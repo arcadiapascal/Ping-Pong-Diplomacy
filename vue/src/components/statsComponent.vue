@@ -14,7 +14,7 @@
       </div>
       <div v-for="(player, index) in sortedPlayers" :key="player.id" class="table-row">
         <div class="table-cell">{{ index+1 }}</div>
-        <div class="table-cell">{{ player.userName }}</div>
+        <div class="table-cell">{{ player.playerName }}</div>
         <div class="table-cell">{{ player.wins }}</div>
         <div class="table-cell">{{ player.losses }}</div>
         <div class="table-cell">{{ player.totalPoints }}</div>
@@ -25,58 +25,71 @@
 </template>
 <script>
 import tournament from '../services/TournamentService';
-import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
-
+// import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
 export default {
-  data() {
-    return {
-      players: [],
-      searchQuery: '',
-    };
-  },
+data() {
+return {
+players: [],
+searchQuery: '',
+};
+},
 
-  mounted() {
-    tournament.getPlayers().then((response) => {
-      this.players = response.data;
-    });
-  },
+mounted() {
+tournament.getPlayers().then((response) => {
+this.players = response.data;
+});
+},
 
-  computed: {
-  sortedPlayers() {
-    if (this.searchQuery === '') {
-      return this.players.slice().sort((a, b) => b.wins - a.wins);
-    }
-    return this.players.filter(player => player.playerName.toLowerCase().includes(this.searchQuery.toLowerCase()))
-      .slice().sort((a, b) => b.wins - a.wins);
-  },
-    tournamentPhotoStyle() {
-      return {
-        backgroundImage: `url(${tournamentPhoto})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-        color: 'black'
-      }
-    }
-  },
+computed: {
+sortedPlayers() {
+if (this.searchQuery === '') {
+return this.players.slice().sort((a, b) => b.wins - a.wins);
+}
+return this.players.filter(player => player.playerName.toLowerCase().includes(this.searchQuery.toLowerCase()))
+.slice().sort((a, b) => b.wins - a.wins);
+},
+// tournamentPhotoStyle() {
+// return {
+// backgroundImage: url(${tournamentPhoto}),
+// backgroundSize: 'cover',
+// backgroundPosition: 'center',
+// color: 'black'
+// }
+// }
+},
 };
 </script>
 <style scoped>
-.search-bar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-  /* Search bar styles */
-  input[type="text"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    width: 300px;
+  /* Global styles */
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
   }
+  
+  /* Header styles */
   h2 {
     text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+  }
+
+  /* Search bar styles */
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-bottom: 2rem;
+  }
+  .search-bar {
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+    width: 300px;
+    font-size: 1.2rem;
+    outline: none;
   }
 
   /* Table styles */
@@ -95,17 +108,51 @@ export default {
   }
   .table-cell {
     display: table-cell;
-    padding: 10px;
+    padding: 1rem;
     text-align: center;
     vertical-align: middle;
   }
-  .player-photo {
-  width: 80px;
-  height: 80px;
-  border-radius: 50%;
-}
   .no-results {
     text-align: center;
     margin-top: 20px;
+  }
+
+  /* New styles for the World Table Tennis website */
+  .players-table {
+    width: 100%;
+  }
+  .players-table .table-row.header {
+    background-color: #0D1C2E;
+    color: #fff;
+  }
+  .players-table .table-cell {
+    padding: 0.8rem;
+  }
+  .players-table .table-cell:nth-child(1),
+  .players-table .table-cell:nth-child(2) {
+    width: 30%;
+  }
+  .players-table .table-cell:nth-child(3),
+  .players-table .table-cell:nth-child(4),
+  .players-table .table-cell:nth-child(5) {
+    width: 20%;
+  }
+  .players-table .table-cell:nth-child(1) {
+    text-align: left;
+  }
+  .players-table .table-cell:nth-child(2) {
+    text-align: center;
+  }
+  .players-table .table-cell:nth-child(3),
+  .players-table .table-cell:nth-child(4),
+  .players-table .table-cell:nth-child(5) {
+    text-align: right;
+  }
+  .players-table .table-cell:nth-child(1) a {
+    color: #0D1C2E;
+    text-decoration: none;
+  }
+  .players-table .table-cell:nth-child(1) a:hover {
+    color: #FDB913;
   }
 </style>
