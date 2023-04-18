@@ -28,7 +28,7 @@ export default {
 
 
 #nav-bar {
-    height: 23vh;
+    height: 20vh;
     background-color: #00ADEE;
     overflow: hidden;
     display: flex;

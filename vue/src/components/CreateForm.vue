@@ -34,8 +34,7 @@ export default {
       return {
         currentUser: this.$store.state.user,
         Tournament: {
-            id: 0,
-            hostId: this.currentUser.id,
+            
             name: "", 
             location:"",
             address:"",
