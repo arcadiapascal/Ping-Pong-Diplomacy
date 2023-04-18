@@ -1,7 +1,6 @@
 <template>
   <div>
     <div class="search-container">
-      <h2>EVENT LIST</h2>
       <input type="text" placeholder="Search Tournaments" v-model="tournamentSearchTerm">
     </div>
     <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
@@ -9,13 +8,13 @@
       <p class="tournament-description">{{ tournament.description }}</p>
       <div class="tournament-details">
         <div>
-          <p><strong>LEVEL:</strong> {{ tournament.level }}</p>
+          <p><strong>LEVEL:</strong> {{ tournament.skillLevel }}</p>
         </div>
         <div>
           <p><strong>DATE &amp; LOCATION:</strong> {{ tournament.date }}, {{ tournament.location }}</p>
         </div>
       </div>
-      <button v-on:click="joinTournament(tournament.id, this.player)">Join Tournament!</button>
+      <button v-on:click="joinTournament">Join Tournament!</button>
     </div>
   </div>
 </template>
@@ -23,13 +22,16 @@
 <script>
 import tournament from '../services/TournamentService.js';
 import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
-import store from '../store';
+
+
+// import store from '../store';
 export default {
   data() {
     return {
       tournamentLister: [],
       tournamentSearchTerm: '',
-      player: store.state.player
+      player: this.$store.state.player
+      
     };
   },
   created() {
@@ -57,9 +59,10 @@ export default {
     }
   },
   methods: {
-    joinTournament(tournamentId, player) {
+    joinTournament(id, player) {
+      id = 1;
       
-      tournament.addPlayerToTournament(tournamentId, player).then(() => {
+      tournament.addPlayerToTournament(id, player).then(() => {
         
         alert('You have joined the tournament!');
       }).catch((error) => {
@@ -72,6 +75,33 @@ export default {
 </script>
 
 <style scoped>
+.tournament-card .tournament-details div:nth-child(2) p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00ADEE;
+}
+
+.tournament-details div:first-child p{
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #00ADEE;
+}
+
+.tournament-card h3 {
+  margin: 0;
+  font-size: 50px;
+  font-weight: bold;
+  color: #000;
+}
+
+.tournament-card p{
+  margin: 0;
+  font-size: 50px;
+  font-weight: bold;
+  color: #00ADEE;
+}
 
 .search-container {
   display: flex;

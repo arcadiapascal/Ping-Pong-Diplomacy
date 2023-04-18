@@ -13,11 +13,11 @@ import UserProfile from '../views/UserProfile.vue'
 import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
 import PlayerForm  from '../views/PlayerForm.vue'
-import EditMyProfile from "../views/EditMyProfile.vue"
+// import EditMyProfile from "../views/EditMyProfile.vue"
 
 
 // eslint-disable-next-line no-unused-vars
-import Bracket from "../components/Bracket.vue"
+// import Bracket from "../components/Bracket.vue"
 
 Vue.use(Router)
 
@@ -115,14 +115,14 @@ const router = new Router({
       requiresAuth: true
     }
   },
-  {
-    path: "/editprofile/:id",
-    name: "editProfile",
-    component: EditMyProfile,
-    meta: {
-      requiresAuth: true
-    }
-  },
+  // {
+  //   path: "/editprofile/:id",
+  //   name: "editProfile",
+  //   component: EditMyProfile,
+  //   meta: {
+  //     requiresAuth: true
+  //   }
+  // },
   {
     path: "/usertournament",
     name: "userTournament",
