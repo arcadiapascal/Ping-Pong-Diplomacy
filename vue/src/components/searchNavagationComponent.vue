@@ -1,6 +1,5 @@
 <template>
   <div>
-    <h1>PADDLE ME</h1>
     <div class="row">
       <div class="button-container">
         <button @click="activeComponent = 'TournamentAndHostComponent'" :class="{ active: activeComponent === 'TournamentAndHostComponent' }">Tournaments</button>
@@ -38,18 +37,23 @@ export default {
   flex-direction: row;
   justify-content: center;
   background-color: #eee;
+  margin-top: 2rem;
 }
 
 button {
   padding: 8px 12px;
+  margin: 0.5rem;
   border-radius: 4px;
   border: none;
   font-size: 16px;
-  background-color: #eee;
+  color: #fff;
+  font-weight: bold;
+  background-color: #71D96F;
   border-spacing: 20px;
   cursor: pointer;
 }
-button.active {
-  background-color: #ccc;
+
+button:hover {
+  background-color: #4d565e;
 }
 </style>

@@ -2,7 +2,7 @@
   <div class="container">
     <h1 class="title">Ping Pong Tournament Manager</h1>
     <div class="buttons">
-      <router-link to="/create-tournament" class="btn btn-primary">Build a Tournament</router-link>
+      <router-link v-bind:to="{name: 'createTournament'}" class="btn btn-primary">Build a Tournament</router-link>
       <router-link to="/browse" class="btn btn-secondary">Join a Tournament</router-link>
     </div>
   </div>
@@ -40,15 +40,14 @@ export default {
 .btn {
   display: inline-block;
   padding: 1rem 2rem;
-  margin: 0.5rem;
   border: none;
   border-radius: 0.25rem;
   text-align: center;
   text-decoration: none;
-  font-size: 1.2rem;
+  font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: #00adee;
+  background-color: #FF6359;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease-in-out;
 }
@@ -58,11 +57,15 @@ export default {
 }
 
 .btn-primary {
-  background-color: #00adee;
+  background-color: #FF6359;
+  margin: 0.5rem;
+
 }
 
 .btn-secondary {
-  background-color: #2b4f60;
+  background-color: #71D96F;
+  margin: 0.5rem;  
+
 }
 
 @media screen and (max-width: 768px) {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Teams</h2>
     <input v-model="searchTerm" type="text" placeholder="Search by name">
     <table>
       <thead>
@@ -86,8 +87,7 @@ export default {
   }
 
   th {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #DAE8F2;
   }
 
   tr:nth-child(even) {

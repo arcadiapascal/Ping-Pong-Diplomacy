@@ -1,7 +1,7 @@
 <template>
   <div class="home">
-    <first-look />
     <ping-pong-game />
+    <first-look />
   </div>
 </template>
 

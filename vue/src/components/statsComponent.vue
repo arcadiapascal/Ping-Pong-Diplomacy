@@ -1,13 +1,12 @@
 <template>
   <div>
-    <h2>Top Paddle Me Players</h2>
+    <h2>Top Players</h2>
     <div class="search-bar-container">
       <input v-model="searchQuery" type="text" placeholder="Search by username..." class="search-bar">
     </div>
     <div class="table-container">
       <div class="table-row header">
         <div class="table-cell">Rank</div>
-        <div class="table-cell">Photo</div>
         <div class="table-cell">Username</div>
         <div class="table-cell">Wins</div>
         <div class="table-cell">Losses</div>
@@ -16,7 +15,6 @@
       </div>
       <div v-for="(player, index) in sortedPlayers" :key="player.id" class="table-row">
         <div class="table-cell">{{ index+1 }}</div>
-        <div class="table-cell"><img :src="player.photo" class="player-photo"></div>
         <div class="table-cell">{{ player.userName }}</div>
         <div class="table-cell">{{ player.wins }}</div>
         <div class="table-cell">{{ player.losses }}</div>
@@ -79,6 +77,9 @@ export default {
     margin-bottom: 20px;
     width: 300px;
   }
+  h2 {
+    text-align: center;
+  }
 
   /* Table styles */
   .table-container {
@@ -88,12 +89,11 @@ export default {
   }
   .table-row {
     display: table-row;
-    background-color: #fff;
     border: 1px solid #ccc;
   }
   .header {
     font-weight: bold;
-    background-color: #eee;
+    background-color: #DAE8F2;
   }
   .table-cell {
     display: table-cell;
