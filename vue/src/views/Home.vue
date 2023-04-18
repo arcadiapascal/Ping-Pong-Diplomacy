@@ -4,19 +4,19 @@
     <display-users />
     <recent-tournaments />
     <my-tournaments />
-    <tournament-carousel />
+    <my-tournaments />
   </div>
 </template>
 
 
 <script>
 import PingPongGame from '../components/pingPongGame.vue';
-import TournamentCarousel from '../components/TourCarousel.vue';
+import MyTournaments from '../components/MyTournaments.vue';
 
 export default {
   name: "home",
   components: {
-    TournamentCarousel,
+    MyTournaments,
     PingPongGame
   }
 };
