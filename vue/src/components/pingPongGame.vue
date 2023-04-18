@@ -43,7 +43,8 @@ export default {
   height: 5vh;
   background-color: #c4d8e2;
   padding: 20px;
-  border-radius: 10px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+
 }
 
 .fact-container {

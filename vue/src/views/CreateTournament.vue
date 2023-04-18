@@ -1,6 +1,5 @@
 <template>
   <div class="create">
-    <h2>Create A Tournament</h2>
     <create-form />
     <bracket-generator /> <!-- Use 'bracket-generator' component as a Vue component -->
   </div>

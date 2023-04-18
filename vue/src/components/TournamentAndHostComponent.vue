@@ -1,6 +1,7 @@
 <template>
   <div>
     <div class="search-container">
+      <h2>Event List</h2>
       <input type="text" placeholder="Search Tournaments" v-model="tournamentSearchTerm">
     </div>
     <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
