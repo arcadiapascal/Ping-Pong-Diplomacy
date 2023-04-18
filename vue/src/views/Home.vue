@@ -1,22 +1,19 @@
 <template>
   <div class="home">
+    <first-look />
     <ping-pong-game />
-    <display-users />
-    <recent-tournaments />
-    <my-tournaments />
-    <tournament-carousel />
   </div>
 </template>
 
 
 <script>
+import FirstLook from '../components/FirstLook.vue';
 import PingPongGame from '../components/pingPongGame.vue';
-import TournamentCarousel from '../components/TourCarousel.vue';
 
 export default {
   name: "home",
   components: {
-    TournamentCarousel,
+    FirstLook,
     PingPongGame
   }
 };

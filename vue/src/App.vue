@@ -1,10 +1,6 @@
 <template>
   <div id="app">
-    <div id="header">
-      <h1>Paddle Me!</h1>
-      <h3>Ping Pong Tournaments</h3>
-    </div>
-    <div id="nav-bar">
+    <div class= "top-nav" id="nav-bar">
       <div id="user">
         <ul id="profile">
           <li class="paddle"><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
@@ -36,6 +32,10 @@ name: 'app',
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+.top-nav {
+  height: 17vh;
+}
 
 #nav-bar {
     background-color: #00ADEE;
