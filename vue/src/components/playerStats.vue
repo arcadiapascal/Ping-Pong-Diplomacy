@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <h2>Player Stats</h2>
+  <div class="box">
+    <h2 class="heading">Player Stats</h2>
     <div class="table-container">
       <div class="table-row header">
         <div class="table-cell">Rank</div>
@@ -25,70 +25,78 @@
 
 <script>
 export default {
-props: {
-playerId: {
-type: Number,
-required: true
-}
-},
+  props: {
+    playerId: {
+      type: Number,
+      required: true
+    }
+  },
 
-data() {
-return {
-player: null,
-};
-},
+  data() {
+    return {
+      player: null,
+    };
+  },
 
-mounted() {
-this.$store.state.player.id
-},
+  mounted() {
+    this.$store.state.player.id
+  },
 };
 </script>
 
 
 <style>
+
+h2 {
+  text-align: center;
+}
+
 .search-bar-container {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
 }
-  /* Search bar styles */
-  input[type="text"] {
-    padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    margin-bottom: 20px;
-    width: 300px;
-  }
 
-  /* Table styles */
-  .table-container {
-    display: table;
-    width: 100%;
-    border-collapse: collapse;
-  }
-  .table-row {
-    display: table-row;
-    background-color: #fff;
-    border: 1px solid #ccc;
-  }
-  .header {
-    font-weight: bold;
-    background-color: #eee;
-  }
-  .table-cell {
-    display: table-cell;
-    padding: 10px;
-    text-align: center;
-    vertical-align: middle;
-  }
-  .player-photo {
+.box {
+  background-color: #fff;
+  width: 33%;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  font-family: inherit;
+  padding: 20px;
+  margin: auto; /* to center the box horizontally */
+  height: 27vh;
+}
+
+/* Table styles */
+.table-container {
+  display: table;
+  width: 100%;
+  border-collapse: collapse;
+}
+.table-row {
+  display: table-row;
+  background-color: #fff;
+  border: 1px solid #ccc;
+}
+.header {
+  font-weight: bold;
+  background-color: #eee;
+}
+.table-cell {
+  display: table-cell;
+  padding: 10px;
+  text-align: center;
+  vertical-align: middle;
+}
+.player-photo {
   width: 80px;
   height: 80px;
   border-radius: 50%;
 }
-  .no-results {
-    text-align: center;
-    margin-top: 20px;
-  }
+.no-results {
+  text-align: center;
+  margin-top: 20px;
+}
 </style>
