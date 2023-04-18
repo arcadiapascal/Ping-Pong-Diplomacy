@@ -1,26 +1,21 @@
 <template>
   <div id="app">
     <div class= "top-nav" id="nav-bar">
-      <div id="user">
-        <ul id="profile">
-          <li class="paddle"><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
-          <li class="paddle"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
-        </ul>
-      </div>
+      <ul id="nav">
+        <li class="paddle"><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>
+        <li class="paddle"><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
+        <li class="paddle"><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
+        <li class="paddle"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+      </ul>    
       <div id="header">
-        <h1>Paddle Me!</h1>
-        <ul id="nav">
-            <li class="paddle"><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>&nbsp;|&nbsp;
-            <li class="paddle"><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
-        </ul>
-      </div>       
+        <h1>-TE Pong!-</h1>
+      </div>
       <div id="button">
-        <router-link v-bind:to="{ name: 'createTournament' }">Create a Tournament!</router-link>
+        <router-link v-bind:to="{name:'createTournament'}" class="btn btn-nav">Create Tournament</router-link>
       </div>
-      </div>
-    
+      
+    </div>
     <router-view />
-    
   </div>
 </template>
 
@@ -34,19 +29,20 @@ name: 'app',
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 
 .top-nav {
-  height: 17vh;
+  height: 23vh;
 }
 
 #nav-bar {
     background-color: #00ADEE;
     overflow: hidden;   
     display: flex;
-    justify-content: space-between
+    align-items: center;
+    justify-content: space-between;
     
-
 }
 body {
   margin: 0px;
+  
 }
 h1 {
   font-size: 40px;
@@ -60,34 +56,28 @@ h3 {
 }
 
 #header {
+  
   display: flex;
   flex-direction: column;
+  align-items: center;
+  
 }
 
 li {
   margin: 5px;
 }
 
-#button {
-  display: flex;
-  align-items:flex-end;
-  margin: 30px;
+.btn-nav {
+  background-color: #FF6359;
+  margin: 1rem;
   
+
 }
-#user {
-  display: flex;
-  align-items:flex-end;
-  margin: 20px;
-}
-#profile {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0;
-}
+
 #nav {
-  display: flex;
-  align-items: center;
   list-style-type: none;
+  
+  
 }
 .paddle:before {
   content: '🏓';

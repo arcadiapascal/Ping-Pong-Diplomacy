@@ -36,19 +36,24 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #00ADEE;
+  background-color: #eee;
+  margin-top: 2rem;
 }
 
 button {
-  padding: 8px 16px;
-  border-radius: 8px;
+  padding: 8px 12px;
+  margin: 0.5rem;
+  border-radius: 4px;
   border: none;
   font-size: 16px;
-  background-color: #eee;
-  margin: 10px;
+  color: #fff;
+  font-weight: bold;
+  background-color: #71D96F;
+  border-spacing: 20px;
   cursor: pointer;
 }
-button.active {
-  background-color: #ccc;
+
+button:hover {
+  background-color: #4d565e;
 }
 </style>

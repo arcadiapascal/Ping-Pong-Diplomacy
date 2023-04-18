@@ -1,5 +1,6 @@
 <template>
   <div>
+    <h2>Top Players</h2>
     <div class="search-bar-container">
       <input v-model="searchQuery" type="text" placeholder="Search by username..." class="search-bar">
     </div>
@@ -13,7 +14,7 @@
       </div>
       <div v-for="(player, index) in sortedPlayers" :key="player.id" class="table-row">
         <div class="table-cell">{{ index+1 }}</div>
-        <div class="table-cell">{{ player.playerName }}</div>
+        <div class="table-cell">{{ player.userName }}</div>
         <div class="table-cell">{{ player.wins }}</div>
         <div class="table-cell">{{ player.losses }}</div>
         <div class="table-cell">{{ player.totalPoints }}</div>
@@ -74,6 +75,9 @@ export default {
     margin-bottom: 20px;
     width: 300px;
   }
+  h2 {
+    text-align: center;
+  }
 
   /* Table styles */
   .table-container {
@@ -83,12 +87,11 @@ export default {
   }
   .table-row {
     display: table-row;
-    background-color: #fff;
     border: 1px solid #ccc;
   }
   .header {
     font-weight: bold;
-    background-color: #eee;
+    background-color: #DAE8F2;
   }
   .table-cell {
     display: table-cell;
