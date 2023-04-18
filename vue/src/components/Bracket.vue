@@ -150,7 +150,7 @@ input[type="number"] {
 }
 
 button {
-  margin-top: 10px;
+  margin: 10px;
 }
 
 #output {

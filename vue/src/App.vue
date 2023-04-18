@@ -26,21 +26,7 @@ name: 'app',
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Quicksand:wght@300;400&display=swap');
-
-:root {
-  --primary-color: #00ADEE;
-  --complement-1-color: #4D565E;
-  --complement-2-color: #71D96F;
-  --complement-3-color: #FF6359;
-  --secondary-1-color: #DAE8F2;
-  --secondary-2-color: #2B4F60;
-  --secondary-3-color: #AB64EF;
-  --secondary-4-color: #FDD441;
-  --secondary-5-color: #556268;
-  --secondary-6-color: #999DA0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@700&family=Quicksand&display=swap');
 
 .top-nav {
   height: 23vh;
@@ -56,36 +42,21 @@ name: 'app',
 
 body {
   margin: 0px;
+  font-family: 'Quicksand', sans-serif;
 }
 
 h1 {
   font-size: 40px;
-  font-family: 'Poppins';
+  font-style: italic;
+  font-family: 'Poppins', sans-serif;
   margin: 10px;
 }
-
 h2 {
-  font-family: 'Quicksand';
+  font-family: 'Poppins', sans-serif;
 }
-
 h3 {
-  font-family: 'Poppins';
-}
-
-h4 {
-  font-family: 'Quicksand';
-}
-
-h5 {
-  font-family: 'Poppins';
-}
-
-h6 {
-  font-family: 'Quicksand';
-}
-
-p {
-  font-family: 'Poppins';
+  font-style: italic;
+  font-family: 'Poppins', sans-serif;
 }
 
 #header {
@@ -99,8 +70,11 @@ li {
 }
 
 .btn-nav {
-  background-color: var(--complement-3-color);
-  margin: 1rem;
+  background-color: #FF6359;
+  margin-right: 2rem;
+  margin-left: -3rem;
+  
+
 }
 
 #nav {
