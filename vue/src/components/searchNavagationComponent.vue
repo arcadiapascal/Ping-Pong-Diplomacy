@@ -14,7 +14,7 @@
 <script>
 import TournamentAndHostComponent from '../components/TournamentAndHostComponent.vue';
 import TeamComponent from './teamComponent.vue';
-import StatsComponent from '../components/statsComponent.vue'
+import StatsComponent from './statsComponent.vue'
 
 
 export default {

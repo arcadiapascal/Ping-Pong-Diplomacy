@@ -1,38 +1,41 @@
 <template>
   <div id="app">
-    <div id="nav-bar">
+    <div class= "top-nav" id="nav-bar">
       <div id="user">
-        <ul>
-          <li><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
-          <li><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+        <ul id="profile">
+          <li class="paddle"><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
+          <li class="paddle"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
         </ul>
       </div>
       <div id="header">
         <h1>Paddle Me!</h1>
-        <h3>Ping Pong Tournaments</h3>
-          <ul id="nav">
-            <li><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>&nbsp;|&nbsp;
-            <li><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
-          </ul>
+        <ul id="nav">
+            <li class="paddle"><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>&nbsp;|&nbsp;
+            <li class="paddle"><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
+        </ul>
       </div>       
       <div id="button">
         <router-link v-bind:to="{ name: 'createTournament' }">Create a Tournament!</router-link>
       </div>
       </div>
+    
     <router-view />
     
   </div>
 </template>
 
 <script>
-
 export default {
-name: 'app'
+name: 'app',
 }
 </script>
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+.top-nav {
+  height: 17vh;
+}
 
 #nav-bar {
     background-color: #00ADEE;
@@ -47,26 +50,20 @@ body {
 }
 h1 {
   font-size: 40px;
-  color: #4D565E;
   font-style: italic;
   font-family: 'Permanent Marker', cursive;
+  margin: 10px;
 }
 h3 {
-  color: #4D565E;
   font-style: italic;
   font-family: 'Permanent Marker', cursive;
 }
 
 #header {
-    
+  display: flex;
+  flex-direction: column;
 }
 
-ul {
-  list-style-type: none;
-  margin: 10px;
-  padding: 0;
-  
-}
 li {
   margin: 5px;
 }
@@ -74,17 +71,26 @@ li {
 #button {
   display: flex;
   align-items:flex-end;
-  margin: 20px;
+  margin: 30px;
   
 }
 #user {
   display: flex;
   align-items:flex-end;
   margin: 20px;
-
+}
+#profile {
+  list-style-type: none;
+  margin: 0px;
+  padding: 0;
 }
 #nav {
   display: flex;
   align-items: center;
+  list-style-type: none;
+}
+.paddle:before {
+  content: '🏓';
+  
 }
 </style>
