@@ -1,6 +1,7 @@
 <template>
 <div id="browse">
     <!-- <ping-pong-game/> -->
+    <router-link v-bind:to="{ name: 'playgame' }">play game</router-link>
     <search-navagation-component/>
     <!-- <bracket-generator/> -->
     <!-- <search-tournaments/> -->
