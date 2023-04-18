@@ -26,41 +26,72 @@ name: 'app',
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Quicksand:wght@300;400&display=swap');
+
+:root {
+  --primary-color: #00ADEE;
+  --complement-1-color: #4D565E;
+  --complement-2-color: #71D96F;
+  --complement-3-color: #FF6359;
+  --secondary-1-color: #DAE8F2;
+  --secondary-2-color: #2B4F60;
+  --secondary-3-color: #AB64EF;
+  --secondary-4-color: #FDD441;
+  --secondary-5-color: #556268;
+  --secondary-6-color: #999DA0;
+}
 
 .top-nav {
   height: 23vh;
 }
 
 #nav-bar {
-    background-color: #00ADEE;
-    overflow: hidden;   
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
+  background-color: var(--primary-color);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 body {
   margin: 0px;
-  
 }
+
 h1 {
   font-size: 40px;
-  font-style: italic;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Poppins';
   margin: 10px;
 }
+
+h2 {
+  font-family: 'Quicksand';
+}
+
 h3 {
-  font-style: italic;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Poppins';
+}
+
+h4 {
+  font-family: 'Quicksand';
+}
+
+h5 {
+  font-family: 'Poppins';
+}
+
+h6 {
+  font-family: 'Quicksand';
+}
+
+p {
+  font-family: 'Poppins';
 }
 
 #header {
-  
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 li {
@@ -68,19 +99,16 @@ li {
 }
 
 .btn-nav {
-  background-color: #FF6359;
+  background-color: var(--complement-3-color);
   margin: 1rem;
-  
-
 }
 
 #nav {
   list-style-type: none;
-  
-  
 }
+
 .paddle:before {
   content: '🏓';
-  
 }
+
 </style>
