@@ -19,7 +19,7 @@
             </select>
            <label for=" Tournament Registration Deadline">Registration Deadline</label>
            <input  type="date" v-model="Tournament.registrationDeadline"><br>
-           <label for=" Tournament Registration Deadline">Description</label>
+           <label for=" Tournament Description">Description</label>
            <input  type="text" v-model="Tournament.description"><br>
            <input type="submit" value="Submit">
        </form>
