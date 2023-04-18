@@ -1,5 +1,7 @@
 <template>
   <div class="bracket">
+     <h2>Round: {{ round }} </h2>
+     
     <div v-for="pair in filteredPairs" :key="pair[0].id" class="player-bracket">
       <!-- Generate a bracket for each pair of players -->
       <div class="participant">
@@ -20,26 +22,9 @@
         </div>
       </div>
     </div>
-    <table>
-      <thead>
-        <tr>
-          <th>Name</th>
-          <th>Wins</th>
-          <th>Losses</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="player in playersStats" :key="player.id">
-          <td>{{ player.playerName }}</td>
-          <td>{{ player.wins }}</td>
-          <td>{{ player.losses }}</td>
-        </tr>
-      </tbody>
-    </table>
-    <button @click="repopulateBracket()">Repopulate Bracket</button>
+    <button @click="repopulateBracket(), incrimentRound()">Repopulate Bracket</button>
   </div>
 </template>
-
 
 <script>
 import tournament from '../services/TournamentService';
@@ -49,7 +34,8 @@ export default {
       players: [],
       winners: [],
       losers: [],
-      playersStats: []
+      playersStats: [],
+      round: 1
     }
   },
 
@@ -95,10 +81,15 @@ losses: 0
 
 
 methods: {
+incrimentRound(){
+  this.round++;
+},
+
 addWinner(winningPlayer, losingPlayer) {
 // Update winning player's score and winner flag
 winningPlayer.score += 1;
 winningPlayer.winner = true;
+winningPlayer.wins +=1;
 
 
   // Update losing player's loser flag

@@ -29,21 +29,22 @@ name: 'app',
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@700&family=Quicksand&display=swap');
 
 .top-nav {
-  height: 17vh;
+  height: 23vh;
 }
 
 #nav-bar {
-    background-color: #00ADEE;
-    overflow: hidden;   
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    
+  background-color: var(--primary-color);
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
+
 body {
   margin: 0px;
   font-family: 'Quicksand', sans-serif;
 }
+
 h1 {
   font-size: 40px;
   font-style: italic;
@@ -59,11 +60,9 @@ h3 {
 }
 
 #header {
-  
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 }
 
 li {
@@ -80,11 +79,10 @@ li {
 
 #nav {
   list-style-type: none;
-  
-  
 }
+
 .paddle:before {
   content: '🏓';
-  
 }
+
 </style>
