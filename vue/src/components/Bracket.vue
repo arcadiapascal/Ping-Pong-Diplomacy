@@ -14,7 +14,7 @@
         <div v-for="(match, matchIndex) in tier" :key="matchIndex" class="match">
           <div class="team">
             {{ match.team1.name }} ({{ match.team1.score }})
-            <input v-model="match.team1.inputScore" type="number" min="0" max="100" />
+            <input v-model="match.team1.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team1')" />
             <table v-if="isTableVisible">
               <tr v-for="(game, index) in gameSeries" :key="index">
                 <td>
@@ -25,7 +25,7 @@
           </div>
           <div v-if="match.team2" class="team">
             {{ match.team2.name }} ({{ match.team2.score }})
-            <input v-model="match.team2.inputScore" type="number" min="0" max="100" />
+            <input v-model="match.team2.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team2')" />
             <table v-if="isTableVisible">
               <tr v-for="(game, index) in gameSeries" :key="index">
                 <td>
@@ -82,48 +82,29 @@ export default {
       this.bracket = tiers;
     },
     generateGameSeries(series) {
+      this.gameSeries = series;
       this.isTableVisible = true;
-      this.seriesGames = series;
-      this.gameSeries = Array.from({ length: series }, () => ({
-        team1Score: null,
-        team2Score: null
-      }));
-    },
-    updateScore(tierIndex, matchIndex, team) {
-      let match = this.bracket[tierIndex][matchIndex];
-      if (match[team].score < this.gameSeries && match.team1.score < this.gameSeries && match.team2) {
-        match[team].score += 1;
+      for (let i = 0; i < this.bracket.length - 1; i++) {
+        for (let j = 0; j < this.bracket[i].length; j++) {
+          this.bracket[i][j].team1.inputScore = null;
+          this.bracket[i][j].team2.inputScore = null;
+        }
       }
-      this.updateNextMatch(tierIndex, matchIndex);
     },
     updateScoreInput(tierIndex, matchIndex, team) {
-      let match = this.bracket[tierIndex][matchIndex];
-      let inputScore = match[team].inputScore;
-      if (inputScore !== null && !isNaN(inputScore) && inputScore >= 0 && inputScore <= 100) {
-        match[team].score = inputScore;
+      let score = this.bracket[tierIndex][matchIndex][team].inputScore;
+      if (score !== null && score !== undefined && score !== "") {
+        score = parseInt(score);
+        if (isNaN(score)) {
+          score = null;
+        }
       }
-      this.updateNextMatch(tierIndex, matchIndex);
-    },
-    updateNextMatch(tierIndex, matchIndex) {
-      let nextTierIndex = tierIndex + 1;
-      let nextMatchIndex = Math.floor(matchIndex / 2);
-
-      if (nextTierIndex >= this.bracket.length) {
-        return;
-      }
-
-      let nextMatch = this.bracket[nextTierIndex][nextMatchIndex];
-      let currentMatch = this.bracket[tierIndex][matchIndex];
-
-      if (nextMatch && nextMatch.team1 && !nextMatch.team2) {
-        nextMatch.team2 = currentMatch[currentMatch.team1.score > currentMatch.team2.score ? 'team1' : 'team2'];
-      }
-
-      this.updateNextMatch(nextTierIndex, nextMatchIndex);
+      this.bracket[tierIndex][matchIndex][team].score = score;
     }
   }
 };
 </script>
+
 <style scoped>
 /* Styles for the bracket display */
 .bracket {
