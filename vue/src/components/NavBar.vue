@@ -4,7 +4,8 @@
         <li class="paddle"><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>
         <li class="paddle"><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
         <li class="paddle"><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
-        <li class="paddle"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+        <li class="paddle" v-if="$store.state.token != ''"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
+        <li class="paddle" v-if="$store.state.token == ''"><router-link v-bind:to="{ name: 'login' }" v-if="$store.state.token == ''">Login</router-link></li>
       </ul>    
       <div id="header">
         <h1>-TE Pong!-</h1>
@@ -17,6 +18,7 @@
 
 <script>
 export default {
+    name: "nav-bar"
 
 }
 </script>
