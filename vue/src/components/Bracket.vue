@@ -14,32 +14,36 @@
         <div v-for="(match, matchIndex) in tier" :key="matchIndex" class="match">
           <div class="team">
             {{ match.team1.name }} ({{ match.team1.score }})
-            <input v-model.number="match.team1.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team1')" />
+            <input v-model="match.team1.inputScore" type="number" min="0" max="100" />
+            <table v-if="isTableVisible">
+              <tr v-for="(game, index) in gameSeries" :key="index">
+                <td>
+                  <input v-model="game.team2Score" type="number" min="0" max="100" />
+                </td>
+              </tr>
+            </table>
           </div>
           <div v-if="match.team2" class="team">
             {{ match.team2.name }} ({{ match.team2.score }})
-            <input v-model.number="match.team2.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team2')" />
+            <input v-model="match.team2.inputScore" type="number" min="0" max="100" />
+            <table v-if="isTableVisible">
+              <tr v-for="(game, index) in gameSeries" :key="index">
+                <td>
+                  <input v-model="game.team1Score" type="number" min="0" max="100" />
+                </td>
+                
+              </tr>
+            </table>
           </div>
         </div>
       </div>
     </div>
-    <!-- Add table structure here -->
-   <table v-if="isTableVisible">
-  <tr v-for="(game, index) in gameSeries" :key="index">
-    <td>
-      <input v-model.number="game.team1Score" type="number" min="0" max="100" />
-    </td>
-    <td>
-      <input v-model.number="game.team2Score" type="number" min="0" max="100" />
-    </td>
-  </tr>
-</table>
-</div>
+  </div>
 </template>
 
+
+
 <script>
-
-
 export default {
   data() {
     return {
@@ -47,7 +51,8 @@ export default {
       bracket: [],
       gameSeries: 1,
       bracketSizes: [4, 8, 16, 32],
-      gameSeriesOptions: [1, 3, 5, 7]
+      gameSeriesOptions: [1, 3, 5, 7],
+      isTableVisible: false
     };
   },
   methods: {
@@ -94,7 +99,7 @@ export default {
     updateScoreInput(tierIndex, matchIndex, team) {
       let match = this.bracket[tierIndex][matchIndex];
       let inputScore = match[team].inputScore;
-        if (inputScore !== null && !isNaN(inputScore) && inputScore >= 0 && inputScore <= 100) {
+      if (inputScore !== null && !isNaN(inputScore) && inputScore >= 0 && inputScore <= 100) {
         match[team].score = inputScore;
       }
       this.updateNextMatch(tierIndex, matchIndex);
@@ -119,64 +124,6 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.team {
-  cursor: pointer;
-}
-</style>
-
-
-
-
-
-
-
-     
-
-
-
-
-<style scoped>
-.h1 {
-  margin-top: 0;
-}
-
-.button {
-  margin-top: 10px;
-}
-
-.bracket {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tier {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.match {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.team {
-  cursor: pointer;
-  padding: 5px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-</style>
-
-
-
-
-
 <style scoped>
 /* Styles for the bracket display */
 .bracket {
@@ -200,7 +147,6 @@ export default {
   cursor: pointer;
 }
 </style>
-
 
 <style scoped>
 /* Add your CSS styles here */
@@ -283,443 +229,9 @@ button {
 
 
 
-     
-
-
-
-
-<style scoped>
-.h1 {
-  margin-top: 0;
-}
-
-.button {
-  margin-top: 10px;
-}
-
-.bracket {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tier {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.match {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.team {
-  cursor: pointer;
-  padding: 5px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-</style>
-
-
-
-
-
-<style scoped>
-/* Styles for the bracket display */
-.bracket {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.tier {
-  flex: 1;
-  padding: 20px;
-}
-
-.match {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.team {
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-</style>
-
-
-<style scoped>
-/* Add your CSS styles here */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
-h1 {
-  text-align: center;
-}
-
-label {
-  font-weight: bold;
-}
-
-input[type="number"] {
-  width: 80px;
-  margin-right: 10px;
-}
-
-button {
-  margin-top: 10px;
-}
-
-#output {
-  margin-top: 20px;
-  white-space: pre;
-  font-family: monospace;
-}
-
-.bracket {
-  display: flex;
-  flex-direction: row; /* Update to display bracket horizontally */
-  justify-content: center; /* Update to center align bracket horizontally */
-  align-items: center; /* Update to center align bracket vertically */
-}
-
-.tier {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 30px; /* Add margin between tiers */
-}
-
-.match {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px; /* Add margin between matches */
-}
-
-.team {
-  padding: 5px 10px;
-  background-color: #fff;
-  border: 1px solid #333;
-}
-
-.team::after {
-  content: "-";
-  margin-left: 10px;
-}
-
-.team:last-child::after {
-  content: "";
-}
-
-</style>
-
-<style scoped>
-.team {
-  cursor: pointer;
-}
-</style>
-
-
-
-
-
-
 
      
 
 
 
 
-<style scoped>
-.h1 {
-  margin-top: 0;
-}
-
-.button {
-  margin-top: 10px;
-}
-
-.bracket {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tier {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.match {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.team {
-  cursor: pointer;
-  padding: 5px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-</style>
-
-
-
-
-
-<style scoped>
-/* Styles for the bracket display */
-.bracket {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.tier {
-  flex: 1;
-  padding: 20px;
-}
-
-.match {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.team {
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-</style>
-
-
-<style scoped>
-/* Add your CSS styles here */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
-h1 {
-  text-align: center;
-}
-
-label {
-  font-weight: bold;
-}
-
-input[type="number"] {
-  width: 80px;
-  margin-right: 10px;
-}
-
-button {
-  margin-top: 10px;
-}
-
-#output {
-  margin-top: 20px;
-  white-space: pre;
-  font-family: monospace;
-}
-
-.bracket {
-  display: flex;
-  flex-direction: row; /* Update to display bracket horizontally */
-  justify-content: center; /* Update to center align bracket horizontally */
-  align-items: center; /* Update to center align bracket vertically */
-}
-
-.tier {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 30px; /* Add margin between tiers */
-}
-
-.match {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px; /* Add margin between matches */
-}
-
-.team {
-  padding: 5px 10px;
-  background-color: #fff;
-  border: 1px solid #333;
-}
-
-.team::after {
-  content: "-";
-  margin-left: 10px;
-}
-
-.team:last-child::after {
-  content: "";
-}
-
-</style>
-
-<style scoped>
-.team {
-  cursor: pointer;
-}
-</style>
-
-
-
-
-
-
-
-     
-
-
-
-
-<style scoped>
-.h1 {
-  margin-top: 0;
-}
-
-.button {
-  margin-top: 10px;
-}
-
-.bracket {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.tier {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.match {
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-}
-
-.team {
-  cursor: pointer;
-  padding: 5px;
-  border: 1px solid #000;
-  border-radius: 5px;
-  margin-right: 10px;
-}
-</style>
-
-
-
-
-
-<style scoped>
-/* Styles for the bracket display */
-.bracket {
-  display: flex;
-  flex-wrap: wrap;
-}
-
-.tier {
-  flex: 1;
-  padding: 20px;
-}
-
-.match {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.team {
-  margin-bottom: 10px;
-  cursor: pointer;
-}
-</style>
-
-
-<style scoped>
-/* Add your CSS styles here */
-body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f0f0;
-}
-
-h1 {
-  text-align: center;
-}
-
-label {
-  font-weight: bold;
-}
-
-input[type="number"] {
-  width: 80px;
-  margin-right: 10px;
-}
-
-button {
-  margin-top: 10px;
-}
-
-#output {
-  margin-top: 20px;
-  white-space: pre;
-  font-family: monospace;
-}
-
-.bracket {
-  display: flex;
-  flex-direction: row; /* Update to display bracket horizontally */
-  justify-content: center; /* Update to center align bracket horizontally */
-  align-items: center; /* Update to center align bracket vertically */
-}
-
-.tier {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-right: 30px; /* Add margin between tiers */
-}
-
-.match {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-bottom: 20px; /* Add margin between matches */
-}
-
-.team {
-  padding: 5px 10px;
-  background-color: #fff;
-  border: 1px solid #333;
-}
-
-.team::after {
-  content: "-";
-  margin-left: 10px;
-}
-
-.team:last-child::after {
-  content: "";
-}
-
-</style>
