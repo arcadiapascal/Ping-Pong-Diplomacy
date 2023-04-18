@@ -1,11 +1,14 @@
 package com.techelevator.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class Player {
 
     private int playerId;
+    @JsonProperty("userId")
     private int userId;
     @NotNull
     private String playerName;
@@ -20,7 +23,7 @@ public class Player {
     private int ranking;
     private int totalPoints;
     @NotNull
-    private char rightLeftHanded;
+    private char rightLeftHanded = 'R';
     @NotNull
     private String email;
     private String photoFile;
