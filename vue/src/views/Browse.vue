@@ -1,8 +1,8 @@
 <template>
 <div id="browse">
     <!-- <ping-pong-game/> -->
-    <!-- <search-navagation-component/> -->
-    <bracket-generator/>
+    <search-navagation-component/>
+    <!-- <bracket-generator/> -->
     <!-- <search-tournaments/> -->
     <!-- <stats-component/> -->
     <!-- <tournament-and-host-component/> -->
@@ -22,18 +22,18 @@
 
 <script>
 import tournamentService from "../services/TournamentService.js";
-import bracketGenerator from "../components/bracketGenerator.vue"
+// import bracketGenerator from "../components/bracketGenerator.vue"
 // import pingPongGame from "../components/pingPongGame.vue";
-// import searchNavagationComponent from '../components/searchNavagationComponent.vue';
+import searchNavagationComponent from '../components/searchNavagationComponent.vue';
 // import searchTournaments from "../components/SearchTournaments.vue";
 // import statsComponent from "../components/statsComponent.vue";
 // import tournamentAndHostComponent from "../components/TournamentAndHostComponent.vue";
 
 export default {
     components: {
-        bracketGenerator,
+        // bracketGenerator,
         // pingPongGame,
-        // searchNavagationComponent
+        searchNavagationComponent
         // searchTournaments,
         // statsComponent,
         // tournamentAndHostComponent
