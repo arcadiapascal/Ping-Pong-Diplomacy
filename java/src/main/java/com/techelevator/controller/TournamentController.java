@@ -123,7 +123,7 @@ public class TournamentController {
 
     // Add a player to a tournament
     @CrossOrigin
-    @RequestMapping(path = "/tournaments/{id}/players", method = RequestMethod.POST)
+    @RequestMapping(path = "/tournaments/{tournamentId}/players", method = RequestMethod.POST)
     public void addPlayerToTournament(@PathVariable int id, @RequestBody Player player) throws SQLException {
         tournamentDao.addPlayerToTournament(id, player.getPlayerId());
     }
@@ -269,6 +269,7 @@ public class TournamentController {
 
     // PLAYER METHODS
     // Create a new player
+    @CrossOrigin
     @PostMapping("/players/create")
     public ResponseEntity<String> addPlayer(@RequestBody Player player) {
         try {

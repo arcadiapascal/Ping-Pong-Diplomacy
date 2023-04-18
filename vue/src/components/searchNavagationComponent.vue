@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>PADDLE ME?</h1>
+    <h1>PADDLE ME</h1>
     <div class="row">
       <div class="button-container">
         <button @click="activeComponent = 'TournamentAndHostComponent'" :class="{ active: activeComponent === 'TournamentAndHostComponent' }">Tournaments</button>
@@ -15,7 +15,7 @@
 <script>
 import TournamentAndHostComponent from '../components/TournamentAndHostComponent.vue';
 import TeamComponent from './teamComponent.vue';
-import StatsComponent from '../components/statsComponent.vue'
+import StatsComponent from './statsComponent.vue'
 
 
 export default {

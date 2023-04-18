@@ -25,7 +25,7 @@ CREATE TABLE player
     win_percentage numeric(3,2),
     ranking int,
     total_points int,
-    right_left_handed CHAR(1) CHECK (right_left_handed IN ('R', 'L')) NOT NULL,
+    right_left_handed varchar(3) CHECK (right_left_handed IN ('R', 'L')),
     email varchar(64) NOT NULL,
     photo_file varchar (255),
     photo OID,
