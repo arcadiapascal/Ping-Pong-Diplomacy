@@ -52,6 +52,7 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   font-family: inherit;
   padding: 20px;
+  height: 27vh;
 }
 
 .profile-header{
@@ -66,7 +67,7 @@ export default {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 1rem 1rem;
   border: none;
   border-radius: 0.25rem;
   text-align: center;
@@ -74,7 +75,7 @@ export default {
   font-size: 1rem;
   font-weight: bold;
   color: #fff;
-  background-color: #FF6359;
+  background-color: #00ADEE;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease-in-out;
 }

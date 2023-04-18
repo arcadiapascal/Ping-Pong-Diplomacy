@@ -68,8 +68,8 @@ export default {
   position: relative;
   margin: 0 auto;
   width: 100%;
-  max-width: 1140px;
-  height: 400px;
+  max-width: 100vh;
+  height: 40vh;
   background-color: #DAE8F2;
   border-radius: 10px;
   box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
