@@ -265,6 +265,7 @@ public class TournamentController {
 
     // PLAYER METHODS
     // Create a new player
+    @CrossOrigin
     @PostMapping("/players/create")
     public ResponseEntity<String> addPlayer(@RequestBody Player player) {
         try {
