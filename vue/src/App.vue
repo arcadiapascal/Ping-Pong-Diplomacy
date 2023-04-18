@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-    <div id="header">
-      <h1>Paddle Me!</h1>
-      <h3>Ping Pong Tournaments</h3>
-    </div>
+    
     <div id="nav-bar">
       <div id="user">
         <ul id="profile">
