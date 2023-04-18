@@ -40,9 +40,4 @@ export default {
     createPlayer(player){
         return axios.post(`/players/create`,player)              
     }
-
-    
-
-
-
 }
