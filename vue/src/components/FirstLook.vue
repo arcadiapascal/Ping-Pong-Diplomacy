@@ -16,7 +16,7 @@ export default {
 
 <style>
 .container {
-  height: 100vh;
+  height: 75vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
