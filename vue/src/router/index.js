@@ -14,6 +14,7 @@ import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
 import PlayerForm  from '../views/PlayerForm.vue'
 import EditMyProfile from "../views/EditMyProfile.vue"
+import bracketGenerator from "../components/bracketGenerator.vue"
 
 
 // eslint-disable-next-line no-unused-vars
@@ -127,6 +128,14 @@ const router = new Router({
     path: "/usertournament",
     name: "userTournament",
     component: UserTournament,
+    meta: {
+      requiresAuth: false
+    }
+  },
+  {
+    path: "/playgame",
+    name: "playgame",
+    component: bracketGenerator,
     meta: {
       requiresAuth: false
     }
