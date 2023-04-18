@@ -66,7 +66,7 @@ methods: {
               this.player.userId = this.$store.state.user.id
               ProfileService.createPlayer(this.player).then(response => {
                 if(response.status === 201){
-                  this.$router.push(`/`);
+                  this.$router.push(`/home`);
                 }
               }).catch(error => {
           if (error.response.status === 404) {
@@ -87,13 +87,63 @@ methods: {
 
 <style>
 #player-reg {
-  text-align: center;
-  margin: 25px;
-  
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 40px 0;
 }
 
-input {
-  margin: 10px;
+#player-reg form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 20px 0;
 }
 
+#player-reg label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+#player-reg input[type="text"] {
+  padding: 10px;
+  border-radius: 4px;
+  border: 1px solid #dadce0;
+  width: 350px;
+  font-size: 16px;
+  margin-bottom: 20px;
+}
+
+#player-reg button[type="submit"] {
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+  background-color: #1a73e8;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+#player-reg button[type="submit"]:hover {
+  background-color: #0d47a1;
+}
+
+#player-reg div {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+#player-reg div label {
+  margin-right: 10px;
+}
+
+@media only screen and (max-width: 600px) {
+  #player-reg input[type="text"] {
+    width: 100%;
+  }
+}
 </style>
