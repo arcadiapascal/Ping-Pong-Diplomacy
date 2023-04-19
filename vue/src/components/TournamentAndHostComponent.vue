@@ -5,8 +5,9 @@
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
     <div class="tournament-cards-container">
-      <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
+      <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="{ backgroundImage: tournament.image ? 'url(' + tournament.image + ')' : tournamentPhotoStyle }">
         <h3>{{ tournament.name }}</h3>
+        <button @click="joinTournament(tournament.tournamentId)">Join Tournament!</button>
         <p class="tournament-description">{{ tournament.description }}</p>
         <div class="tournament-details">
           <div>
@@ -16,35 +17,29 @@
             <p><strong>DATE &amp; LOCATION:</strong> {{ tournament.date }}, {{ tournament.location }}</p>
           </div>
         </div>
-        <button v-on:click="joinTournament">Join Tournament!</button>
       </div>
     </div>
   </div>
 </template>
-
 <script>
 import tournament from '../services/TournamentService.js';
 import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
 import profileService from '../services/ProfileService.js';
-
-
-// import store from '../store';
 export default {
   data() {
     return {
       tournamentLister: [],
       tournamentSearchTerm: '',
-      players: [] 
-      
+      players: [],
     };
   },
   created() {
     tournament.listTournaments().then((response) => {
       this.tournamentLister = response.data;
     });
-    profileService.getPlayers().then((response => {
-        this.players = response.data;
-      }));
+    profileService.getPlayers().then((response) => {
+      this.players = response.data;
+    });
   },
   computed: {
     tournamentsToShow() {
@@ -54,7 +49,7 @@ export default {
         return this.tournamentLister.filter((tournament) =>
           tournament.name.toLowerCase().includes(this.tournamentSearchTerm.toLowerCase())
         );
-      } 
+      }
     },
     tournamentPhotoStyle() {
       return {
@@ -62,33 +57,29 @@ export default {
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         color: 'black'
-      }
-    }
+      };
+    },
   },
   methods: {
-    joinTournament(id, player) {
-       
-       const currentPlayer = this.$store.state.user.id;
-      for(let i = 0; i < this.players.length; i++){
-        if(this.players[i].userId === currentPlayer){
-          player = this.players[i];
-        }
+    joinTournament(id) {
+      const currentPlayer = this.players.find((player) => player.userId === this.$store.state.user.id);
+      if (currentPlayer) {
+        tournament.addPlayerToTournament(id, currentPlayer).then(() => {
+          alert('You have joined the tournament!');
+        }).catch((error) => {
+          alert('Failed to join tournament: ' + error.message);
+        });
+      } else {
+        alert('You are not a registered player');
       }
-      
-      tournament.addPlayerToTournament(player.userId, player).then(() => {
-        
-        alert('You have joined the tournament!');
-      }).catch((error) => {
-       
-        alert('Failed to join tournament: ' + error.message);
-      }); 
     }
   }
 };
 </script>
+
 <style scoped>
 
-.heading {
+/* .heading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -178,6 +169,6 @@ export default {
 
 .tournament-details div:first-child p {
   margin-right: 16px;
-}
+} */
 
 </style>

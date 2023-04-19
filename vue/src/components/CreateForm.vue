@@ -4,24 +4,24 @@
       <div class="form-left">
         <label for="Tournament Name">Tournament Name</label>
         <input type="text" v-model="Tournament.name" /><br />
+        <label for=" Tournament Description">Description</label>
+           <input  type="text" v-model="Tournament.description"><br>
         <label for="Tournament Location">Location</label>
         <input class="author-input" type="text" v-model="Tournament.location" /><br />
         <label for="Tournament Address">Address</label>
         <input type="text" v-model="Tournament.address" /><br />
       </div>
       <div class="form-right">
-        <label for="Tournament Date">Date</label>
-        <input type="datetime-local" v-model="Tournament.tournamentDate" /><br />
         <label for="Tournament Skill Level">Skill Level</label>
         <select required name="category" v-model="Tournament.skillLevel">
           <option value="Novice">Novice</option>
           <option value="Intermediate">Intermediate</option>
           <option value="Advanced">Advanced</option>
         </select>
+        <label for="Tournament Date">Date</label>
+        <input type="datetime-local" v-model="Tournament.tournamentDate" /><br />
            <label for=" Tournament Registration Deadline">Registration Deadline</label>
            <input  type="date" v-model="Tournament.registrationDeadline"><br>
-           <!-- <label for=" Tournament Description">Description</label>
-           <input  type="text" v-model="Tournament.description"><br> -->
            <input type="submit" value="Submit">
       </div>
        </form>
@@ -40,11 +40,12 @@ export default {
             name: "", 
             location:"",
             address:"",
-            date:"",
+            tournamentDate:"",
             skillLevel:"",
             registrationDeadline:"",
             description: "",
             active: true,
+            numberOfPlayers: null,
             players: []
         },
         
