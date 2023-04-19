@@ -33,13 +33,11 @@ players: [],
 searchQuery: '',
 };
 },
-
 mounted() {
 tournament.getPlayers().then((response) => {
 this.players = response.data;
 });
 },
-
 computed: {
 sortedPlayers() {
 if (this.searchQuery === '') {
@@ -66,14 +64,12 @@ return this.players.filter(player => player.playerName.toLowerCase().includes(th
     margin: 0;
     padding: 0;
   }
-  
   /* Header styles */
   h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
   }
-
   /* Search bar styles */
   .search-bar-container {
     display: flex;
@@ -91,7 +87,6 @@ return this.players.filter(player => player.playerName.toLowerCase().includes(th
     font-size: 1.2rem;
     outline: none;
   }
-
   /* Table styles */
   .table-container {
     display: table;
@@ -116,7 +111,6 @@ return this.players.filter(player => player.playerName.toLowerCase().includes(th
     text-align: center;
     margin-top: 20px;
   }
-
   /* New styles for the World Table Tennis website */
   .players-table {
     width: 100%;

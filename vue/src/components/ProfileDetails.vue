@@ -45,13 +45,19 @@ export default {
 </script>
 
 <style scoped>
+
+.profile-details {
+    width: 33vh;
+}
+
 .profile-box {
   background-color: #fff;
-  width: 33vh;
+  /* width: 33vh; */
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   font-family: inherit;
   padding: 20px;
+  margin: 1vh;
   height: 27vh;
 }
 

@@ -6,10 +6,10 @@
         <div class="description">
           <p>{{ tournament.description }}</p>
           <ul>
-            <li>Players: {{ tournament.numberOfPlayers }}</li>
-            <li>Date: {{ formatDate(tournament.tournamentDate) }}</li>
-            <li>Location: {{ tournament.address }}, {{ tournament.location }}</li>
-            <li>Skill: {{ tournament.skillLevel }}</li>
+            <li><strong>Players: </strong>{{ tournament.numberOfPlayers }}</li>
+            <li><strong>Date: </strong>{{ tournament.tournamentDate | formatDate }}</li>
+            <li><strong>Location: </strong>{{ tournament.address }}, {{ tournament.location }}</li>
+            <li><strong>Skill: </strong>{{ tournament.skillLevel }}</li>
           </ul>
         </div>
         <div class="btn-container">
@@ -31,12 +31,14 @@ import tournament from '../services/TournamentService.js';
 
 export default {
   name: 'TournamentCarousel',
+
   data() {
     return {
       tournaments: [],
       currentIndex: 0
     };
   },
+
   computed: {
     activeTournament() {
       return this.tournaments[this.currentIndex];
@@ -47,6 +49,7 @@ export default {
         this.tournaments = response.data;
     })
   },
+
   methods: {
     prevTournament() {
       this.currentIndex = (this.currentIndex === 0) ? this.tournaments.length - 1 : this.currentIndex - 1;
@@ -58,7 +61,20 @@ export default {
       const options = { year: 'numeric', month: 'long', day: 'numeric' };
       return new Date(date).toLocaleDateString('en-US', options);
     }
+  },
+
+  filters: {
+  formatDate(value) {
+    const date = new Date(value);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes();
+    const amPm = date.getHours() < 12 ? 'AM' : 'PM';
+    return `${month}/${day}/${year} ${hours}:${minutes < 10 ? '0' + minutes : minutes} ${amPm}`;
   }
+}
 }
 </script>
 
@@ -80,12 +96,6 @@ export default {
   align-items: center;
 }
 
-.carousel-inner {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
 .carousel-inner > div {
   position: absolute;
   top: 0;
@@ -95,10 +105,6 @@ export default {
   opacity: 0;
   transition: opacity 0.6s ease-in-out;
   background-color: #f5f5f5;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
   text-align: center;
 }
 
@@ -148,6 +154,25 @@ export default {
   color: #000000;
 }
 
+.carousel-inner .btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #71D96F;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+  }
+  .carousel-inner .btn:hover {
+    background-color: #4d565e;
+  }
+
 .carousel-control-prev,
 .carousel-control-next {
   position: absolute;
@@ -156,7 +181,7 @@ export default {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: #00ADEE;
+  background-color: #71D96F;
   color: #4D565E;
   text-align: center;
   font-size: 1.5rem;
@@ -168,10 +193,9 @@ export default {
   align-items: center;
 }
 
-
 .carousel-control-prev:hover,
 .carousel-control-next:hover {
-  background-color: #71D96F;
+  background-color: #4d565e;
   color: #DAE8F2;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.3);
 }
