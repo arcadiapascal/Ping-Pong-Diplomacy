@@ -113,14 +113,22 @@ methods: {
 }
 
 .new-tournament-form input[type="submit"] {
-  background-color: #00adee;
-  color: #fff;
-  padding: 10px 15px;
+display: inline-block;
+  padding: 1rem 2rem;
   border: none;
-  border-radius: 4px;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #00ADEE;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
   cursor: pointer;
   font-size: 16px;
-  margin-top: 20px; /* Add margin to the submit button to separate it from the other fields */
+  margin-top: 20px;
+  width: 100%;
 }
 
 label {
@@ -144,17 +152,22 @@ select {
 }
 
 input[type="submit"] {
-  background-color: #00adee;
-  color: #fff;
-  padding: 10px 15px;
+  display: inline-block;
+  padding: 1rem 2rem;
   border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  font-size: 16px;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #00ADEE;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
 }
 
 input[type="submit"]:hover {
-  background-color: #2b4f60;
+  background-color: #4d565e;
 }
 
 .new-tournament-form select {
