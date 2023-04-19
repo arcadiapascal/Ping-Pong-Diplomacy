@@ -124,8 +124,8 @@ public class TournamentController {
     // Add a player to a tournament
     @CrossOrigin
     @RequestMapping(path = "/tournaments/{tournamentId}/players", method = RequestMethod.POST)
-    public void addPlayerToTournament(@PathVariable int id, @RequestBody Player player) throws SQLException {
-        tournamentDao.addPlayerToTournament(id, player.getPlayerId());
+    public void addPlayerToTournament(@PathVariable int tournamentId, @RequestBody Player player) throws SQLException {
+        tournamentDao.addPlayerToTournament(tournamentId, player.getPlayerId());
     }
 
     // Remove a player from a tournament
@@ -134,17 +134,17 @@ public class TournamentController {
         tournamentDao.removePlayerFromTournament(id, playerId);
     }
 
-    // *Add a team to a tournament
-    @RequestMapping(path = "/tournaments/{id}/teams", method = RequestMethod.POST)
-    public void addTeamToTournament(@PathVariable int id, @RequestBody Team team) throws SQLException {
-        tournamentDao.addTeamToTournament(id, team.getId());
-    }
-
-    // *Remove a team from a tournament
-    @RequestMapping(path = "/tournaments/{id}/teams/{teamId}", method = RequestMethod.DELETE)
-    public void removeTeamFromTournament(@PathVariable int id, @PathVariable int teamId) throws SQLException {
-        tournamentDao.removeTeamFromTournament(id, teamId);
-    }
+//    // *Add a team to a tournament
+//    @RequestMapping(path = "/tournaments/{id}/teams", method = RequestMethod.POST)
+//    public void addTeamToTournament(@PathVariable int id, @RequestBody Team team) throws SQLException {
+//        tournamentDao.addTeamToTournament(id, team.getId());
+//    }
+//
+//    // *Remove a team from a tournament
+//    @RequestMapping(path = "/tournaments/{id}/teams/{teamId}", method = RequestMethod.DELETE)
+//    public void removeTeamFromTournament(@PathVariable int id, @PathVariable int teamId) throws SQLException {
+//        tournamentDao.removeTeamFromTournament(id, teamId);
+//    }
 
 
     // TEAM METHODS
@@ -280,17 +280,17 @@ public class TournamentController {
         }
     }
 
-    // ADDS A PLAYER TO A TEAM
-    @PostMapping("/teams/{teamId}/players")
-    public void addPlayerToTeam(@PathVariable int teamId, @RequestBody Player player) throws SQLException {
-        teamDao.addPlayerToTeam(teamId, player.getPlayerId());
-    }
-
-    // REMOVE PLAYER FROM TEAM
-    @DeleteMapping("/teams/{teamId}/players/{playerId}")
-    public void removePlayerFromTeam(@PathVariable int teamId, @PathVariable int playerId) throws SQLException {
-        teamDao.removePlayerFromTeam(teamId, playerId);
-    }
+//    // ADDS A PLAYER TO A TEAM
+//    @PostMapping("/teams/{teamId}/players")
+//    public void addPlayerToTeam(@PathVariable int teamId, @RequestBody Player player) throws SQLException {
+//        teamDao.addPlayerToTeam(teamId, player.getPlayerId());
+//    }
+//
+//    // REMOVE PLAYER FROM TEAM
+//    @DeleteMapping("/teams/{teamId}/players/{playerId}")
+//    public void removePlayerFromTeam(@PathVariable int teamId, @PathVariable int playerId) throws SQLException {
+//        teamDao.removePlayerFromTeam(teamId, playerId);
+//    }
 
     // Get all players
     @CrossOrigin
