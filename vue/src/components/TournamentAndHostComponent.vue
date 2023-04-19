@@ -25,6 +25,7 @@
 <script>
 import tournament from '../services/TournamentService.js';
 import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
+import profileService from '../services/ProfileService.js';
 
 
 // import store from '../store';
@@ -33,7 +34,7 @@ export default {
     return {
       tournamentLister: [],
       tournamentSearchTerm: '',
-      player: this.$store.state.player
+      players: [] 
       
     };
   },
@@ -41,6 +42,9 @@ export default {
     tournament.listTournaments().then((response) => {
       this.tournamentLister = response.data;
     });
+    profileService.getPlayers().then((response => {
+        this.players = response.data;
+      }));
   },
   computed: {
     tournamentsToShow() {
@@ -63,9 +67,15 @@ export default {
   },
   methods: {
     joinTournament(id, player) {
-      id = 1;
+       
+       const currentPlayer = this.$store.state.user.id;
+      for(let i = 0; i < this.players.length; i++){
+        if(this.players[i].userId === currentPlayer){
+          player = this.players[i];
+        }
+      }
       
-      tournament.addPlayerToTournament(id, player).then(() => {
+      tournament.addPlayerToTournament(player.userId, player).then(() => {
         
         alert('You have joined the tournament!');
       }).catch((error) => {
@@ -76,7 +86,6 @@ export default {
   }
 };
 </script>
-
 <style scoped>
 .search-bar-container {
   display: flex;

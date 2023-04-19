@@ -2,9 +2,8 @@
   <div>
     <div class="row">
       <div class="button-container">
-        <button @click="activeComponent = 'TournamentAndHostComponent'" :class="{ active: activeComponent === 'TournamentAndHostComponent' }">Tournaments</button>
-        <button @click="activeComponent = 'StatsComponent'" :class="{ active: activeComponent === 'StatsComponent' }">Players</button>
-        <button @click="activeComponent = 'TeamComponent'" :class="{ active: activeComponent === 'TeamComponent' }">Teams</button>
+        <button v-if="activeComponent === 'StatsComponent'" @click="activeComponent = 'TournamentAndHostComponent'" :class="{ active: activeComponent === 'TournamentAndHostComponent' }">Click to see upcoming Tournaments!</button>
+        <button v-if="activeComponent === 'TournamentAndHostComponent'" @click="activeComponent = 'StatsComponent'" :class="{ active: activeComponent === 'StatsComponent' }">Click to see a our top players!</button>
       </div>
     </div>
     <component :is="activeComponent"/>
@@ -13,7 +12,7 @@
 
 <script>
 import TournamentAndHostComponent from '../components/TournamentAndHostComponent.vue';
-import TeamComponent from './teamComponent.vue';
+// import TeamComponent from './teamComponent.vue';
 import StatsComponent from './statsComponent.vue'
 
 
@@ -21,7 +20,7 @@ export default {
   components: {
     TournamentAndHostComponent,
     StatsComponent,
-    TeamComponent
+    // TeamComponent
   },
   data() {
     return {
@@ -36,7 +35,7 @@ export default {
   display: flex;
   flex-direction: row;
   justify-content: center;
-  background-color: #eee;
+  background-color: white;
   margin-top: 2rem;
 }
 
@@ -46,14 +45,16 @@ button {
   border-radius: 4px;
   border: none;
   font-size: 16px;
-  color: #fff;
+  color: white;
   font-weight: bold;
-  background-color: #71D96F;
+  background-color: #00ADEE;
   border-spacing: 20px;
   cursor: pointer;
+  width: 2000px;
 }
 
 button:hover {
-  background-color: #4d565e;
+  background-color: #6f777a;
+  opacity: 80%;
 }
 </style>
