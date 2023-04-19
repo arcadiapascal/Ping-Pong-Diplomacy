@@ -4,21 +4,6 @@
     <div class="search-bar-container">
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
-      <h1>{{ tournament.name }} </h1>
-      <p class="tournament-description">{{ tournament.description }}</p>
-      <div class="tournament-details">
-        <div>
-          <p><strong>LEVEL:</strong> {{ tournament.skillLevel }}</p>
-        </div>
-        <div>
-          <p><strong class="location">LOCATION:</strong> {{ tournament.location }}</p>
-          <p><strong class="date">Date:</strong> {{ tournament.tournamentDate.slice(0, 10) }} </p>
-=======
-=======
->>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
     <div class="tournament-cards-container">
       <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
         <h3>{{ tournament.name }}</h3>
@@ -30,10 +15,6 @@
           <div>
             <p><strong>DATE &amp; LOCATION:</strong> {{ tournament.date }}, {{ tournament.location }}</p>
           </div>
-<<<<<<< HEAD
->>>>>>> 211dcf0f15c4c9661b18f89036d0ccd14d82e654
-=======
->>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
         </div>
         <button v-on:click="joinTournament">Join Tournament!</button>
       </div>
@@ -106,136 +87,6 @@ export default {
 };
 </script>
 <style scoped>
-<<<<<<< HEAD
-<<<<<<< HEAD
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
-
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 2rem;
-  }
-
-  .search-bar {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    font-size: 1.2rem;
-    outline: none;
-  }
-
-  .tournament-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 98%;
-    height: 300px;
-    border: 1px solid #e3e3e3;
-    padding: 16px;
-    margin-bottom: 24px;
-    background-color: #fff;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
-
-  .tournament-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  }
-
-  .tournament-card h1 {
-    margin: 0;
-    font-size: 70px;
-    font-weight: bold;
-    color: #00ADEE;
-    font-family: inherit;
-  }
-
-  .tournament-description {
-    font-size: 40px;
-    color: grey;
-    margin-bottom: 8px;
-    font-family: inherit;
-  }
-
-  .tournament-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .tournament-details div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .tournament-details div p {
-    margin: 0;
-    font-size: 20px;
-    font-weight: bold;
-    color: #00ADEE;
-    font-family: inherit;
-  }
-
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 2rem;
-  }
-
-  .search-bar {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    font-size: 1.2rem;
-    outline: none;
-  }
-
-  .location {
-    text-align: center;
-    font-weight: bold;
-  }
-
-  .date {
-    text-align: center;
-    font-weight: bold;
-  }
-
-  button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #00ADEE;
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  button:hover {
-    background-color: #008bbd;
-  }
-
-</style>
-=======
-=======
->>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
 .search-bar-container {
   display: flex;
   justify-content: center;
@@ -320,9 +171,4 @@ export default {
   margin-right: 16px;
 }
 
-<<<<<<< HEAD
 </style>
->>>>>>> 211dcf0f15c4c9661b18f89036d0ccd14d82e654
-=======
-</style>
->>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
