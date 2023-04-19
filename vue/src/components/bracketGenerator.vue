@@ -1,7 +1,6 @@
 <template>
   <div class="bracket">
      <h2>Round: {{ round }} </h2>
-     
     <div v-for="pair in filteredPairs" :key="pair[0].id" class="player-bracket">
       <!-- Generate a bracket for each pair of players -->
       <div class="participant">
@@ -27,10 +26,12 @@
 </template>
 
 <script>
+// import profileService from '../services/ProfileService'
 import tournament from '../services/TournamentService';
 export default {
   data() {
     return {
+
       players: [],
       winners: [],
       losers: [],
@@ -38,9 +39,33 @@ export default {
       round: 1
     }
   },
-
-
+  
   computed: {
+// updateThis(){
+  
+//     if(this.winners !== null){
+     
+//     for(let i = 0; i <= this.winners.length; i++){
+//       const player = {
+//         id: this.winners[i].id,
+//         userId: this.winners[i].userId,
+//         name: this.winners[i].playerName,
+//         wins: this.winners[i].wins + 1,
+//         author: this.winners[i].userId,
+//         avatar: this.winners[i].stateAbbrev,
+//         content: this.winners[i].rightLeftHanded,
+//         lastOpened: this.winners[i].email,
+//     profileService.update(player.id, player).then((response) => {
+//       if(response.status === 200){
+//         alert("wINNER INCRIMENTED!")
+//       }
+//     });
+//      }
+//     }
+  // }
+// },
+
+
     pairs() {
       // Generate pairs of players from remaining players or winners
       const remainingPlayers = this.players.filter(player => !player.winner && !player.loser);
