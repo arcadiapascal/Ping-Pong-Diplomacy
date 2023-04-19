@@ -142,7 +142,7 @@ export default {
     padding: 0.5rem 1.5rem;
     font-size: 1.2rem;
     color: #fff;
-    background-color: #4CAF50;
+    background-color: #00adee;
     border: none;
     border-radius: 0.3rem;
     cursor: pointer;
@@ -150,7 +150,7 @@ export default {
   }
 
   button[type="submit"]:hover {
-    background-color: #5cbf62;
+    background-color: #4d565e;
   }
 
   #register {
@@ -176,7 +176,7 @@ export default {
   }
 
   router-link {
-    color: #4CAF50;
+    color: #00adee;
   }
 
   router-link:hover {
@@ -190,5 +190,4 @@ export default {
     font-weight: bold;
   }
 </style>
-
 

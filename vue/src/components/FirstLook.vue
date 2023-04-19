@@ -21,7 +21,7 @@ export default {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #dae8f2;
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
 }
 
 .title {
