@@ -5,6 +5,7 @@
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
       <h1>{{ tournament.name }} </h1>
       <p class="tournament-description">{{ tournament.description }}</p>
@@ -16,6 +17,8 @@
           <p><strong class="location">LOCATION:</strong> {{ tournament.location }}</p>
           <p><strong class="date">Date:</strong> {{ tournament.tournamentDate.slice(0, 10) }} </p>
 =======
+=======
+>>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
     <div class="tournament-cards-container">
       <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
         <h3>{{ tournament.name }}</h3>
@@ -27,7 +30,10 @@
           <div>
             <p><strong>DATE &amp; LOCATION:</strong> {{ tournament.date }}, {{ tournament.location }}</p>
           </div>
+<<<<<<< HEAD
 >>>>>>> 211dcf0f15c4c9661b18f89036d0ccd14d82e654
+=======
+>>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
         </div>
         <button v-on:click="joinTournament">Join Tournament!</button>
       </div>
@@ -100,6 +106,7 @@ export default {
 };
 </script>
 <style scoped>
+<<<<<<< HEAD
 <<<<<<< HEAD
   body {
     font-family: Arial, sans-serif;
@@ -227,6 +234,8 @@ export default {
 
 </style>
 =======
+=======
+>>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
 .search-bar-container {
   display: flex;
   justify-content: center;
@@ -311,5 +320,9 @@ export default {
   margin-right: 16px;
 }
 
+<<<<<<< HEAD
 </style>
 >>>>>>> 211dcf0f15c4c9661b18f89036d0ccd14d82e654
+=======
+</style>
+>>>>>>> 12be14064ed7c83b20c5b9bd7743bfdb82067048
