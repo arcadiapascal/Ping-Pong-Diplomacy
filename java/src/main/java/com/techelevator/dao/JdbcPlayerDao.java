@@ -47,7 +47,7 @@ public class JdbcPlayerDao implements PlayerDao {
         String sql = "UPDATE player SET user_id = ?, player_name = ?, age = ?, city = ?, " +
                 "state_abbrev = ?, wins = ?, losses = ?, win_percentage = ?, ranking = ?, " +
                 "total_points = ?, right_left_handed = ?, email = ?, photo_file = ?, photo = ? " +
-                "WHERE player_id = ?";
+                "WHERE user_id = ?";
         jdbcTemplate.update(sql, player.getUserId(), player.getPlayerName(), player.getAge(),
                 player.getCity(), player.getStateAbbrev(), player.getWins(), player.getLosses(),
                 player.getWinPercentage(), player.getRanking(), player.getTotalPoints(),
