@@ -1,22 +1,23 @@
 <template>
   <div>
-    <h1>Tournament's</h1>
+    <h1>Tournaments</h1>
     <div class="search-bar-container">
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
-    <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
-      <h1>{{ tournament.name }} </h1>
-      <p class="tournament-description">{{ tournament.description }}</p>
-      <div class="tournament-details">
-        <div>
-          <p><strong>LEVEL:</strong> {{ tournament.skillLevel }}</p>
+    <div class="tournament-cards-container">
+      <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="tournament.image ? { backgroundImage: 'url(' + tournament.image + ')' } : tournamentPhotoStyle">
+        <h3>{{ tournament.name }}</h3>
+        <p class="tournament-description">{{ tournament.description }}</p>
+        <div class="tournament-details">
+          <div>
+            <p><strong>LEVEL:</strong> {{ tournament.skillLevel }}</p>
+          </div>
+          <div>
+            <p><strong>DATE &amp; LOCATION:</strong> {{ tournament.date }}, {{ tournament.location }}</p>
+          </div>
         </div>
-        <div>
-          <p><strong class="location">LOCATION:</strong> {{ tournament.location }}</p>
-          <p><strong class="date">Date:</strong> {{ tournament.tournamentDate.slice(0, 10) }} </p>
-        </div>
+        <button v-on:click="joinTournament">Join Tournament!</button>
       </div>
-      <button v-on:click="joinTournament">Join Tournament!</button>
     </div>
   </div>
 </template>
@@ -86,128 +87,88 @@ export default {
 };
 </script>
 <style scoped>
-  body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-  }
+.search-bar-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 2rem;
+}
 
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 2rem;
-  }
+.search-bar {
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  width: 300px;
+  font-size: 1.2rem;
+  outline: none;
+}
 
-  .search-bar {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    font-size: 1.2rem;
-    outline: none;
-  }
+.tournament-cards-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+}
 
-  .tournament-card {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    width: 98%;
-    height: 300px;
-    border: 1px solid #e3e3e3;
-    padding: 16px;
-    margin-bottom: 24px;
-    background-color: #fff;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    transition: transform 0.3s, box-shadow 0.3s;
-  }
+.tournament-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.5);
+  z-index: 1;
+}
 
-  .tournament-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
-  }
+.tournament-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: calc(25% - 16px);
+  height: 300px;
+  padding: 16px;
+  margin-bottom: 24px;
+  background: center/cover no-repeat;
+  transition: transform 0.3s, box-shadow 0.3s;
+  margin-right: 16px;
+  position: relative;
+}
 
-  .tournament-card h1 {
-    margin: 0;
-    font-size: 70px;
-    font-weight: bold;
-    color: #00ADEE;
-    font-family: inherit;
-  }
+.tournament-card:nth-child(4n) {
+  margin-right: 0;
+}
 
-  .tournament-description {
-    font-size: 40px;
-    color: grey;
-    margin-bottom: 8px;
-    font-family: inherit;
-  }
+.tournament-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+}
 
-  .tournament-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
+.tournament-card h3, .tournament-description {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  color: #fff;
+  font-family: inherit;
+  position: relative;
+  z-index: 2;
+}
 
-  .tournament-details div {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-  }
+.tournament-details {
+  color: #fff;
+}
 
-  .tournament-details div p {
-    margin: 0;
-    font-size: 20px;
-    font-weight: bold;
-    color: #00ADEE;
-    font-family: inherit;
-  }
+.tournament-details div p {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  font-family: inherit;
+  color: #fff;
+}
 
-  .search-bar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    margin-bottom: 2rem;
-  }
-
-  .search-bar {
-    padding: 0.5rem 1rem;
-    border-radius: 5px;
-    border: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-    width: 300px;
-    font-size: 1.2rem;
-    outline: none;
-  }
-
-  .location {
-    text-align: center;
-    font-weight: bold;
-  }
-
-  .date {
-    text-align: center;
-    font-weight: bold;
-  }
-
-  button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    background-color: #00ADEE;
-    color: #fff;
-    font-size: 1.2rem;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
-
-  button:hover {
-    background-color: #008bbd;
-  }
+.tournament-details div:first-child p {
+  margin-right: 16px;
+}
 
 </style>

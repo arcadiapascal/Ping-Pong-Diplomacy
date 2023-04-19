@@ -14,7 +14,7 @@
         <div v-for="(match, matchIndex) in tier" :key="matchIndex" class="match">
           <div class="team">
             {{ match.team1.name }} ({{ match.team1.score }})
-            <input v-model="match.team1.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team1')" />
+            <!-- <input v-model="match.team1.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team1')" /> -->
             <table v-if="isTableVisible">
               <tr v-for="(game, index) in gameSeries" :key="index">
                 <td>
@@ -25,7 +25,7 @@
           </div>
           <div v-if="match.team2" class="team">
             {{ match.team2.name }} ({{ match.team2.score }})
-            <input v-model="match.team2.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team2')" />
+            <!-- <input v-model="match.team2.inputScore" type="number" min="0" max="100" @input="updateScoreInput(tierIndex, matchIndex, 'team2')" /> -->
             <table v-if="isTableVisible">
               <tr v-for="(game, index) in gameSeries" :key="index">
                 <td>
