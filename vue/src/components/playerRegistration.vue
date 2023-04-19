@@ -1,85 +1,38 @@
 <template>
-  <div  id="player-reg">
-
-   <form @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
-        <label  for="playerName">Player Name</label>
-        <input type="text" id="playerName" v-model="player.playerName" required />       
-      <label for="email">Email</label>
+  <div class="player-reg">
+    <div class="player-reg-form">
+      <form @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
+        <label for="playerName">Player Name</label>
+        <input type="text" id="playerName" v-model="player.playerName" required />
+        <label for="email">Email</label>
         <input type="text" id="email" v-model="player.email" required />
-        <button type="submit">Next</button> 
+        <button type="submit">Next</button>
       </form>
 
       <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 2">
-      <div>
-      <label for="playerCity">City:</label>
-        <input type="text" id="city" v-model="player.city" required /><br>
-      </div>
-      <div>
-  <label for="playerState">State</label>
-  <select id="state" v-model="player.stateAbbrev" required>
-    <option value="">Select a state</option>
-    <option value="AL">AL</option>
-    <option value="AK">AK</option>
-    <option value="AZ">AZ</option>
-    <option value="AR">AR</option>
-    <option value="CA">CA</option>
-    <option value="CO">CO</option>
-    <option value="CT">CT</option>
-    <option value="DE">DE</option>
-    <option value="FL">FL</option>
-    <option value="GA">GA</option>
-    <option value="HI">HI</option>
-    <option value="ID">ID</option>
-    <option value="IL">IL</option>
-    <option value="IN">IN</option>
-    <option value="IA">IA</option>
-    <option value="KS">KS</option>
-    <option value="KY">KY</option>
-    <option value="LA">LA</option>
-    <option value="ME">ME</option>
-    <option value="MD">MD</option>
-    <option value="MA">MA</option>
-    <option value="MI">MI</option>
-    <option value="MN">MN</option>
-    <option value="MS">MS</option>
-    <option value="MO">MO</option>
-    <option value="MT">MT</option>
-    <option value="NE">NE</option>
-    <option value="NV">NV</option>
-    <option value="NH">NH</option>
-    <option value="NJ">NJ</option>
-    <option value="NM">NM</option>
-    <option value="NY">NY</option>
-    <option value="NC">NC</option>
-    <option value="ND">ND</option>
-    <option value="OH">OH</option>
-    <option value="OK">OK</option>
-    <option value="OR">OR</option>
-    <option value="PA">PA</option>
-    <option value="RI">RI</option>
-    <option value="SC">SC</option>
-    <option value="SD">SD</option>
-    <option value="TN">TN</option>
-    <option value="TX">TX</option>
-    <option value="UT">UT</option>
-    <option value="VT">VT</option>
-    <option value="VA">VA</option>
-    <option value="WA">WA</option>
-    <option value="WV">WV</option>
-    <option value="WI">WI</option>
-    <option value="WY">WY</option>
-  </select>
-</div>
-      <button type="submit">Create Account</button>
+        <div>
+          <label for="playerCity">City:</label>
+          <input type="text" id="city" v-model="player.city" required /><br>
+        </div>
+        <div>
+          <label for="state-abbrev">State:</label>
+          <select id="state-abbrev" v-model="player.stateAbbrev">
+            <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
+          </select><br>
+        </div>
+        <button type="submit">Create Account</button>
       </form>
 
-      <div>
-          <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 3">
+      <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 3">
         <label for="rightLeftHanded">Right or Left {{this.$store.state.user.id}}</label>
         <input type="text" id="rightOrLeft" v-model="player.rightLeftHanded" required />
         <button type="submit">Create Account</button>
-        </form>
-  </div>
+      </form>
+
+      <div class="success-message" v-if="showSuccessMessage">
+        Account created successfully!
+      </div>
+    </div>
   </div>
 </template>
 
@@ -98,17 +51,14 @@ export default {
          email:"",
          city:"",
          stateAbbrev:"",
-         
-      
-       }
-      }
-      
-      
+       },
+       showSuccessMessage: false,
+      states: ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+      }  
 },
 
 methods: {
             secondForm(){
-                
                 this.$router.push(`/register/2`);
             },
             thirdForm(){ 
@@ -126,76 +76,81 @@ methods: {
           } else {
             console.error(error);
           }
-        });
-               
+        });  
             },
             getUserId(){
-              
             }
-          
         }
 }
 </script>
 
-<style>
-#player-reg {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 40px 0;
-}
 
-#player-reg form {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin: 20px 0;
-}
-
-#player-reg label {
-  font-size: 14px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-#player-reg input[type="text"] {
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #dadce0;
-  width: 350px;
-  font-size: 16px;
-  margin-bottom: 20px;
-}
-
-#player-reg button[type="submit"] {
-  padding: 10px 20px;
-  border-radius: 4px;
-  border: none;
-  background-color: #1a73e8;
-  color: #fff;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-#player-reg button[type="submit"]:hover {
-  background-color: #0d47a1;
-}
-
-#player-reg div {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-#player-reg div label {
-  margin-right: 10px;
-}
-
-@media only screen and (max-width: 600px) {
-  #player-reg input[type="text"] {
-    width: 100%;
+<style scoped>
+  .player-reg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
   }
-}
+
+  .player-reg-form {
+    background-color: #fff;
+    color: #4d565e;
+    width: 33vh;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: inherit;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  button[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #00adee;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #4d565e;
+  }
+
+  /* added style for the success message */
+  .success-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #00adee;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 </style>

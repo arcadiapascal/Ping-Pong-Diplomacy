@@ -112,7 +112,7 @@ export default {
   }
 
   button[type="submit"] {
-    background-color: #4caf50;
+    background-color: #00adee;
     color: #fff;
     border: none;
     border-radius: 4px;
@@ -123,7 +123,7 @@ export default {
   }
 
   button[type="submit"]:hover {
-    background-color: #3e8e41;
+    background-color: #4d565e;
   }
 
   p {
@@ -133,7 +133,7 @@ export default {
   }
 
   a {
-    color: #4caf50;
+    color: #00adee;
     text-decoration: none;
     font-weight: bold;
   }
