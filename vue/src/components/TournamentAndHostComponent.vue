@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Tournaments</h1>
+    <h1 class="heading">Tournaments</h1>
     <div class="search-bar-container">
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
@@ -87,6 +87,15 @@ export default {
 };
 </script>
 <style scoped>
+
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 2rem;
+}
+
 .search-bar-container {
   display: flex;
   justify-content: center;
