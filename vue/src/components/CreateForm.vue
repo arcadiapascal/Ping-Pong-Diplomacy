@@ -11,7 +11,7 @@
       </div>
       <div class="form-right">
         <label for="Tournament Date">Date</label>
-        <input type="datetime-local" v-model="Tournament.date" /><br />
+        <input type="datetime-local" v-model="Tournament.tournamentDate" /><br />
         <label for="Tournament Skill Level">Skill Level</label>
         <select required name="category" v-model="Tournament.skillLevel">
           <option value="Novice">Novice</option>
