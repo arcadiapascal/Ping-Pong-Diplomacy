@@ -26,6 +26,7 @@
       </div>
        </form>
       </div>
+    
 </template>
 <script>
 import TournamentService from "../services/TournamentService.js";
