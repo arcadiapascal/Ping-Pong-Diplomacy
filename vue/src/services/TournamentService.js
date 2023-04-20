@@ -4,6 +4,10 @@ import axios from 'axios';
 
 export default {
 
+    getAllPlayersFromTournament(tournamentId){
+        return axios.get(`/tournaments/${tournamentId}/tournamentPlayers`)
+    },
+
     addPlayerToTournament(id, player) {
         return axios.post(`/tournaments/${id}/players`, player);
       },

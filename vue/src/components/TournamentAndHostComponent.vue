@@ -39,6 +39,7 @@ export default {
       tournamentLister: [],
       tournamentSearchTerm: '',
       players: [],
+      playersInTournament: []
     };
   },
   created() {
@@ -48,6 +49,7 @@ export default {
     profileService.getPlayers().then((response) => {
       this.players = response.data;
     });
+    
   },
 
   computed: {
@@ -102,7 +104,6 @@ export default {
 </script>
 
 <style scoped>
-
 
 .heading {
   display: flex;

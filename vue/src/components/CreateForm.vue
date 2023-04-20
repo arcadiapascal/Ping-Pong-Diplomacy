@@ -22,7 +22,7 @@
         <input type="datetime-local" v-model="Tournament.tournamentDate" /><br />
            <label for=" Tournament Registration Deadline">Registration Deadline</label>
            <input  type="date" v-model="Tournament.registrationDeadline"><br>
-           <input type="submit" value="Submit">
+           <input @click="this.$router.push(`/tournament/${tournamentId}`)" type="submit" value="Submit">
       </div>
        </form>
       </div>
@@ -54,18 +54,19 @@ export default {
 },
 methods: {
           addTournament() {
-                TournamentService.create(this.Tournament).then(response=> {
-                    if(response.status === 201){
-                        this.$router.push('/');
-                    }
-                }).catch(error => {
-          if (error.response.status === 404) {
-            this.$router.push("/404");
-          } else {
-            console.error(error);
-          }
-        });
-          },
+    TournamentService.create(this.Tournament).then(response => {
+      if (response && response.status === 201) {
+        const tournamentId = response.data.tournamentId;
+        this.$router.push(`/tournament/${tournamentId}`);
+      }
+    }).catch(error => {
+      if (error.response && error.response.status === 404) {
+        this.$router.push("/404");
+      } else {
+        console.error(error);
+      }
+    });
+  },
           
         }
 }
