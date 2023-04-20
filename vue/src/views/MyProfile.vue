@@ -1,11 +1,13 @@
 <template>
   <div class="my-profile">
+    <h1>My Profile</h1>
     <div class="top-row">
       <div class="profile-details">
       <profile-details /> </div>
       <div class="player-stats">
       <player-stats /></div>
     </div>
+    <h2>Browse Tournaments</h2>
     <my-tournaments />
   </div>
 </template>
