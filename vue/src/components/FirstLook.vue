@@ -5,7 +5,7 @@
       <router-link v-bind:to="{name: 'createTournament'}" class="btn btn-primary">Build a Tournament</router-link>
       <router-link to="/browse" class="btn btn-secondary">Join a Tournament</router-link>
     </div>
-    <img src="../Assets/tournamentPhoto.jpg" alt="Ping Pong!">
+    <img src="../Assets/Ping Pong Paddles.png" alt="Ping Pong!">
   </div>
 </template>
 
@@ -18,7 +18,7 @@ export default {
 <style>
 img {
   margin: 2rem;
-  max-height: 150px;
+  max-height: 200px;
 }
 .container {
   height: 73vh;

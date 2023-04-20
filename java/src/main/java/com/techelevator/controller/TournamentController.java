@@ -121,6 +121,7 @@ public class TournamentController {
         }
     }
 
+    // GET ALL PLAYERS IN A TOURNAMENT
     @RequestMapping(path = "/tournaments/{tournamentId}/tournamentPlayers", method = RequestMethod.GET)
     public ResponseEntity<List<Player>> getAllPlayersFromTournament(@PathVariable int tournamentId){
         List<Player> players = playerDao.getAllPlayersFromTournament(tournamentId);
