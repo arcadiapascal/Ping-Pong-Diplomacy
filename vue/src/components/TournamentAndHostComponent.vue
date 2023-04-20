@@ -13,7 +13,7 @@
         <div class="tournament-details">
           <p id="Skill"><strong>Skill Level:</strong><br> {{ tournament.skillLevel }}</p>
           <p id="Location"><strong>Location:</strong><br> {{ tournament.location }}</p>
-          <p id="Date"><strong>Date:</strong><br> {{ tournament.tournamentDate | formatDate }}</p>
+          <p id="Date"><strong>Date/Time:</strong><br> {{ tournament.tournamentDate | formatDate }}</p>
           <p id="Players"><strong>Current Size:</strong><br> {{ tournament.numberOfPlayers }}</p>
         </div>
         <button id="join-tournament" @click="joinTournament(tournament.tournamentId)">Join Tournament!</button>
@@ -176,7 +176,7 @@ export default {
 
 .tournament-details {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
   margin-top: 1rem;
 }
@@ -184,13 +184,13 @@ export default {
 .tournament-details p {
   margin: 0;
   font-size: 16px;
-  font-weight: bold;
   font-family: inherit;
   color: #555;
 }
 
 .tournament-details p strong {
   color: #333;
+  font-weight: bolder;
 }
 
 #join-tournament {
