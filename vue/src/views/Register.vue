@@ -115,11 +115,6 @@ export default {
     width: 100%;
     max-width: 400px;
     padding: 2rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
-    background-color: #fff;
-    margin-top: 3vh;
 }
 
   .form-input-group {
@@ -135,10 +130,10 @@ export default {
     align-items: center;
     width: 100%;
     max-width: 400px;
-    margin-top: 50px;
+  
     padding: 1rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
   }

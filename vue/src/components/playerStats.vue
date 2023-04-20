@@ -93,6 +93,9 @@ h2 {
   padding: 20px;
   margin: 1vh;
   height: 27vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 /* Table styles */

@@ -14,7 +14,7 @@
       </div>
       <div class="form-input-group">
         <label for="password">Password:</label>
-        <input type="password" id="password" v-model="user.password" required />
+        <input type="text" id="password" v-model="user.password" required />
       </div>
       <button type="submit">Sign in</button>
       <p>
@@ -68,6 +68,7 @@ export default {
     align-items: center;
     height: 100vh;
     background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+    padding: 2rem;
   }
 
   form {
@@ -77,13 +78,11 @@ export default {
     align-items: center;
     width: 100%;
     max-width: 400px;
-    margin-top: 50px;
     padding: 1rem;
     border: 1px solid #ccc;
-    border-radius: 4px;
+    border-radius: 8px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
-    margin-top: 3vh;
   }
 
   h1 {
