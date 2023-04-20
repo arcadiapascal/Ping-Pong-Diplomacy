@@ -32,6 +32,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
 }
 
 .top-row {

@@ -21,7 +21,6 @@
     </div>
   </div>
 </template>
-
 <script>
 export default {
   data() {
@@ -79,6 +78,7 @@ export default {
   }
 }
 </script>
+
 <style scoped>
 .tournament {
   display: flex;
@@ -87,7 +87,25 @@ export default {
 }
 
 .tournament-size {
-  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.tournament-size label {
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.tournament-size select {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  font-size: 14px;
 }
 
 .tournament-bracket {
@@ -102,10 +120,19 @@ export default {
   margin-right: 20px;
 }
 
-.match {
+.round h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #606060;
+}
+
+.player {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  margin: 10px;
+  margin-top: 10px;
 }
 
 .matchup {
@@ -115,89 +142,75 @@ export default {
   position: relative;
 }
 
-.box {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  background-color: #f0f0f0;
-}
-
-.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 4px;
-  background-color: #007bff;
-  color: #fff;
-  cursor: pointer;
-}
-
-.button:hover {
-  background-color: #0056b3;
-}
-
-.round::after {
+.matchup::before {
   content: "";
   display: block;
-  width: 0;
+  width: 1px;
   height: 100%;
-  border: 1px solid #ccc;
+  background-color: #ccc;
   position: absolute;
-  right: -10px;
+  left: -5px;
   top: 0;
-  z-index: -1;
-}
-
-.round:last-child::after {
-  display: none;
-}
-
-.matchup::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 0;
-  border: 1px solid #ccc;
-  position: absolute;
-  bottom: -20px;
-  left: 50%;
-  z-index: -1;
-  transform: translateX(-50%);
-}
-
-.matchup:last-child::after {
-  display: none;
 }
 
 .matchup span {
   padding: 8px 10px;
-  background-color: #f0f0f0;
   border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #f0f0f0;
 }
 
 .matchup input {
   padding: 6px 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #606060;
 }
 
-button {
-  padding: 6px 10px;
-  background-color: #007bff;
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
+.button {
+  display: flex;
 }
 
-button:hover {
-  background-color: #0056b3;
+.viewport {
+  height: 100vh;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewport.modern {
+  background-color: #ececec;
+}
+
+.viewport.modern-dark {
+  background-color: #121212;
+  color: #f7f7f7;
+}
+
+.winners .player:nth-child(2n) .matchup {
+  flex-direction: row-reverse;
+}
+
+.winners .player:nth-child(2n) .matchup::before {
+  left: auto;
+  right: -5px;
+}
+
+.winners .player:nth-child(2n) .matchup span {
+  background-color: #fff;
+  color: #606060;
+}
+
+.winners .player:nth-child(2n) .matchup input {
+  color: #f7f7f7;
+}
+
+.winners .player:nth-child(2n) .matchup input:focus {
+  background-color: #f7f7f7;
+  color: #606060;
 }
 </style>

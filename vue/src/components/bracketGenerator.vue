@@ -1,226 +1,216 @@
 <template>
-  <div class="bracket">
-     <h2>Round: {{ round }} </h2>
-    <div v-for="pair in filteredPairs" :key="pair[0].id" class="player-bracket">
-      <!-- Generate a bracket for each pair of players -->
-      <div class="participant">
-        <h2>{{ pair[0].playerName }} vs {{pair[1].playerName}}</h2>
-      </div>
-      <div class="match">
-        <div class="matchup">
-          <div class="participant">
-            {{ pair[0].playerName }}
-            <button @click="addWinner(pair[0], pair[1])">Add winner</button>
-            <div class="score" :class="{ winner: pair[0].winner }">{{ pair[0].score }}</div>
+  <div class="tournament">
+    <div class="tournament-size">
+      <label>Select Bracket Size:</label>
+      <select v-model="size" @change="createBracket">
+        <option v-for="option in options" :key="option.value" :value="option.value">{{ option.label }}</option>
+      </select>
+    </div>
+    <div class="tournament-bracket">
+      <div v-for="(round, index) in bracket" :key="index" class="round">
+        <h3>Round {{ index + 1 }}</h3>
+        <div v-for="player in round" :key="player.id" class="player">
+          <div class="matchup">
+            <span v-if="player.winner">{{ player.winner }}</span>
+            <input v-else type="text" v-model="player.name">
+            <input type="number" v-model="player.points" min="0" step="1">
           </div>
-          <div class="participant">
-            {{ pair[1].playerName }}
-            <button @click="addWinner(pair[1], pair[0])">Add winner</button>
-            <div class="score" :class="{ winner: pair[1].winner }">{{ pair[1].score }}</div>
-          </div>
+          <button v-if="!player.winner" @click="movePlayerToNextBracket(round, player)">Won the Match!</button>
         </div>
       </div>
     </div>
-    <button @click="repopulateBracket(), incrimentRound()">Repopulate Bracket</button>
   </div>
 </template>
-
 <script>
-// import profileService from '../services/ProfileService'
-import tournament from '../services/TournamentService';
 export default {
   data() {
     return {
-
-      players: [],
-      winners: [],
-      losers: [],
-      playersStats: [],
-      round: 1
+      options: [
+        { label: '2 Players', value: 2 },
+        { label: '4 Players', value: 4 },
+        { label: '8 Players', value: 8 },
+        { label: '16 Players', value: 16 },
+        { label: '32 Players', value: 32 },
+        { label: '64 Players', value: 64 },
+      ],
+      size: 2,
+      bracket: [],
     }
   },
-  
-  computed: {
-// updateThis(){
-  
-//     if(this.winners !== null){
-     
-//     for(let i = 0; i <= this.winners.length; i++){
-//       const player = {
-//         id: this.winners[i].id,
-//         userId: this.winners[i].userId,
-//         name: this.winners[i].playerName,
-//         wins: this.winners[i].wins + 1,
-//         author: this.winners[i].userId,
-//         avatar: this.winners[i].stateAbbrev,
-//         content: this.winners[i].rightLeftHanded,
-//         lastOpened: this.winners[i].email,
-//     profileService.update(player.id, player).then((response) => {
-//       if(response.status === 200){
-//         alert("wINNER INCRIMENTED!")
-//       }
-//     });
-//      }
-//     }
-  // }
-// },
-
-
-    pairs() {
-      // Generate pairs of players from remaining players or winners
-      const remainingPlayers = this.players.filter(player => !player.winner && !player.loser);
-      const players = remainingPlayers.length > 0 ? remainingPlayers : this.winners;
-      const pairs = [];
-      for (let i = 0; i < players.length; i += 2) {
-        pairs.push([players[i], players[i + 1] || { playerName: 'No Opponent' }]);
+  methods: {
+    createBracket() {
+      let players = [];
+      for (let i = 0; i < this.size; i++) {
+        players.push({ id: i, name: '', winner: null, points: 0 });
       }
-      return pairs;
+      this.bracket = [players];
+      let round = 2;
+      while (players.length > 1) {
+        players = [];
+        for (let i = 0; i < this.bracket[round - 2].length; i += 2) {
+          players.push({ id: i, name: '', winner: null, points: 0 });
+        }
+        this.bracket.push(players);
+        round++;
+      }
     },
-
-
-    filteredPairs() {
-      // Filter out pairs with winners or losers
-      return this.pairs.filter(pair => !pair[0].winner && !pair[1].winner && !pair[0].loser && !pair[1].loser)
-      .sort((a, b) => b[0].score - a[0].score); // sort by score in descending order
+    movePlayerToNextBracket(currentRound, player) {
+      const currentRoundIndex = this.bracket.findIndex(round => round === currentRound);
+      const nextRoundIndex = currentRoundIndex + 1;
+      if (nextRoundIndex >= this.bracket.length) {
+        player.winner = player.name;
+      } else {
+        const nextRound = this.bracket[nextRoundIndex];
+        const playerIndex = currentRound.findIndex(p => p === player);
+        const nextPlayerIndex = Math.floor(playerIndex / 2);
+        nextRound[nextPlayerIndex].name = player.name;
+        nextRound[nextPlayerIndex].points = player.points;
+      }
+    },
+  },
+  watch: {
+    size() {
+      this.createBracket();
     }
   },
-
-
   mounted() {
-    tournament.getPlayers().then((response) => {
-      this.players = response.data.map((player) => ({
-        ...player,
-        score: 0,
-        winner: false,
-        loser: false
-      }));
-      this.playersStats = response.data.map((player) => ({
-        ...player,
-        wins: 0,
-
-
-losses: 0
-}));
-});
-},
-
-
-methods: {
-incrimentRound(){
-  this.round++;
-},
-
-addWinner(winningPlayer, losingPlayer) {
-// Update winning player's score and winner flag
-winningPlayer.score += 1;
-winningPlayer.winner = true;
-winningPlayer.wins +=1;
-
-
-  // Update losing player's loser flag
-  losingPlayer.loser = true;
-
-
-  // Add winning player to winners array
-  this.winners.push(winningPlayer);
-
-
-  // Update player stats
-  const winningPlayerStats = this.playersStats.find(player => player.id === winningPlayer.id);
-  const losingPlayerStats = this.playersStats.find(player => player.id === losingPlayer.id);
-  winningPlayerStats.wins += 1;
-  losingPlayerStats.losses += 1;
-},
-
-
-repopulateBracket() {
-  // Reset all players' scores and winner/loser flags
-  this.players.forEach(player => {
-    player.score = 0;
-    player.winner = false;
-    player.loser = false;
-  });
-
-  // Repopulate players array with winners
-  this.players = [...this.winners];
-
-  // Clear winners and losers arrays
-  this.winners = [];
-  this.losers = [];
-}
-}
+    this.createBracket();
+  }
 }
 </script>
+
 <style scoped>
-  .bracket {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-
-  .player-bracket {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin: 10px;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    padding: 20px;
-    text-align: center;
-  }
-
-
-  .participant {
-    background-color: #f2f2f2;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: center;
-    width: 150px;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-
-  .match {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
-
-  .matchup {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 150px;
-  }
-
-
-  .score {
-    background-color: #4CAF50;
-    border-radius: 50%;
-    color: white;
-    font-weight: bold;
-    height: 30px;
-    width: 30px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-
-
-  .winner {
-    background-color: #F44336;
-    color: white;
+.tournament {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-
-button {
-margin-left: 5px;
+.tournament-size {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 10px;
 }
 
+.tournament-size label {
+  margin-right: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+}
 
+.tournament-size select {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #f0f0f0;
+  font-size: 14px;
+}
+
+.tournament-bracket {
+  display: flex;
+  justify-content: center;
+}
+
+.round {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 20px;
+}
+
+.round h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: bold;
+  text-transform: uppercase;
+  color: #606060;
+}
+
+.player {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.matchup {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  position: relative;
+}
+
+.matchup::before {
+  content: "";
+  display: block;
+  width: 1px;
+  height: 100%;
+  background-color: #ccc;
+  position: absolute;
+  left: -5px;
+  top: 0;
+}
+
+.matchup span {
+  padding: 8px 10px;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
+
+.matchup input {
+  padding: 6px 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+  font-weight: bold;
+  color: #606060;
+}
+
+.button {
+  display: flex;
+}
+
+.viewport {
+  height: 100vh;
+  background-color: #f7f7f7;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.viewport.modern {
+  background-color: #ececec;
+}
+
+.viewport.modern-dark {
+  background-color: #121212;
+  color: #f7f7f7;
+}
+
+.winners .player:nth-child(2n) .matchup {
+  flex-direction: row-reverse;
+}
+
+.winners .player:nth-child(2n) .matchup::before {
+  left: auto;
+  right: -5px;
+}
+
+.winners .player:nth-child(2n) .matchup span {
+  background-color: #fff;
+  color: #606060;
+}
+
+.winners .player:nth-child(2n) .matchup input {
+  color: #f7f7f7;
+}
+
+.winners .player:nth-child(2n) .matchup input:focus {
+  background-color: #f7f7f7;
+  color: #606060;
+}
 </style>

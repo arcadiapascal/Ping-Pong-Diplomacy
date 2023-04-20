@@ -22,5 +22,6 @@ export default {
 <style>
 .home {
   text-align: center;
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
 }
 </style>

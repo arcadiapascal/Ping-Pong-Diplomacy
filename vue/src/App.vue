@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div class="app">
     <nav-bar />
     <router-view />
   </div>
@@ -17,6 +17,10 @@ components: {
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@700&family=Quicksand&display=swap');
+
+.app {
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+}
 
 body {
   margin: 0px;

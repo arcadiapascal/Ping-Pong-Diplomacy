@@ -162,6 +162,7 @@ export default {
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
     padding: 20px;
     border-radius: 5px;
+    background: linear-gradient(to bottom, #DAE8F2, #ffffff);
   }
 
   h1 {
