@@ -121,6 +121,16 @@ public class TournamentController {
         }
     }
 
+    @RequestMapping(path = "/tournaments/{tournamentId}/tournamentPlayers", method = RequestMethod.GET)
+    public ResponseEntity<List<Player>> getAllPlayersFromTournament(@PathVariable int tournamentId){
+        List<Player> players = playerDao.getAllPlayersFromTournament(tournamentId);
+        if (players.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(players, HttpStatus.OK);
+    }
+
+
     // Add a player to a tournament
     @CrossOrigin
     @RequestMapping(path = "/tournaments/{tournamentId}/players", method = RequestMethod.POST)

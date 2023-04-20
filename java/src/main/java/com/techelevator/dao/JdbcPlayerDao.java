@@ -18,6 +18,17 @@ public class JdbcPlayerDao implements PlayerDao {
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
 
+    // GET ALL PLAYERS FROM TOURNAMENT
+    @Override
+    public List<Player> getAllPlayersFromTournament(int tournamentId){
+        String sql = "select player.player_id, user_id, player_name, age, city, state_abbrev, wins, losses, win_percentage, ranking, total_points, email\n" +
+                "from tournament_player\n" +
+                "join player on tournament_player.player_id = player.player_id\n" +
+                "join tournament on tournament_player.tournament_id = tournament.tournament_id\n" +
+                "where tournament.tournament_id = ?";
+        return jdbcTemplate.query(sql, new PlayerMapper(), tournamentId);
+    }
+
     // CREATES A NEW PLAYER
     @Override
     public void addPlayer(Player player) throws SQLException {

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- <time-till-next-tournament/> -->
     <div class="row">
       <div class="button-container">
         <button v-if="activeComponent === 'StatsComponent'" @click="activeComponent = 'TournamentAndHostComponent'" :class="{ active: activeComponent === 'TournamentAndHostComponent' }">Click to see upcoming Tournaments!</button>
@@ -14,12 +15,13 @@
 import TournamentAndHostComponent from '../components/TournamentAndHostComponent.vue';
 // import TeamComponent from './teamComponent.vue';
 import StatsComponent from './statsComponent.vue'
-
+// import timeTillNextTournament from '../components/timeTillNextTournament.vue'
 
 export default {
   components: {
     TournamentAndHostComponent,
     StatsComponent,
+    // timeTillNextTournament
     // TeamComponent
   },
   data() {

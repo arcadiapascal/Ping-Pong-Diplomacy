@@ -10,6 +10,9 @@ public interface PlayerDao {
     // Create
     void addPlayer(Player player) throws SQLException;
 
+    //
+    List<Player> getAllPlayersFromTournament(int tournamentId);
+
     // Read
     List<Player> getAllPlayers() throws SQLException;
     Player getPlayerById(int id) throws SQLException;

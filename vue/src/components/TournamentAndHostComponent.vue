@@ -1,12 +1,13 @@
 <template>
-
   <div>
+    <time-till-next-tournament/>
     <h2 class="heading">Tournaments</h2>
     <div class="search-bar-container">
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
     <div class="tournament-cards-container">
       <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="{ backgroundImage: tournament.image ? 'url(' + tournament.image + ')' : tournamentPhotoStyle }">
+        
         <h3>{{ tournament.name }}</h3>
         <p class="tournament-description">{{ tournament.description }}</p>
         <div class="tournament-details">
@@ -23,12 +24,16 @@
 </template>
 
 <script>
-
 import tournament from '../services/TournamentService.js';
 import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
 import profileService from '../services/ProfileService.js';
+import timeTillNextTournament from '../components/timeTillNextTournament.vue'
+
 
 export default {
+ components:{
+   timeTillNextTournament
+ },
   data() {
     return {
       tournamentLister: [],
