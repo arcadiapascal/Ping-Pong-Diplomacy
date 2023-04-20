@@ -5,7 +5,7 @@
         <label for="Tournament Name">Tournament Name</label>
         <input type="text" v-model="Tournament.name" /><br />
         <label for=" Tournament Description">Description</label>
-           <input  type="text" v-model="Tournament.description"><br>
+        <input type="text" v-model="Tournament.description"><br>
         <label for="Tournament Location">Location</label>
         <input class="author-input" type="text" v-model="Tournament.location" /><br />
         <label for="Tournament Address">Address</label>
@@ -22,12 +22,13 @@
         <input type="datetime-local" v-model="Tournament.tournamentDate" /><br />
            <label for=" Tournament Registration Deadline">Registration Deadline</label>
            <input  type="date" v-model="Tournament.registrationDeadline"><br>
-           <input type="submit" value="Submit">
+           <input @click="this.$router.push(`/tournament/${tournamentId}`)" type="submit" value="Submit">
       </div>
        </form>
       </div>
+     </form>
+  </div>
 </template>
-
 <script>
 import TournamentService from "../services/TournamentService.js";
 
@@ -71,6 +72,7 @@ methods: {
 .new-tournament-form {
   max-width: 900px; /* Increase the max-width to make the form wider */
   margin: 0 auto;
+  margin-top: 3vh;
   display: flex; /* Add display:flex to enable flexbox layout */
   justify-content: space-between; /* Add justify-content to space the form elements */
   padding: 20px;

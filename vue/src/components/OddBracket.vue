@@ -1,9 +1,9 @@
 
 <template>
-  <div >
-      <div>
-       <button class="button" v-on:click="getAllPlayers">Get Players</button>
-      <button class="button" v-on:click="generateBracket">Generate</button>
+  <div id="generate-bracket">
+      <div id="control">
+       <button class="btn btn-primary" v-on:click="getAllPlayers">Get Players</button>
+      <button class="btn btn-secondary" v-on:click="generateBracket">Generate</button>
       </div>
   <div class="tournament-bracket">
     
@@ -14,7 +14,7 @@
                 <div v-on:click="toggleDisplayMatchWinner(match)">
                 
                         <div v-for="(player, playerId) in match"  v-bind:key="playerId" class="player">
-                            <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}} <div class = "score>">{{player.score}}</div></div>
+                            <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}} <div class = "score>">Score: {{player.score}}</div></div>
                             
        
                             
@@ -25,10 +25,10 @@
        </div> 
        <div v-if="displayMatchWinner" class="modal">
            <h2> Choose a Winner </h2>
-           <button class="button" v-on:click="addWinningPlayer(playersInMatch[0])"> {{playersInMatch[0].playerName}} </button>
-           <button class="button" v-on:click="addWinningPlayer(playersInMatch[1])"> {{playersInMatch[1].playerName}} </button>
-           <h3> {{playersInMatch[0].playerName}} Score:{{playersCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[0])">+</button></h3>
-           <h3> {{playersInMatch[1].playerName}} Score:{{playerTwoCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[1])">+</button></h3>
+           <button class="button" id="player1" v-on:click="addWinningPlayer(playersInMatch[0])"> {{playersInMatch[0].playerName}} </button>
+           <button class="button" id="player2" v-on:click="addWinningPlayer(playersInMatch[1])"> {{playersInMatch[1].playerName}} </button>
+           <h3> {{playersInMatch[0].playerName}} Score: {{playersCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[0])">+</button></h3>
+           <h3> {{playersInMatch[1].playerName}} Score: {{playerTwoCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[1])">+</button></h3>
 
            
            
@@ -226,8 +226,14 @@ this.tournament = tiers;
 </script>
 
 <style>
+#generate-bracket {
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+
+}
+h2 {
+  font-size: 2rem;
+}
 .tournament-bracket{
-    background-color:rgb(235, 233, 233);
      margin:20px;
      padding: 10px;
     border-radius:5px;
@@ -249,11 +255,12 @@ this.tournament = tiers;
    
     margin:20px;
 }
-.player{
-     
-}
+
 .individual_player{
-    background: orangered;
+    background: linear-gradient(to bottom, #00ADEE, #DAE8F2);
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.5rem;
      border-radius:5px;
      padding: 30px;
      margin:5px;
@@ -271,7 +278,61 @@ this.tournament = tiers;
     box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
 }
 .button{
-    
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+  margin: 10px
+}
+#player1 {
+  background-color: #71D96F;
+}
+#player2 {
+  background-color: #FF6359;
+}
+#control {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.btn {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #FF6359;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background-color: #4d565e;
+}
+
+.btn-primary {
+  background-color: #FF6359;
+  margin: 0.5rem;
+
+}
+
+.btn-secondary {
+  background-color: #71D96F;
+  margin: 0.5rem;  
+
 }
 /* .overlay{
     position: fixed;

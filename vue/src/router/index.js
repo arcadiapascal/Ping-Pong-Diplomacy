@@ -91,7 +91,7 @@ const router = new Router({
     name: "createTournament",
     component: CreateTournament,
     meta: {
-      requiresAuth: true
+      requiresAuth: false
     }
   },
   {

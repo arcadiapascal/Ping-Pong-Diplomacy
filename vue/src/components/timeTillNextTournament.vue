@@ -1,66 +1,92 @@
 <template>
-  <div>
+  <div class="countdown-container">
     <div>
-      <div>
-        <p class="timer" v-if="upcomingTournament">{{ countdown }}</p>
-        <p v-else>No upcoming tournaments</p>
-      </div>
+      <h1>Time Till Next Tournament</h1>
+      <p class="timers" v-if="upcomingTournament">{{ countdown }}</p>
+      <p v-else>No upcoming tournaments</p>
     </div>
   </div>
 </template>
 <script>
   import tournament from '../services/TournamentService.js';
-
-  export default {
-    data() {
-      return {
-        tournamentLister: [],
-        upcomingTournament: null,
-        countdown: ''
-      };
-    },
-    created() {
-      tournament.listTournaments()
-        .then(response => {
-          this.tournamentLister = response.data;
-          this.upcomingTournament = this.findUpcomingTournament(this.tournamentLister);
-          if (this.upcomingTournament) {
-            setInterval(() => {
-              this.countdown = this.getRemainingTime(this.upcomingTournament.tournamentDate);
-            }, 1000);
-          }
-        });
-    },
-    methods: {
-      getRemainingTime(tournamentDate) {
-        const now = new Date();
-        const endDate = new Date(tournamentDate);
-        const timeRemaining = endDate - now;
-        const daysRemaining = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
-        const hoursRemaining = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
-        const minutesRemaining = Math.floor((timeRemaining / (1000 * 60)) % 60);
-        const secondsRemaining = Math.floor((timeRemaining / 1000) % 60);
-        return `${daysRemaining} days, ${hoursRemaining} hours, ${minutesRemaining} minutes, ${secondsRemaining} seconds`;
-      },
-      findUpcomingTournament(tournaments) {
-        const now = new Date();
-        let upcomingTournament = null;
-        let upcomingTournamentDate = Infinity;
-        for (let i = 0; i < tournaments.length; i++) {
-          const tournamentDate = new Date(tournaments[i].tournamentDate);
-          if (tournamentDate > now && tournamentDate < upcomingTournamentDate) {
-            upcomingTournament = tournaments[i];
-            upcomingTournamentDate = tournamentDate;
-          }
-        }
-        return upcomingTournament;
-      },
-    },
-  };
+export default {
+data() {
+return {
+tournamentLister: [],
+upcomingTournament: null,
+countdown: '',
+upcomingTournamentDate: Infinity,
+now: null
+};
+},
+created() {
+this.now = new Date();
+tournament.listTournaments()
+.then(response => {
+this.tournamentLister = response.data;
+this.findUpcomingTournament();
+if (this.upcomingTournament) {
+requestAnimationFrame(this.updateCountdown);
+}
+});
+},
+methods: {
+updateCountdown() {
+this.now = new Date();
+this.countdown = this.getRemainingTime(this.upcomingTournament.tournamentDate);
+requestAnimationFrame(this.updateCountdown);
+},
+getRemainingTime(tournamentDate) {
+const endDate = new Date(tournamentDate);
+const timeRemaining = endDate - this.now;
+const daysRemaining = Math.floor(timeRemaining / (1000 * 60 * 60 * 24));
+const hoursRemaining = Math.floor((timeRemaining / (1000 * 60 * 60)) % 24);
+const minutesRemaining = Math.floor((timeRemaining / (1000 * 60)) % 60);
+const secondsRemaining = Math.floor((timeRemaining / 1000) % 60);
+return `${daysRemaining} days, ${hoursRemaining} hours, ${minutesRemaining} minutes, ${secondsRemaining} seconds`;
+},
+findUpcomingTournament() {
+this.tournamentLister.map(tournament => {
+const tournamentDate = new Date(tournament.tournamentDate);
+if (tournamentDate > this.now && tournamentDate < this.upcomingTournamentDate) {
+this.upcomingTournament = tournament;
+this.upcomingTournamentDate = tournamentDate;
+}
+});
+},
+},
+};
 </script>
 
 <style scoped>
-  .timer{
-      padding-left: 100px;
+  .countdown-container {
+    position: fixed;
+    top: 50px;
+    /* margin-top: 15px; */
+    margin-left: 250px;
+    /* top: 50px;
+    right: 50px;
+    z-index: 999; */
+  }
+  h1 {
+    color: #FF6359;
+    font-size: 30px;
+    /* #00ADE */
+  }
+  .timers {
+    display: inline-block;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    margin-left: 50px;
+    border: none;
+    border-radius: 0.25rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    color: #fff;
+    background-color: #FF6359;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
   }
 </style>

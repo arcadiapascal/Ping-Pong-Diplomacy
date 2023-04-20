@@ -1,11 +1,13 @@
 <template>
   <div class="my-profile">
+    <h1>My Profile</h1>
     <div class="top-row">
       <div class="profile-details">
       <profile-details /> </div>
       <div class="player-stats">
       <player-stats /></div>
     </div>
+    <h2>Browse Tournaments</h2>
     <my-tournaments />
   </div>
 </template>
@@ -32,7 +34,8 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+  padding: 2rem;
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff)
 }
 
 .top-row {
@@ -41,7 +44,6 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 2vh;
   margin-bottom: 2vh;
 }
 

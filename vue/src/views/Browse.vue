@@ -1,5 +1,6 @@
 <template>
 <div id="browse">
+    <!-- <h1 id="heading">Tournaments and Rankings</h1> -->
     <search-navagation-component/>
     <!-- <time-till-next-tournament/> -->
 </div>
@@ -30,6 +31,9 @@ export default {
 <style>
 .browse {
     background: linear-gradient(to bottom, #DAE8F2, #ffffff);
-    height: 80vh;
+}
+
+#heading {
+    text-align: center;
 }
 </style>

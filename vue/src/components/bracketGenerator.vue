@@ -1,5 +1,6 @@
 <template>
   <div class="tournament">
+    <h2>Quick Tournament</h2>
     <div class="tournament-size">
       <label>Select Bracket Size:</label>
       <select v-model="size" @change="createBracket">
@@ -81,6 +82,7 @@ export default {
 
 <style scoped>
 .tournament {
+  margin-top: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
