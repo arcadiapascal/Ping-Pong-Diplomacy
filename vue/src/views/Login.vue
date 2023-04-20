@@ -77,6 +77,7 @@ export default {
     align-items: center;
     width: 100%;
     max-width: 400px;
+    margin-top: 50px;
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 4px;
@@ -106,10 +107,12 @@ export default {
   input[type="password"] {
     font-size: 1.2rem;
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 4px;
     width: 100%;
     margin-bottom: 0.5rem;
+    border-radius: 0.3rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   button[type="submit"] {
