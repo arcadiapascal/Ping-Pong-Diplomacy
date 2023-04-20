@@ -1,4 +1,3 @@
-
 <template>
   <div id="generate-bracket">
       <div id="control">
@@ -434,4 +433,3 @@ h2 {
   color: #fff;
 } */
 </style>
-
