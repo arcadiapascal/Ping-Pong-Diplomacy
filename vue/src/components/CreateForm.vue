@@ -20,10 +20,11 @@
         </select>
         <label for="Tournament Date">Date</label>
         <input type="datetime-local" v-model="Tournament.tournamentDate" /><br />
-        <label for=" Tournament Registration Deadline">Registration Deadline</label>
-        <input type="date" v-model="Tournament.registrationDeadline"><br>
-        <input type="submit" value="Submit">
-        <p v-if="submitMessage">{{ submitMessage }}</p>
+           <label for=" Tournament Registration Deadline">Registration Deadline</label>
+           <input  type="date" v-model="Tournament.registrationDeadline"><br>
+           <input @click="this.$router.push(`/tournament/${tournamentId}`)" type="submit" value="Submit">
+      </div>
+       </form>
       </div>
      </form>
   </div>
@@ -32,43 +33,44 @@
 import TournamentService from "../services/TournamentService.js";
 
 export default {
-  data() {
-    return {
-      currentUser: this.$store.state.user,
-      Tournament: {
-        name: "",
-        location: "",
-        address: "",
-        tournamentDate: "",
-        skillLevel: "",
-        registrationDeadline: "",
-        description: "",
-        active: true,
-        numberOfPlayers: null,
-        players: []
-      },
-      submitMessage: ""
-    };
+    data() {
+      return {
+        currentUser: this.$store.state.user,
+        Tournament: {
+            
+            name: "", 
+            location:"",
+            address:"",
+            tournamentDate:"",
+            skillLevel:"",
+            registrationDeadline:"",
+            description: "",
+            active: true,
+            numberOfPlayers: null,
+            players: []
+        },
+        
+      }
+      
+},
+methods: {
+          addTournament() {
+    TournamentService.create(this.Tournament).then(response => {
+      if (response && response.status === 201) {
+        const tournamentId = response.data.tournamentId;
+        this.$router.push(`/tournament/${tournamentId}`);
+      }
+    }).catch(error => {
+      if (error.response && error.response.status === 404) {
+        this.$router.push("/404");
+      } else {
+        console.error(error);
+      }
+    });
   },
-  methods: {
-    addTournament() {
-      TournamentService.create(this.Tournament)
-        .then(response => {
-          if (response && response.status === 201) {
-            this.submitMessage = "Tournament Created Successfully";
-            this.$router.push("/browse");
-          }
-        })
-        .catch(error => {
-          if (error.response && error.response.status === 404) {
-            this.$router.push("/404");
-          } else {
-            console.error(error);
-          }
-        });
-    }
-  }
-};
+          
+        }
+}
 </script>
 
 <style>

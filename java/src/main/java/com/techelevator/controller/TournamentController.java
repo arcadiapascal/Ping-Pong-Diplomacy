@@ -120,8 +120,8 @@ public class TournamentController {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error deleting tournament", e);
         }
     }
-
     // GET ALL PLAYERS IN A TOURNAMENT
+    @CrossOrigin
     @RequestMapping(path = "/tournaments/{tournamentId}/tournamentPlayers", method = RequestMethod.GET)
     public ResponseEntity<List<Player>> getAllPlayersFromTournament(@PathVariable int tournamentId){
         List<Player> players = playerDao.getAllPlayersFromTournament(tournamentId);
