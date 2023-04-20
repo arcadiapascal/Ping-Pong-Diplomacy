@@ -15,7 +15,11 @@ import Browse from '../views/Browse.vue'
 import PlayerForm  from '../views/PlayerForm.vue'
 import EditMyProfile from '../views/EditMyProfile.vue'
 import OddTestBracket from '../views/oddTestBracket.vue'
+import bracketGenerator from "../components/bracketGenerator.vue"
 
+
+// eslint-disable-next-line no-unused-vars
+// import Bracket from "../components/Bracket.vue"
 
 Vue.use(Router)
 
@@ -37,7 +41,7 @@ const router = new Router({
       name: 'home',
       component: Home,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
     {
@@ -77,7 +81,7 @@ const router = new Router({
       name: "browse",
       component: Browse,
       meta: {
-        requiresAuth: true
+        requiresAuth: false
       }
     },
    
@@ -114,7 +118,7 @@ const router = new Router({
     }
   },
   {
-    path: "/editprofile/:id",
+    path: "/editprofile",
     name: "editProfile",
     component: EditMyProfile,
     meta: {
@@ -128,12 +132,16 @@ const router = new Router({
     meta: {
       requiresAuth: false
     }
-
   },
   {
     path: "/testBracket",
     name: "testBracket",
     component: OddTestBracket,
+  },
+  {
+    path: "/playgame",
+    name: "playgame",
+    component: bracketGenerator,
     meta: {
       requiresAuth: false
     }

@@ -8,9 +8,9 @@ export default {
         return axios.post(`/tournaments/${id}/players`, player);
       },
 
-    getPlayerObject(id, player){
-        return axios.get('/players/id/{id}', player)
-    },
+      getPlayerObject(userId, player) {
+        return axios.get(`/players/id/${userId}`, player);
+    },    
 
     getTeams(){
         return axios.get(`/teams/all`);
@@ -32,9 +32,15 @@ export default {
         return axios.get(`/tournaments/${id}`);
     },
 
-    create(tournament) {
-        return axios.post(`/tournaments/create`, tournament);
-    },
+    async create(tournament) {
+        try {
+            const response = await axios.post(`/tournaments/create`, tournament);
+            console.log(response); // log the entire response object
+            return response.data.tournamentId;
+        } catch (error) {
+            console.log(error);
+        }
+      },      
 
     update(id, tournament) {
         return axios.put(`/tournaments/${id}`, tournament);

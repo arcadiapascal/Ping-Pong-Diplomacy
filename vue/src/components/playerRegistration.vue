@@ -1,33 +1,38 @@
 <template>
-  <div  id="player-reg">
-
-   <form @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
-        <label  for="playerName">Player Name</label>
-        <input type="text" id="confirmPassword" v-model="player.playerName" required />
-        <button type="submit">Next</button>        
-      <label for="email">Email</label>
-        <input type="text" id="confirmPassword" v-model="player.email" required />
+  <div class="player-reg">
+    <div class="player-reg-form">
+      <form @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
+        <label for="playerName">Player Name</label>
+        <input type="text" id="playerName" v-model="player.playerName" required />
+        <label for="email">Email</label>
+        <input type="text" id="email" v-model="player.email" required />
+        <button type="submit">Next</button>
       </form>
 
       <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 2">
-      <div>
-      <label for="playerCity">City:</label>
-        <input type="text" id="confirmPassword" v-model="player.city" required /><br>
-      </div>
-      <div>
-      <label for="playerState">State</label>
-        <input type="text" id="confirmPassword" v-model="player.stateAbbrev" required />
-      </div>
-      <button type="submit">Create Account</button>
+        <div>
+          <label for="playerCity">City:</label>
+          <input type="text" id="city" v-model="player.city" required /><br>
+        </div>
+        <div>
+          <label for="state-abbrev">State:</label>
+          <select id="state-abbrev" v-model="player.stateAbbrev">
+            <option v-for="state in states" :key="state" :value="state">{{ state }}</option>
+          </select><br>
+        </div>
+        <button type="submit">Create Account</button>
       </form>
 
-      <div>
-          <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 3">
+      <form @submit.prevent="submitPlayer" v-if="this.$route.params.id == 3">
         <label for="rightLeftHanded">Right or Left {{this.$store.state.user.id}}</label>
-        <input type="text" id="confirmPassword" v-model="player.rightLeftHanded" required />
+        <input type="text" id="rightOrLeft" v-model="player.rightLeftHanded" required />
         <button type="submit">Create Account</button>
-        </form>
-  </div>
+      </form>
+
+      <div class="success-message" v-if="showSuccessMessage">
+        Account created successfully!
+      </div>
+    </div>
   </div>
 </template>
 
@@ -46,17 +51,14 @@ export default {
          email:"",
          city:"",
          stateAbbrev:"",
-         
-      
-       }
-      }
-      
-      
+       },
+       showSuccessMessage: false,
+      states: ['AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA', 'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY']
+      }  
 },
 
 methods: {
             secondForm(){
-                
                 this.$router.push(`/register/2`);
             },
             thirdForm(){ 
@@ -74,26 +76,81 @@ methods: {
           } else {
             console.error(error);
           }
-        });
-               
+        });  
             },
             getUserId(){
-              
             }
-          
         }
 }
 </script>
 
-<style>
-#player-reg {
-  text-align: center;
-  margin: 25px;
-  
-}
 
-input {
-  margin: 10px;
-}
+<style scoped>
+  .player-reg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60vh;
+  }
 
+  .player-reg-form {
+    background-color: #fff;
+    color: #4d565e;
+    width: 33vh;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    font-family: inherit;
+    padding: 20px;
+    margin: 0 auto;
+    margin-top: 50px;
+  }
+
+  label {
+    display: block;
+    margin-top: 10px;
+    font-size: 1rem;
+    font-weight: bold;
+  }
+
+  input[type="text"] {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  button[type="submit"] {
+    display: block;
+    margin: 10px auto;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1rem;
+    font-weight: bold;
+    background-color: #00adee;
+    color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease-in-out;
+  }
+
+  button[type="submit"]:hover {
+    background-color: #4d565e;
+  }
+
+  /* added style for the success message */
+  .success-message {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #00adee;
+    color: #fff;
+    text-align: center;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
 </style>

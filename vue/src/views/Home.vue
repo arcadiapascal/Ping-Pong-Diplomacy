@@ -1,22 +1,19 @@
 <template>
   <div class="home">
+    <first-look />
     <ping-pong-game />
-    <display-users />
-    <recent-tournaments />
-    <my-tournaments />
-    <my-tournaments />
   </div>
 </template>
 
 
 <script>
+import FirstLook from '../components/FirstLook.vue';
 import PingPongGame from '../components/pingPongGame.vue';
-import MyTournaments from '../components/MyTournaments.vue';
 
 export default {
   name: "home",
   components: {
-    MyTournaments,
+    FirstLook,
     PingPongGame
   }
 };
@@ -25,5 +22,6 @@ export default {
 <style>
 .home {
   text-align: center;
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
 }
 </style>

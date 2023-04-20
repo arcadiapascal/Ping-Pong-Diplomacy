@@ -24,8 +24,8 @@ export default {
         return axios.get(`/players`);
     },
 
-    update(id, profile) {
-        return axios.put(`/players/${id}`, profile);
+    update(id, player) {
+        return axios.put(`/players/${id}`, player);
     },
 
     delete(id) {
@@ -40,9 +40,4 @@ export default {
     createPlayer(player){
         return axios.post(`/players/create`,player)              
     }
-
-    
-
-
-
 }

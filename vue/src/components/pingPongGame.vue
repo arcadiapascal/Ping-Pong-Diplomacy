@@ -40,10 +40,9 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 50px;
-  background-color: #c4d8e2;
-  padding: 20px;
-  border-radius: 10px;
+  height: 7vh;
+  background-color: #4D565E;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
 }
 
 .fact-container {
@@ -51,15 +50,15 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background-color: white;
-  height: 50px; /* Updated height */
-  width: 800px;
-  border-radius: 10px;
+  height: 5vh; /* Updated height */
+  width: 100vh;
+  border-radius: 1px;
 }
 
 h2 {
-  font-size: 24px;
+  font-size: 2.5vh;
   text-align: center;
   padding: 20px;
+  color: #ffffff;
 }
 </style>

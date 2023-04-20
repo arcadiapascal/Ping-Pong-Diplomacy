@@ -1,93 +1,56 @@
 <template>
-  <div id="app">
-    
-    <div id="nav-bar">
-      <div id="user">
-        <ul id="profile">
-          <li class="paddle"><router-link v-bind:to="{ name: 'myProfile' }">My Profile</router-link></li>
-          <li class="paddle"><router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link></li>
-        </ul>
-      </div>
-      <div id="header">
-        <h1>Paddle Me!</h1>
-        <ul id="nav">
-            <li class="paddle"><router-link v-bind:to="{ name: 'home' }">Home</router-link></li>&nbsp;|&nbsp;
-            <li class="paddle"><router-link v-bind:to="{ name: 'browse' }">Browse</router-link></li>
-        </ul>
-      </div>       
-      <div id="button">
-        <router-link v-bind:to="{ name: 'createTournament' }">Create a Tournament!</router-link>
-      </div>
-      </div>
-    
+  <div class="app">
+    <nav-bar />
     <router-view />
-    
   </div>
 </template>
 
 <script>
+import NavBar from "./components/NavBar.vue";
 export default {
 name: 'app',
+components: {
+  NavBar
+}
 }
 </script>
 
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@700&family=Quicksand&display=swap');
 
-#nav-bar {
-    background-color: #00ADEE;
-    overflow: hidden;   
-    display: flex;
-    justify-content: space-between
-    
-
+.app {
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
 }
+
 body {
   margin: 0px;
+  font-family: 'Quicksand', sans-serif;
 }
+
 h1 {
   font-size: 40px;
   font-style: italic;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Poppins', sans-serif;
   margin: 10px;
+}
+h2 {
+  font-family: 'Quicksand', sans-serif;
 }
 h3 {
   font-style: italic;
-  font-family: 'Permanent Marker', cursive;
+  font-family: 'Poppins', sans-serif;
+}
+h4 {
+  font-family: 'Quicksand', sans-serif;
+}
+h5 {
+  font-family: 'Poppins', sans-serif;
+}
+h6 {
+  font-family: 'Quicksand', sans-serif;
+}
+p {
+  font-family: 'Quicksand', sans-serif;
 }
 
-#header {
-  display: flex;
-  flex-direction: column;
-}
-
-li {
-  margin: 5px;
-}
-
-#button {
-  display: flex;
-  align-items:flex-end;
-  margin: 30px;
-  
-}
-#user {
-  display: flex;
-  align-items:flex-end;
-  margin: 20px;
-}
-#profile {
-  list-style-type: none;
-  margin: 0px;
-  padding: 0;
-}
-#nav {
-  display: flex;
-  align-items: center;
-  list-style-type: none;
-}
-.paddle:before {
-  content: '🏓';
-  
-}
 </style>
