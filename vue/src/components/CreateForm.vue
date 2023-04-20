@@ -55,7 +55,8 @@ export default {
 methods: {
           addTournament() {
                 TournamentService.create(this.Tournament).then(response=> {
-                    if(response.status === 201){
+                    console.log(response.status)
+                    if(response.status === 200){
                         this.$router.push('/');
                     }
                 }).catch(error => {

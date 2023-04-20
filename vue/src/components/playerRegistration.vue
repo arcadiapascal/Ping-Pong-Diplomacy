@@ -89,8 +89,8 @@ methods: {
   .player-reg {
     display: flex;
     justify-content: center;
-    align-items: center;
-    height: 40vh;
+    align-items: flex-start;
+    height: 100vh;
     background: linear-gradient(to bottom, #DAE8F2, #ffffff);
   }
 
@@ -103,7 +103,8 @@ methods: {
     font-family: inherit;
     padding: 20px;
     margin: 0 auto;
-    margin-top: 0px;
+    margin-top: 100px;
+    
   }
 
   label {
