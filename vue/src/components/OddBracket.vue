@@ -227,7 +227,7 @@ this.tournament = tiers;
 <style>
 #generate-bracket {
   background: linear-gradient(to bottom, #DAE8F2, #ffffff);
-
+  height: 100vh;
 }
 h2 {
   font-size: 2rem;
