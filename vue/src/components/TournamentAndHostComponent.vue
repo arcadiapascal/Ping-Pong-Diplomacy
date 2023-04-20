@@ -1,13 +1,13 @@
 <template>
   <div>
-    <time-till-next-tournament/>
+    <time-till-next-tournament />
     <h2 class="heading">Tournaments</h2>
     <div class="search-bar-container">
-      <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
+      <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm" />
     </div>
     <div class="tournament-cards-container">
-      <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="{ backgroundImage: tournament.image ? 'url(' + tournament.image + ')' : tournamentPhotoStyle }">
-        
+      <a v-for="tournament in tournamentsToShow" :key="tournament.id" :href="'/tournament/' + tournament.tournamentId" 
+      class="tournament-card" :style="{ backgroundImage: tournament.image ? 'url(' + tournament.image + ')' : tournamentPhotoStyle }">
         <h3>{{ tournament.name }}</h3>
         <p class="tournament-description">{{ tournament.description }}</p>
         <div class="tournament-details">
@@ -17,10 +17,9 @@
           <p id="Players"><strong>Current Size:</strong><br> {{ tournament.numberOfPlayers }}</p>
         </div>
         <button id="join-tournament" @click="joinTournament(tournament.tournamentId)">Join Tournament!</button>
-      </div>
+      </a>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -138,25 +137,24 @@ export default {
   justify-content: space-around;
 }
 
+a {
+  text-decoration: none
+}
+
 .tournament-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  width: calc(25% - 16px);
-  height: 300px;
-  padding: 16px;
-  margin-bottom: 24px;
+  justify-content: space-between;
+  width: calc(25% - 3vh);
+  height: 30vh;
+  padding: 3vh;
+  margin-bottom: 3vh;
   background: center/cover no-repeat;
   transition: transform 0.3s, box-shadow 0.3s;
-  margin-right: 16px;
   position: relative;
   border-radius: 8px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
   background-color: #FFF;
-}
-
-.tournament-card:nth-child(4n) {
-  margin-right: 0;
 }
 
 .tournament-card:hover {
@@ -164,8 +162,7 @@ export default {
   box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
-.tournament-card h3, .tournament-description {
-  margin: 0;
+.tournament-card h3 {
   font-size: 20px;
   font-weight: bold;
   color: #333;
@@ -174,17 +171,24 @@ export default {
   z-index: 2;
 }
 
+.tournament-description {
+  font-size: 18px;
+  color: #333;
+  font-family: inherit;
+  position: relative;
+  z-index: 2;
+}
+
 .tournament-details {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  margin-top: 1rem;
+  margin-top: 1vh;
 }
 
 .tournament-details p {
   margin: 0;
   font-size: 16px;
-  font-weight: bold;
   font-family: inherit;
   color: #555;
 }
