@@ -56,9 +56,9 @@ methods: {
           addTournament() {
                 TournamentService.create(this.Tournament).then(response=> {
                     console.log(response.status)
-                    if(response.status === 200){
+                    if(response.status === 201){
                         this.$router.push('/');
-                    }
+                    } 
                 }).catch(error => {
           if (error.response.status === 404) {
             this.$router.push("/404");

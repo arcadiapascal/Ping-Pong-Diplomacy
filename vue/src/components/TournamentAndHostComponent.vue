@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="tournament-and-host">
     <time-till-next-tournament/>
     <h2 class="heading">Tournaments</h2>
     <div class="search-bar-container">
@@ -103,7 +103,10 @@ export default {
 
 <style scoped>
 
+#tournament-and-host {
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
 
+}
 .heading {
   display: flex;
   justify-content: center;

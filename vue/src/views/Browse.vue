@@ -30,6 +30,5 @@ export default {
 <style>
 .browse {
     background: linear-gradient(to bottom, #DAE8F2, #ffffff);
-    height: 80vh;
 }
 </style>
