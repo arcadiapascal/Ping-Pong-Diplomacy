@@ -79,7 +79,7 @@ export default {
 
 <style scoped>
 
-/* .heading {
+.heading {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -169,6 +169,6 @@ export default {
 
 .tournament-details div:first-child p {
   margin-right: 16px;
-} */
+}
 
 </style>

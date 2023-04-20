@@ -8,43 +8,73 @@
         <div class="table-cell">Wins</div>
         <div class="table-cell">Losses</div>
         <div class="table-cell">Total Points</div>
+        <div class="table-cell">Win Percentage</div>
         <div class="table-cell">PPG</div>
       </div>
       <div v-if="player" class="table-row">
-        <div class="table-cell">{{ player.rank }}</div>
-        <div class="table-cell">{{ player.userName }}</div>
+        <div class="table-cell">{{ rank }}</div>
+        <div class="table-cell">{{ player.playerName }}</div>
         <div class="table-cell">{{ player.wins }}</div>
         <div class="table-cell">{{ player.losses }}</div>
-        <div class="table-cell">{{ player.totalPoints }}</div>
+        <div class="table-cell">{{ player.totalPoints }}</div>     
+        <div class="table-cell">{{ calculateWinPercentage(player.wins, player.losses) }}%</div>
         <div class="table-cell">{{ player.ppg }}</div>
       </div>
       <div v-if="!player" class="no-results">Player not found.</div>
     </div>
   </div>
 </template>
-
 <script>
-export default {
-  props: {
-    playerId: {
-      type: Number,
-      required: true
-    }
-  },
+import profileService from '../services/ProfileService'
 
+export default {
   data() {
     return {
+      players: [],
       player: null,
+      playersRank: [],
+      rank: 0
     };
   },
 
-  mounted() {
-    this.$store.state.player.id
-  },
+  created() {
+  profileService.getPlayers()
+    .then((response) => {
+      this.players = response.data;
+      for(let i = 0; i < this.players.length; i++){
+        if(this.players[i].userId === this.$store.state.user.id){
+          this.player = this.players[i];
+          this.player.ppg = this.calculatePointsPerGame(this.player.totalPoints, this.player.wins, this.player.losses).toFixed(0);
+        }
+      }
+    })
+    .catch((error) => {
+      console.error(error);
+    });
+
+  profileService.getPlayers().then((response => {
+    this.playersRank = response.data;
+    this.playersRank.sort((a, b) => b.wins - a.wins);
+    for(let i = 0; i < this.playersRank.length; i++){
+      let j = i+1;
+      if(this.playersRank[i].userId === this.$store.state.user.id){
+        this.rank = j;
+      }
+    }
+  }));
+},
+
+  methods: {
+    calculatePointsPerGame(totalPoints, wins, losses) {
+      return totalPoints / (wins + losses);
+    },
+    calculateWinPercentage(wins, losses) {
+      return ((wins / (wins + losses)) * 100).toFixed(0);
+    }
+  }
 };
+
 </script>
-
-
 <style>
 
 h2 {
