@@ -1,15 +1,18 @@
 <template>
 <div id="browse">
     <search-navagation-component/>
+    <!-- <time-till-next-tournament/> -->
 </div>
 </template>
 
 <script>
 import tournamentService from "../services/TournamentService.js";
 import searchNavagationComponent from '../components/searchNavagationComponent.vue';
+// import timeTillNextTournament from '../components/timeTillNextTournament.vue'
 
 export default {
     components: {
+        // timeTillNextTournament,
         searchNavagationComponent
     },
     name: "tournament-list",
