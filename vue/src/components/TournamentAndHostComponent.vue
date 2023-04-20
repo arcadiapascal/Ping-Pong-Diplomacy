@@ -75,9 +75,11 @@ export default {
       const currentPlayer = this.players.find((player) => player.userId === this.$store.state.user.id);
       if (currentPlayer) {
         tournament.addPlayerToTournament(id, currentPlayer).then(() => {
-          alert('You have joined the tournament!');
-        }).catch((error) => {
-          alert('Failed to join tournament: ' + error.message);
+           this.$router.push(`/tournament/${id}`)
+        }).catch(() => {
+          
+          this.$router.push(`/tournament/${id}`);
+          
         });
       } else {
         alert('You are not a registered player');

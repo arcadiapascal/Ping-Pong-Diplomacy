@@ -31,6 +31,9 @@ export default {
     getTournament(id) {
         return axios.get(`/tournaments/${id}`);
     },
+    getPlayersInTournament(id){
+        return axios.get(`/tournaments/${id}/tournamentPlayers`);
+    },
 
     async create(tournament) {
         try {
