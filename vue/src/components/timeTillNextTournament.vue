@@ -59,17 +59,16 @@ this.upcomingTournamentDate = tournamentDate;
 </script>
 
 <style scoped>
+
   .countdown-container {
-    position: fixed;
-    top: 50px;
-    /* margin-top: 15px; */
-    margin-left: 250px;
-    /* top: 50px;
-    right: 50px;
-    z-index: 999; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-bottom: 5vh;
   }
   h1 {
-    color: #FF6359;
+    color: #4D565E;
     font-size: 30px;
     /* #00ADE */
   }
@@ -85,7 +84,7 @@ this.upcomingTournamentDate = tournamentDate;
     font-size: 1rem;
     font-weight: bold;
     color: #fff;
-    background-color: #FF6359;
+    background-color: #4D565E;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
     transition: background-color 0.3s ease-in-out;
   }
