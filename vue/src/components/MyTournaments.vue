@@ -13,7 +13,7 @@
           </ul>
         </div>
         <div class="btn-container">
-          <router-link :to="'/tournament/'+tournament.tournamentId" class="btn btn-primary">View Details</router-link>
+          <router-link :to="'/tournament/'+tournament.tournamentId" id="view-details" class="btn btn-primary">View Details</router-link>
         </div>
       </div>
     </div>
@@ -146,13 +146,10 @@ export default {
   text-decoration: none;
   margin-top: 1rem;
   font-size: 1.25rem;
-  transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+  transition: background-color 0.3s ease-in-out;
 }
 
-.carousel-inner a:hover {
-  background-color: #71D96F; 
-  color: #000000;
-}
+
 
 .carousel-inner .btn {
   display: inline-block;
@@ -169,9 +166,9 @@ export default {
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
   }
-  .carousel-inner .btn:hover {
-    background-color: #4d565e;
-  }
+.carousel-inner .btn:hover {
+  background-color: #4d565e;
+}
 
 .carousel-control-prev,
 .carousel-control-next {
@@ -194,7 +191,7 @@ export default {
 }
 
 .carousel-control-prev:hover,
-.carousel-control-next:hover {
+.carousel-control-next:hover{
   background-color: #4d565e;
   color: #DAE8F2;
   box-shadow: 0px 2px 20px rgba(0, 0, 0, 0.3);
@@ -229,5 +226,6 @@ export default {
   border-bottom: 10px solid transparent;
   border-right: 10px solid #DAE8F2;
 }
+
 
 </style>

@@ -19,12 +19,14 @@ components: {
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Poppins:wght@700&family=Quicksand&display=swap');
 
 .app {
-  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+  background-color:#DAE8F2;
+  height: 100vh
 }
 
 body {
   margin: 0px;
   font-family: 'Quicksand', sans-serif;
+  
 }
 
 h1 {
