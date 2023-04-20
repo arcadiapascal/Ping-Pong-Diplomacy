@@ -5,7 +5,7 @@
       <router-link v-bind:to="{name: 'createTournament'}" class="btn btn-primary">Build a Tournament</router-link>
       <router-link to="/browse" class="btn btn-secondary">Join a Tournament</router-link>
     </div>
-    <img src="../Assets/Ping Pong Paddles.png" alt="Ping Pong!">
+    <img src="../Assets/TE Paddles.png" alt="Ping Pong!">
   </div>
 </template>
 

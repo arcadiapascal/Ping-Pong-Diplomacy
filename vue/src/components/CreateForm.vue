@@ -5,7 +5,7 @@
         <label for="Tournament Name">Tournament Name</label>
         <input type="text" v-model="Tournament.name" /><br />
         <label for=" Tournament Description">Description</label>
-           <input  type="text" v-model="Tournament.description"><br>
+        <input type="text" v-model="Tournament.description"><br>
         <label for="Tournament Location">Location</label>
         <input class="author-input" type="text" v-model="Tournament.location" /><br />
         <label for="Tournament Address">Address</label>
@@ -20,62 +20,62 @@
         </select>
         <label for="Tournament Date">Date</label>
         <input type="datetime-local" v-model="Tournament.tournamentDate" /><br />
-           <label for=" Tournament Registration Deadline">Registration Deadline</label>
-           <input  type="date" v-model="Tournament.registrationDeadline"><br>
-           <input type="submit" value="Submit">
+        <label for=" Tournament Registration Deadline">Registration Deadline</label>
+        <input type="date" v-model="Tournament.registrationDeadline"><br>
+        <input type="submit" value="Submit">
+        <p v-if="submitMessage">{{ submitMessage }}</p>
       </div>
-       </form>
-      </div>
+     </form>
+  </div>
 </template>
-
 <script>
 import TournamentService from "../services/TournamentService.js";
 
 export default {
-    data() {
-      return {
-        currentUser: this.$store.state.user,
-        Tournament: {
-            
-            name: "", 
-            location:"",
-            address:"",
-            tournamentDate:"",
-            skillLevel:"",
-            registrationDeadline:"",
-            description: "",
-            active: true,
-            numberOfPlayers: null,
-            players: []
-        },
-        
-      }
-      
-},
-methods: {
-          addTournament() {
-                TournamentService.create(this.Tournament).then(response=> {
-                    console.log(response.status)
-                    if(response.status === 200){
-                        this.$router.push('/');
-                    }
-                }).catch(error => {
-          if (error.response.status === 404) {
+  data() {
+    return {
+      currentUser: this.$store.state.user,
+      Tournament: {
+        name: "",
+        location: "",
+        address: "",
+        tournamentDate: "",
+        skillLevel: "",
+        registrationDeadline: "",
+        description: "",
+        active: true,
+        numberOfPlayers: null,
+        players: []
+      },
+      submitMessage: ""
+    };
+  },
+  methods: {
+    addTournament() {
+      TournamentService.create(this.Tournament)
+        .then(response => {
+          if (response && response.status === 201) {
+            this.submitMessage = "Tournament Created Successfully";
+            this.$router.push("/browse");
+          }
+        })
+        .catch(error => {
+          if (error.response && error.response.status === 404) {
             this.$router.push("/404");
           } else {
             console.error(error);
           }
         });
-          },
-          
-        }
-}
+    }
+  }
+};
 </script>
 
 <style>
 .new-tournament-form {
   max-width: 900px; /* Increase the max-width to make the form wider */
   margin: 0 auto;
+  margin-top: 3vh;
   display: flex; /* Add display:flex to enable flexbox layout */
   justify-content: space-between; /* Add justify-content to space the form elements */
   padding: 20px;
