@@ -1,7 +1,7 @@
 <template>
   <div class="nav-bar" id="nav-bar">
     <div id="header">
-      <h1>-TE Pong!-</h1>
+      <img src="../Assets/logo.png" alt="logo">
     </div>
     <div id="nav">
       <ul>
@@ -114,14 +114,19 @@ export default {
   background-color: #4D565E;
 }
 
-h1 {
+img {
+  max-height: 200px;
+  max-width: auto;
+}
+
+/* h1 {
   font-size: 40px;
   font-style: italic;
   font-family: 'Poppins', sans-serif;
   margin: 10px;
   text-align: left;
   flex-grow: 1;
-}
+} */
 
 #button {
   margin-right: 2rem;
