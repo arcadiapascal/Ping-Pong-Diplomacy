@@ -49,23 +49,18 @@ export default {
             numberOfPlayers: null,
             players: []
         },
+        tournamentObject:"",
         
       }
       
 },
 methods: {
-          addTournament() {
+         addTournament() {
     TournamentService.create(this.Tournament).then(response => {
-      if (response && response.status === 201) {
-        const tournamentId = response.data.tournamentId;
-        this.$router.push(`/tournament/${tournamentId}`);
-      }
-    }).catch(error => {
-      if (error.response && error.response.status === 404) {
-        this.$router.push("/404");
-      } else {
-        console.error(error);
-      }
+  response;
+          this.$router.push(`/browse`);
+
+        console.log("hi")
     });
   },
           

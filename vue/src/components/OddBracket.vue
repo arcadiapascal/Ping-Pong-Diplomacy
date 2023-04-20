@@ -40,13 +40,13 @@
 </template>
 
 <script>
-import tournament from '../services/TournamentService.js'
+import tournamentPlayers from '../services/TournamentService.js'
 export default {
 data() {
       return {
        name: "oddBracket",
        tournament_id:"",
-       players:['Corey', 'Troy', 'Matt', 'Katie', 'Michael', 'Dan', 'Gilbert'],
+       players:[],
        tournament: [],      
        displayMatchWinner:false,
        playersInMatch:"",
@@ -66,12 +66,16 @@ computed:{
        return this.score; 
      }
 },
+created(){
+this.getAllPlayers();
+this.generateBracket();
+},
 
       
 
 methods: {
     getAllPlayers(){
-    tournament.getPlayers().then((response)=>{
+    tournamentPlayers.getPlayersInTournament(this.$route.params.id).then((response)=>{
        if(response.status === 200){
            this.players = response.data;
        }

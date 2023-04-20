@@ -16,6 +16,7 @@ import PlayerForm  from '../views/PlayerForm.vue'
 import EditMyProfile from '../views/EditMyProfile.vue'
 import OddTestBracket from '../views/oddTestBracket.vue'
 import bracketGenerator from "../components/bracketGenerator.vue"
+import ViewTournament from '../views/TournamentView.vue'
 
 
 // eslint-disable-next-line no-unused-vars
@@ -101,6 +102,16 @@ const router = new Router({
       requiresAuth: true
     }
   },
+  
+  {
+    path: "/tournament/:id",
+    name: "tournament",
+    component: ViewTournament,
+    meta: {
+      requiresAuth: true
+    }
+  },
+  
   {
     path: "/myprofile",
     name: "myProfile",

@@ -97,7 +97,7 @@ CREATE TABLE tournament_host (
 CREATE TABLE tournament_player(
 	tournament_id INT,
 	player_id INT, 
-	CONSTRAINT PK_tournament_player PRIMARY KEY (tournament_id, player_id)
+	 constraint PK_tournament_player PRIMARY KEY (tournament_id, player_id)
 
 );
 

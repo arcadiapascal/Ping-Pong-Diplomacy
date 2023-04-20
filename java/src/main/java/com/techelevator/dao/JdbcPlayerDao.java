@@ -21,7 +21,7 @@ public class JdbcPlayerDao implements PlayerDao {
     // GET ALL PLAYERS FROM TOURNAMENT
     @Override
     public List<Player> getAllPlayersFromTournament(int tournamentId){
-        String sql = "select player.player_id, user_id, player_name, age, city, state_abbrev, wins, losses, win_percentage, ranking, total_points, email\n" +
+        String sql = "select player.player_id, user_id, player_name, age, city, state_abbrev, wins, losses, win_percentage, ranking, total_points, email,right_left_handed,photo_file,photo\n" +
                 "from tournament_player\n" +
                 "join player on tournament_player.player_id = player.player_id\n" +
                 "join tournament on tournament_player.tournament_id = tournament.tournament_id\n" +
