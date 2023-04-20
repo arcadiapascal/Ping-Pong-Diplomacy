@@ -14,6 +14,7 @@ import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
 import PlayerForm  from '../views/PlayerForm.vue'
 import EditMyProfile from '../views/EditMyProfile.vue'
+import OddTestBracket from '../views/oddTestBracket.vue'
 
 
 Vue.use(Router)
@@ -127,7 +128,17 @@ const router = new Router({
     meta: {
       requiresAuth: false
     }
+
+  },
+  {
+    path: "/testBracket",
+    name: "testBracket",
+    component: OddTestBracket,
+    meta: {
+      requiresAuth: false
+    }
   }
+
   ]
 })
 
