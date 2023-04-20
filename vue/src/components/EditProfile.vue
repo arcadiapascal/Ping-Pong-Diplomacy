@@ -51,7 +51,7 @@ export default {
             setTimeout(() => {
               this.showProfileUpdatedMessage = false;
             }, 3000);
-            this.$router.push({ name: "editProfile", params: { id: this.id } });
+            this.$router.push({ name: "myProfile", params: { id: this.id } });
           }
         })
         .catch(error => {

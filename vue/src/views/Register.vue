@@ -115,7 +115,6 @@ export default {
     width: 100%;
     max-width: 400px;
     padding: 2rem;
-    margin-top: 3vh;
 }
 
   .form-input-group {
@@ -131,7 +130,7 @@ export default {
     align-items: center;
     width: 100%;
     max-width: 400px;
-    margin-top: 50px;
+  
     padding: 1rem;
     border: 1px solid #ccc;
     border-radius: 8px;

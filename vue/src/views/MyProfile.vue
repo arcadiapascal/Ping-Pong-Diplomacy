@@ -32,7 +32,7 @@ export default {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh;
+  padding: 2rem;
   background: linear-gradient(to bottom, #DAE8F2, #ffffff)
 }
 
@@ -42,7 +42,6 @@ export default {
   align-items: center;
   flex-wrap: wrap;
   width: 100%;
-  margin-top: 2vh;
   margin-bottom: 2vh;
 }
 
