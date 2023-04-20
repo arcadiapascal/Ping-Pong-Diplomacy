@@ -25,8 +25,6 @@
   <div id="player-form" v-show="show">
     <player-registration/>
   </div>
- 
-    
     </div>
 </template>
 
@@ -130,6 +128,21 @@ export default {
     margin-bottom: 1rem;
   }
 
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 50px;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
   label {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
@@ -206,12 +219,14 @@ export default {
   a:hover {
     text-decoration: underline;
   }
-
-  router-link {
+  a{
     color: #00adee;
+    text-decoration: none;
+    font-weight: bold;
   }
 
-  router-link:hover {
+
+  a:hover {
     text-decoration: underline;
   }
 

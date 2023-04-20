@@ -14,7 +14,8 @@
                 <div v-on:click="toggleDisplayMatchWinner(match)">
                 
                         <div v-for="(player, playerId) in match"  v-bind:key="playerId" class="player">
-                            <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}}</div>
+                            <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}} <div class = "score>">{{player.score}}</div></div>
+                            
        
                             
                 </div>
@@ -26,6 +27,10 @@
            <h2> Choose a Winner </h2>
            <button class="button" v-on:click="addWinningPlayer(playersInMatch[0])"> {{playersInMatch[0].playerName}} </button>
            <button class="button" v-on:click="addWinningPlayer(playersInMatch[1])"> {{playersInMatch[1].playerName}} </button>
+           <h3> {{playersInMatch[0].playerName}} Score:{{playersCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[0])">+</button></h3>
+           <h3> {{playersInMatch[1].playerName}} Score:{{playerTwoCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[1])">+</button></h3>
+
+           
            
         </div>
         <div v-if="displayMatchWinner" class="overlay"></div>
@@ -45,14 +50,23 @@ data() {
        tournament: [],      
        displayMatchWinner:false,
        playersInMatch:"",
-       winningPlayer:""   
+       winningPlayer:"",
+       score: 0,
+       playerTwoScore:0
         }        
       },
 computed:{
      updateTournament(){
    return this.tournament
+     },
+     playersCurrentScore(){
+       return this.score; 
+     },
+     playerTwoCurrentScore(){
+       return this.score; 
      }
 },
+
       
 
 methods: {
@@ -69,6 +83,18 @@ methods: {
           }
         });
     },
+    addScore(match,player){
+      if(match[0]==player){
+      this.score = player.score;
+      }
+      if(match[1]==player){
+        console.log("I'm player two")
+        this.secondPlayerScore = player.score
+      }
+      console.log(player.playerName +"i'm in score")
+      
+    player.score++;
+    },
     getPlayerInTournament(){
         let a =2;
         a;
@@ -78,6 +104,7 @@ methods: {
         this.playersInMatch = match;
     },
 addWinningPlayer(player){
+ // player.score=0;
     this.winningPlayer = player.playerName;
      let win = player;
 let found = false;
@@ -101,8 +128,17 @@ for (let i = 1; i < this.tournament.length; i++) {
   }
      
 }
+
+},
+addScoreToPlayer(){
+  console.log("I'm in addScoreToPlayer")
+this.players.forEach(element => {
+  element.score = this.score;
+});
 },
     generateBracket(){
+      console.log("I'm in the bracket")
+      this.addScoreToPlayer();
         var perfectBrackets = [2, 4, 8, 16, 32, 64];
 var playerList = this.players;
 

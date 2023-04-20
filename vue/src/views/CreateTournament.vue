@@ -21,6 +21,7 @@ export default {
 <style scoped>
 
 .create {
+  height: 100vh;
   background: linear-gradient(to bottom, #DAE8F2, #ffffff);
 }
 
