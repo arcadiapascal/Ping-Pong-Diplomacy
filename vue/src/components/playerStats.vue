@@ -77,34 +77,35 @@ export default {
 </script>
 <style>
 
+.player-stats {
+    width: 66vh;
+}
+
 h2 {
   text-align: center;
 }
 
-.search-bar-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-}
-
 .box {
   background-color: #fff;
-  width: 33%;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   font-family: inherit;
   padding: 20px;
-  margin: auto; /* to center the box horizontally */
+  margin: 1vh;
   height: 27vh;
 }
 
 /* Table styles */
 .table-container {
   display: table;
-  width: 100%;
+  width: 50vh;
   border-collapse: collapse;
 }
+
+.table-row-header {
+  align-items: center;
+}
+
 .table-row {
   display: table-row;
   background-color: #fff;

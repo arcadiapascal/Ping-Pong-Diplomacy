@@ -1,30 +1,33 @@
 <template>
+
   <div>
-    <h1 class="heading">Tournaments</h1>
+    <h2 class="heading">Tournaments</h2>
     <div class="search-bar-container">
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm">
     </div>
     <div class="tournament-cards-container">
       <div class="tournament-card" v-for="tournament in tournamentsToShow" :key="tournament.id" :style="{ backgroundImage: tournament.image ? 'url(' + tournament.image + ')' : tournamentPhotoStyle }">
         <h3>{{ tournament.name }}</h3>
-        <button @click="joinTournament(tournament.tournamentId)">Join Tournament!</button>
         <p class="tournament-description">{{ tournament.description }}</p>
         <div class="tournament-details">
-          <div>
-            <p><strong>LEVEL:</strong> {{ tournament.skillLevel }}</p>
-          </div>
-          <div>
-            <p><strong>DATE &amp; LOCATION:</strong> {{ tournament.date }}, {{ tournament.location }}</p>
-          </div>
+          <p id="Skill"><strong>Skill Level:</strong><br> {{ tournament.skillLevel }}</p>
+          <p id="Location"><strong>Location:</strong><br> {{ tournament.location }}</p>
+          <p id="Date"><strong>Date:</strong><br> {{ tournament.tournamentDate | formatDate }}</p>
+          <p id="Players"><strong>Current Size:</strong><br> {{ tournament.numberOfPlayers }}</p>
         </div>
+        <button id="join-tournament" @click="joinTournament(tournament.tournamentId)">Join Tournament!</button>
       </div>
     </div>
   </div>
+
 </template>
+
 <script>
+
 import tournament from '../services/TournamentService.js';
 import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
 import profileService from '../services/ProfileService.js';
+
 export default {
   data() {
     return {
@@ -41,6 +44,7 @@ export default {
       this.players = response.data;
     });
   },
+
   computed: {
     tournamentsToShow() {
       if (this.tournamentSearchTerm.trim() === '') {
@@ -60,6 +64,7 @@ export default {
       };
     },
   },
+
   methods: {
     joinTournament(id) {
       const currentPlayer = this.players.find((player) => player.userId === this.$store.state.user.id);
@@ -73,7 +78,21 @@ export default {
         alert('You are not a registered player');
       }
     }
+  },
+
+  filters: {
+  formatDate(value) {
+    const date = new Date(value);
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+    const hours = date.getHours() % 12 || 12;
+    const minutes = date.getMinutes();
+    const amPm = date.getHours() < 12 ? 'AM' : 'PM';
+    return `${month}/${day}/${year} ${hours}:${minutes < 10 ? '0' + minutes : minutes} ${amPm}`;
   }
+}
+
 };
 </script>
 
@@ -103,29 +122,19 @@ export default {
   width: 300px;
   font-size: 1.2rem;
   outline: none;
+  background-color: #FFF;
 }
 
 .tournament-cards-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-evenly;
-}
-
-.tournament-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(0,0,0,0.5);
-  z-index: 1;
+  justify-content: space-around;
 }
 
 .tournament-card {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   width: calc(25% - 16px);
   height: 300px;
   padding: 16px;
@@ -134,6 +143,9 @@ export default {
   transition: transform 0.3s, box-shadow 0.3s;
   margin-right: 16px;
   position: relative;
+  border-radius: 8px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  background-color: #FFF;
 }
 
 .tournament-card:nth-child(4n) {
@@ -142,29 +154,52 @@ export default {
 
 .tournament-card:hover {
   transform: translateY(-8px);
-  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
 }
 
 .tournament-card h3, .tournament-description {
   margin: 0;
   font-size: 20px;
   font-weight: bold;
-  color: #fff;
+  color: #333;
   font-family: inherit;
   position: relative;
   z-index: 2;
 }
 
 .tournament-details {
-  color: #fff;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 1rem;
 }
 
-.tournament-details div p {
+.tournament-details p {
   margin: 0;
-  font-size: 20px;
+  font-size: 16px;
   font-weight: bold;
   font-family: inherit;
+  color: #555;
+}
+
+.tournament-details p strong {
+  color: #333;
+}
+
+#join-tournament {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
   color: #fff;
+  background-color: #71D96F;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
+  cursor: pointer;
 }
 
 .tournament-details div:first-child p {

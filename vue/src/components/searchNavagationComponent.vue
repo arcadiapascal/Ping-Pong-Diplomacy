@@ -40,21 +40,22 @@ export default {
 }
 
 button {
-  padding: 8px 12px;
-  margin: 0.5rem;
-  border-radius: 4px;
+  display: inline-block;
+  padding: 1rem 2rem;
   border: none;
-  font-size: 16px;
-  color: white;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
   font-weight: bold;
+  color: #fff;
   background-color: #00ADEE;
-  border-spacing: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  transition: background-color 0.3s ease-in-out;
   cursor: pointer;
-  width: 2000px;
 }
 
 button:hover {
-  background-color: #6f777a;
-  opacity: 80%;
+  background-color: #4d565e;
 }
 </style>

@@ -1,8 +1,10 @@
 <template>
   <div class="my-profile">
-    <div class="profile-stats-container">
-      <profile-details />
-      <player-stats />
+    <div class="top-row">
+      <div class="profile-details">
+      <profile-details /> </div>
+      <div class="player-stats">
+      <player-stats /></div>
     </div>
     <my-tournaments />
   </div>
@@ -24,6 +26,7 @@ export default {
 </script>
 
 <style scoped>
+
 .my-profile {
   display: flex;
   flex-direction: column;
@@ -31,14 +34,14 @@ export default {
   justify-content: center;
 }
 
-.profile-stats-container {
+.top-row {
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  width: 50%;
-  margin-top: 2rem;
-  margin-bottom: 2rem;
+  width: 100%;
+  margin-top: 2vh;
+  margin-bottom: 2vh;
 }
 
 @media (max-width: 768px) {

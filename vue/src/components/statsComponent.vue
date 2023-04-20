@@ -72,14 +72,12 @@ export default {
     margin: 0;
     padding: 0;
   }
-  
   /* Header styles */
   h2 {
     text-align: center;
     font-size: 2.5rem;
     margin-bottom: 2rem;
   }
-
   /* Search bar styles */
   .search-bar-container {
     display: flex;
@@ -97,7 +95,6 @@ export default {
     font-size: 1.2rem;
     outline: none;
   }
-
   /* Table styles */
   .table-container {
     display: table;
@@ -122,7 +119,6 @@ export default {
     text-align: center;
     margin-top: 20px;
   }
-
   /* New styles for the World Table Tennis website */
   .players-table {
     width: 100%;

@@ -46,7 +46,7 @@ h6 {
   font-family: 'Quicksand', sans-serif;
 }
 p {
-  font-family: 'Poppins', sans-serif;
+  font-family: 'Quicksand', sans-serif;
 }
 
 </style>
