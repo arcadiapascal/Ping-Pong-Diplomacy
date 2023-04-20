@@ -22,7 +22,7 @@
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
-  <div>
+  <div id="player-form" v-show="show">
     <player-registration/>
   </div>
  
@@ -47,7 +47,7 @@ export default {
         confirmPassword: '',
         role: 'user',
       },
-      
+      show: false,
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
@@ -108,6 +108,22 @@ export default {
 </script>
 
 <style scoped>
+
+.registration.form{
+  display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 2rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+    margin-top: 3vh;
+}
+
   .form-input-group {
     display: flex;
     flex-direction: column;
@@ -138,15 +154,20 @@ export default {
   }
 
   button[type="submit"] {
-    margin-top: 1rem;
-    padding: 0.5rem 1.5rem;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #00adee;
-    border: none;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+    display: block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #00adee;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease-in-out;
+  margin: 0 auto;
+  cursor: pointer;
   }
 
   button[type="submit"]:hover {
@@ -157,12 +178,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 25px;
+    margin: 0;
     font-size: 1.2rem;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 5px;
+    height: 100vh;
     background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+    
   }
 
   h1 {
@@ -172,8 +192,19 @@ export default {
 
   p {
     margin-top: 1rem;
-    font-size: 1rem;
-    color: #888;
+    font-size: 1.2rem;
+    text-align: center;
+    
+  }
+  a{
+    color: #00adee;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+
+  a:hover {
+    text-decoration: underline;
   }
 
   router-link {

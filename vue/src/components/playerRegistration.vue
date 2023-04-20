@@ -1,10 +1,10 @@
 <template>
   <div class="player-reg">
-    <div class="player-reg-form">
-      <form @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
-        <label for="playerName">Player Name</label>
+    <div class="player-reg-section">
+      <form class="form" @submit.prevent="secondForm" v-if="this.$route.params.id == 1">
+        <label for="playerName">Player Name:</label>
         <input type="text" id="playerName" v-model="player.playerName" required />
-        <label for="email">Email</label>
+        <label for="email">Email:</label>
         <input type="text" id="email" v-model="player.email" required />
         <button type="submit">Next</button>
       </form>
@@ -90,10 +90,11 @@ methods: {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60vh;
+    height: 40vh;
+    background: linear-gradient(to bottom, #DAE8F2, #ffffff);
   }
 
-  .player-reg-form {
+  .player-reg-section {
     background-color: #fff;
     color: #4d565e;
     width: 33vh;
@@ -102,55 +103,51 @@ methods: {
     font-family: inherit;
     padding: 20px;
     margin: 0 auto;
-    margin-top: 50px;
+    margin-top: 0px;
   }
 
   label {
-    display: block;
-    margin-top: 10px;
-    font-size: 1rem;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
     font-weight: bold;
+    text-align: left;
   }
 
   input[type="text"] {
     width: 100%;
     padding: 8px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
     box-sizing: border-box;
     margin-top: 5px;
     margin-bottom: 10px;
     font-size: 1rem;
+    border-radius: 0.3rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  }
+
+  select {
+    border-radius: 0.3rem;
+    border: none;
+    border-bottom: 2px solid #ccc;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
 
   button[type="submit"] {
-    display: block;
-    margin: 10px auto;
-    padding: 8px 16px;
-    border: none;
-    border-radius: 4px;
-    text-align: center;
-    text-decoration: none;
-    font-size: 1rem;
-    font-weight: bold;
-    background-color: #00adee;
-    color: #fff;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    transition: background-color 0.3s ease-in-out;
-  }
+display: block;
+padding: 1rem 2rem;
+border: none;
+border-radius: 0.25rem;
+text-align: center;
+text-decoration: none;
+font-size: 1rem;
+font-weight: bold;
+color: #fff;
+background-color: #00adee;
+box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+transition: background-color 0.3s ease-in-out;
+margin: 0 auto;
+cursor: pointer;
+}
 
-  button[type="submit"]:hover {
-    background-color: #4d565e;
-  }
-
-  /* added style for the success message */
-  .success-message {
-    margin-top: 20px;
-    padding: 10px;
-    background-color: #00adee;
-    color: #fff;
-    text-align: center;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-  }
 </style>

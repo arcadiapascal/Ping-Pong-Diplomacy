@@ -104,6 +104,7 @@ export default {
   align-items: center;
   flex-direction: column;
   margin: 2rem;
+  font-size: 2.5rem;
 }
 
 .search-bar-container {
@@ -200,6 +201,10 @@ export default {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
   transition: background-color 0.3s ease-in-out;
   cursor: pointer;
+}
+
+#join-tournament:hover {
+  background-color: #4d565e;
 }
 
 .tournament-details div:first-child p {
