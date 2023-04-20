@@ -1,0 +1,336 @@
+
+<template>
+  <div >
+      <div>
+       <button class="button" v-on:click="getAllPlayers">Get Players</button>
+      <button class="button" v-on:click="generateBracket">Generate</button>
+      </div>
+  <div class="tournament-bracket">
+    
+      <div v-for="(tier, tierId) in updateTournament"  v-bind:key="tierId" class="round">
+            
+        
+            <div v-for="(match,matchId) in tier"  v-bind:key="matchId" class="match">
+                <div v-on:click="toggleDisplayMatchWinner(match)">
+                
+                        <div v-for="(player, playerId) in match"  v-bind:key="playerId" class="player">
+                            <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}}</div>
+       
+                            
+                </div>
+                </div>
+       </div>
+           </div>
+       </div> 
+       <div v-if="displayMatchWinner" class="modal">
+           <h2> Choose a Winner </h2>
+           <button class="button" v-on:click="addWinningPlayer(playersInMatch[0])"> {{playersInMatch[0].playerName}} </button>
+           <button class="button" v-on:click="addWinningPlayer(playersInMatch[1])"> {{playersInMatch[1].playerName}} </button>
+           
+        </div>
+        <div v-if="displayMatchWinner" class="overlay"></div>
+               <!-- <li v-for="todo in $store.state.todos" v-bind:key="todo.name"  v-bind:class="{ 'todo-completed': todo.done }"> -->
+
+  </div>
+</template>
+
+<script>
+import tournament from '../services/TournamentService.js'
+export default {
+data() {
+      return {
+       name: "oddBracket",
+       tournament_id:"",
+       players:['Corey', 'Troy', 'Matt', 'Katie', 'Michael', 'Dan', 'Gilbert'],
+       tournament: [],      
+       displayMatchWinner:false,
+       playersInMatch:"",
+       winningPlayer:""   
+        }        
+      },
+computed:{
+     updateTournament(){
+   return this.tournament
+     }
+},
+      
+
+methods: {
+    getAllPlayers(){
+    tournament.getPlayers().then((response)=>{
+       if(response.status === 200){
+           this.players = response.data;
+       }
+    }).catch(error => {
+          if (error.response.status === 404) {
+            this.$router.push("/404");
+          } else {
+            console.error(error);
+          }
+        });
+    },
+    getPlayerInTournament(){
+        let a =2;
+        a;
+    },
+    toggleDisplayMatchWinner(match){
+    this.displayMatchWinner = !this.displayMatchWinner;
+        this.playersInMatch = match;
+    },
+addWinningPlayer(player){
+    this.winningPlayer = player.playerName;
+     let win = player;
+let found = false;
+this.displayMatchWinner = !this.displayMatchWinner;
+for (let i = 1; i < this.tournament.length; i++) {
+  for (let j = 0; j < this.tournament[i].length; j++) {
+    let element = this.tournament[i][j];
+    let index = element.indexOf(0);
+    if (index !== -1) {
+      this.tournament[i][j][index] = win;
+      found = true;
+       
+
+      break;
+    }
+  }
+  if (found) {
+       
+
+    break;
+  }
+     
+}
+},
+    generateBracket(){
+        var perfectBrackets = [2, 4, 8, 16, 32, 64];
+var playerList = this.players;
+
+var tiers = [];
+var numOfPlayers = playerList.length;
+var highestValue = null;
+
+for (let i = 0; i < perfectBrackets.length; i++) {
+  if (
+    perfectBrackets[i] < numOfPlayers &&
+    (highestValue === null || perfectBrackets[i] > highestValue)
+  ) {
+    highestValue = perfectBrackets[i];
+  }
+}
+
+var numOfFirstTierPlayers = (numOfPlayers - highestValue) * 2;
+
+var j = 0;
+var localHighestValue = highestValue;
+var q =0;
+var p=0;
+//generates tiers
+
+for (let i = highestValue; i >= 1; i /= 2) {
+  tiers.push([]);
+  if (j === 0) {
+    for (let x = 0; x < numOfFirstTierPlayers; x += 2) {
+      tiers[j].push([0, 0]);
+    }
+  }
+  if (j >= 1) {
+    for (let z = 0; z < localHighestValue; z += 2) {
+      
+      if (localHighestValue === 1) {
+        tiers[j].push([0,0]);
+      } else {
+        tiers[j].push([0, 0]);
+      }
+    }
+  }
+  if (j >=1) {
+    localHighestValue /= 2;
+  }
+  j++;
+}
+//inputs player object
+for (let i = 0; i < tiers.length; i ++) {
+  console.log(p)
+  if(playerList.length % 2 != 0 && p === playerList.length){
+      break;
+    }
+   if(p > playerList.length-1){
+      break;
+    }
+  for(let x=0; x<tiers[i].length; x++){
+    
+    tiers[i][x][q] = playerList[p];
+    p++
+    if(playerList.length % 2 != 0 && p === playerList.length){
+      break;
+    }
+    tiers[i][x][q+1] = playerList[p];
+    p++
+    q=0
+    if(p > playerList.length-1){
+      break;
+    }
+    
+  }
+  //Adds winning player
+ 
+}
+
+this.tournament = tiers;
+    }
+}
+
+
+}
+</script>
+
+<style>
+.tournament-bracket{
+    background-color:rgb(235, 233, 233);
+     margin:20px;
+     padding: 10px;
+    border-radius:5px;
+    display:flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    
+   
+}
+.round{
+    
+     margin:20px;
+     padding: 10px;
+     
+ 
+}
+.match{
+   
+    margin:20px;
+}
+.player{
+     
+}
+.individual_player{
+    background: orangered;
+     border-radius:5px;
+     padding: 30px;
+     margin:5px;
+     box-shadow: 0 2px 4px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.15) ;
+}
+.modal{
+    position: fixed;
+    top: 50%;
+    left:50%;
+    transform: translate(-50%,-50%);
+    z-index: 100;
+    background-color:white;
+    padding:20px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.5);
+}
+.button{
+    
+}
+/* .overlay{
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    z-index: 99;
+    background-image: linear-gradient(to bottom right, rgba(255,255,255,0.2),rgba(255,255,255,0.2));
+    backdrop-filter: blur(10px);
+
+} */
+ /* .tournament-bracket {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.tournament-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex-grow: 1;
+  margin: 0 20px;
+  width: 100%;
+}
+
+.tournament-match {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  position: relative;
+  width: 100%;
+}
+
+.tournament-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  margin: 5px 0;
+  background-color: #fff;
+  border: 1px solid #000;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+}
+
+.tournament-player:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 100%;
+  background-color: #000;
+}
+
+.tournament-player:last-child:before {
+  display: none;
+}
+
+.tournament-player:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 50%;
+  background-color: #000;
+  z-index: -1;
+}
+
+.tournament-player:first-child:after {
+  display: none;
+}
+
+.tournament-player:nth-child(2n):after {
+  height: calc(50% + 1px);
+  top: 0;
+}
+
+.tournament-player:nth-child(2n+1):after {
+  height: calc(50% - 1px);
+  bottom: 0;
+}
+
+.tournament-player.active {
+  background-color: #000;
+  color: #fff;
+} */
+</style>
+

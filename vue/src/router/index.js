@@ -13,7 +13,8 @@ import UserProfile from '../views/UserProfile.vue'
 import UserTournament from '../views/UserTournament.vue'
 import Browse from '../views/Browse.vue'
 import PlayerForm  from '../views/PlayerForm.vue'
-import EditMyProfile from "../views/EditMyProfile.vue"
+import EditMyProfile from '../views/EditMyProfile.vue'
+import OddTestBracket from '../views/oddTestBracket.vue'
 import bracketGenerator from "../components/bracketGenerator.vue"
 
 
@@ -133,6 +134,11 @@ const router = new Router({
     }
   },
   {
+    path: "/testBracket",
+    name: "testBracket",
+    component: OddTestBracket,
+  },
+  {
     path: "/playgame",
     name: "playgame",
     component: bracketGenerator,
@@ -140,6 +146,7 @@ const router = new Router({
       requiresAuth: false
     }
   }
+
   ]
 })
 

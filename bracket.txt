@@ -1,0 +1,116 @@
+const now = Date.now();
+
+const log = (string, func) => console.log(string, func);
+
+log('now', now);
+
+// Log to console
+var perfectBrackets = [2, 4, 8, 16, 32, 64];
+var playerList = ['a', 'b', 'c', 'd', 'e', 'f', 'g'];
+
+var tiers = [];
+var numOfPlayers = playerList.length;
+var highestValue = null;
+
+for (let i = 0; i < perfectBrackets.length; i++) {
+  if (
+    perfectBrackets[i] < numOfPlayers &&
+    (highestValue === null || perfectBrackets[i] > highestValue)
+  ) {
+    highestValue = perfectBrackets[i];
+  }
+}
+
+var numOfFirstTierPlayers = (numOfPlayers - highestValue) * 2;
+var numOfInitialSecondTierPlayers =
+  numOfPlayers - numOfFirstTierPlayers;
+var firstTier = [];
+var secondTier = [];
+var newSecondTier = [];
+var numberOfEmptySlots = numOfPlayers - highestValue;
+var j = 0;
+var localHighestValue = highestValue;
+var q =0;
+var p=0;
+//generates tiers
+
+for (let i = highestValue; i >= 1; i /= 2) {
+  tiers.push([]);
+  if (j === 0) {
+    for (let x = 0; x < numOfFirstTierPlayers; x += 2) {
+      tiers[j].push([0, 0]);
+    }
+  }
+  if (j >= 1) {
+    for (let z = 0; z < localHighestValue; z += 2) {
+      
+      if (localHighestValue === 1) {
+        tiers[j].push([0,0]);
+      } else {
+        tiers[j].push([0, 0]);
+      }
+    }
+  }
+  if (j >=1) {
+    localHighestValue /= 2;
+  }
+  j++;
+}
+//inputs player object
+for (let i = 0; i < tiers.length; i ++) {
+  console.log(p)
+  if(playerList.length % 2 != 0 && p === playerList.length){
+      break;
+    }
+   if(p > playerList.length-1){
+      break;
+    }
+  for(x=0; x<tiers[i].length; x++){
+    
+    tiers[i][x][q] = playerList[p];
+    p++
+    if(playerList.length % 2 != 0 && p === playerList.length){
+      break;
+    }
+    tiers[i][x][q+1] = playerList[p];
+    p++
+    q=0
+    if(p > playerList.length-1){
+      break;
+    }
+    
+  }
+}
+
+
+for (let i = 0; i < numOfFirstTierPlayers; i += 2) {
+  firstTier.push([playerList[i], playerList[i + 1]]);
+}
+
+for (let i = numOfFirstTierPlayers; i < numOfPlayers; i++) {
+  secondTier.push(playerList[i]);
+}
+for (let i = 0; i < numberOfEmptySlots; i++) {
+  secondTier.push(0);
+}
+
+for (let i = 0; i < secondTier.length; i += 2) {
+  newSecondTier.push([secondTier[i], secondTier[i + 1]]);
+}
+let a = 'a';
+tiers[1].forEach((element) => {
+  var index = element.findIndex((player) => player === 0);
+  if (index === -1) {
+    return;
+  }
+  element[index] = a;
+});
+newSecondTier.forEach((element) => {
+  var index = element.findIndex((player) => player === 0);
+  if (index === -1) {
+    return;
+  }
+  element[index] = a;
+});
+
+console.log(tiers[1])

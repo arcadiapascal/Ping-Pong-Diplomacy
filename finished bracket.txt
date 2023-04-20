@@ -1,0 +1,276 @@
+
+<template>
+  <div class="tournament-bracket">
+      <h2 v-on:click="getAllPlayers">Get Players</h2>
+      <h2 v-on:click="generateBracket">Generate</h2>
+
+    
+      <ul v-for="(tier, tierId) in updateTournament"  v-bind:key="tierId" class="tournament-tier">
+            
+            {{matchId=1}}
+            <ul v-for="(match,matchId) in tier"  v-bind:key="matchId" class="tournament-match">
+                <div v-on:click="toggleDisplayMatchWinner(match)">
+                
+                        <ul v-for="(player, playerId) in match"  v-bind:key="playerId" class="tournament-player">
+                            <li>{{player.playerName}}</li>
+       
+                            
+                </ul>
+                </div>
+       </ul>
+           
+       </ul> 
+       <div v-if="displayMatchWinner">
+           <h2> Choose a Winner </h2>
+           <h2 v-on:click="addWinningPlayer(playersInMatch[0])"> {{playersInMatch[0].playerName}} </h2>
+           <h2 v-on:click="addWinningPlayer(playersInMatch[1])"> {{playersInMatch[1].playerName}} </h2>
+        </div>
+
+               <!-- <li v-for="todo in $store.state.todos" v-bind:key="todo.name"  v-bind:class="{ 'todo-completed': todo.done }"> -->
+
+  </div>
+</template>
+
+<script>
+import tournament from '../services/TournamentService.js'
+export default {
+data() {
+      return {
+       name: "oddBracket",
+       tournament_id:"",
+       players:['Corey', 'Troy', 'Matt', 'Katie', 'Michael', 'Dan', 'Gilbert'],
+       tournament: [],      
+       displayMatchWinner:false,
+       playersInMatch:"",
+       winningPlayer:""   
+        }        
+      },
+computed:{
+     updateTournament(){
+   return this.tournament
+     }
+},
+      
+
+methods: {
+    getAllPlayers(){
+    tournament.getPlayers().then((response)=>{
+       if(response.status === 200){
+           this.players = response.data;
+       }
+    }).catch(error => {
+          if (error.response.status === 404) {
+            this.$router.push("/404");
+          } else {
+            console.error(error);
+          }
+        });
+    },
+    getPlayerInTournament(){
+        let a =2;
+        a;
+    },
+    toggleDisplayMatchWinner(match){
+    this.displayMatchWinner = !this.displayMatchWinner;
+        console.log("i'm here - " + this.displayMatchWinner);
+        this.playersInMatch = match;
+    },
+addWinningPlayer(player){
+    this.winningPlayer = player.playerName;
+     let win = player;
+let found = false;
+
+for (let i = 1; i < this.tournament.length; i++) {
+  for (let j = 0; j < this.tournament[i].length; j++) {
+    let element = this.tournament[i][j];
+    let index = element.indexOf(0);
+    if (index !== -1) {
+      this.tournament[i][j][index] = win;
+      found = true;
+       this.displayMatchWinner = !this.displayMatchWinner;
+
+      break;
+    }
+  }
+  if (found) {
+       this.displayMatchWinner = !this.displayMatchWinner;
+
+    break;
+  }
+     
+}
+},
+    generateBracket(){
+        var perfectBrackets = [2, 4, 8, 16, 32, 64];
+var playerList = this.players;
+
+var tiers = [];
+var numOfPlayers = playerList.length;
+var highestValue = null;
+
+for (let i = 0; i < perfectBrackets.length; i++) {
+  if (
+    perfectBrackets[i] < numOfPlayers &&
+    (highestValue === null || perfectBrackets[i] > highestValue)
+  ) {
+    highestValue = perfectBrackets[i];
+  }
+}
+
+var numOfFirstTierPlayers = (numOfPlayers - highestValue) * 2;
+
+var j = 0;
+var localHighestValue = highestValue;
+var q =0;
+var p=0;
+//generates tiers
+
+for (let i = highestValue; i >= 1; i /= 2) {
+  tiers.push([]);
+  if (j === 0) {
+    for (let x = 0; x < numOfFirstTierPlayers; x += 2) {
+      tiers[j].push([0, 0]);
+    }
+  }
+  if (j >= 1) {
+    for (let z = 0; z < localHighestValue; z += 2) {
+      
+      if (localHighestValue === 1) {
+        tiers[j].push([0,0]);
+      } else {
+        tiers[j].push([0, 0]);
+      }
+    }
+  }
+  if (j >=1) {
+    localHighestValue /= 2;
+  }
+  j++;
+}
+//inputs player object
+for (let i = 0; i < tiers.length; i ++) {
+  console.log(p)
+  if(playerList.length % 2 != 0 && p === playerList.length){
+      break;
+    }
+   if(p > playerList.length-1){
+      break;
+    }
+  for(let x=0; x<tiers[i].length; x++){
+    
+    tiers[i][x][q] = playerList[p];
+    p++
+    if(playerList.length % 2 != 0 && p === playerList.length){
+      break;
+    }
+    tiers[i][x][q+1] = playerList[p];
+    p++
+    q=0
+    if(p > playerList.length-1){
+      break;
+    }
+    
+  }
+  //Adds winning player
+ 
+}
+
+this.tournament = tiers;
+    }
+}
+
+
+}
+</script>
+
+<style>
+ /* .tournament-bracket {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.tournament-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  flex-grow: 1;
+  margin: 0 20px;
+  width: 100%;
+}
+
+.tournament-match {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin: 10px 0;
+  position: relative;
+  width: 100%;
+}
+
+.tournament-player {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 30px;
+  margin: 5px 0;
+  background-color: #fff;
+  border: 1px solid #000;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  color: #000;
+}
+
+.tournament-player:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -5px;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 100%;
+  background-color: #000;
+}
+
+.tournament-player:last-child:before {
+  display: none;
+}
+
+.tournament-player:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: -5px;
+  transform: translateY(-50%);
+  width: 5px;
+  height: 50%;
+  background-color: #000;
+  z-index: -1;
+}
+
+.tournament-player:first-child:after {
+  display: none;
+}
+
+.tournament-player:nth-child(2n):after {
+  height: calc(50% + 1px);
+  top: 0;
+}
+
+.tournament-player:nth-child(2n+1):after {
+  height: calc(50% - 1px);
+  bottom: 0;
+}
+
+.tournament-player.active {
+  background-color: #000;
+  color: #fff;
+} */
+</style>
+
