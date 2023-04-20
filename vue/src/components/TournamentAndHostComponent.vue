@@ -1,9 +1,11 @@
 <template>
   <div id="tournament-and-host">
-    <time-till-next-tournament/>
     <h2 class="heading">Tournaments</h2>
     <div class="search-bar-container">
       <input type="text" placeholder="Search Tournaments" class="search-bar" v-model="tournamentSearchTerm" />
+    </div>
+    <div style="margin: 0 auto">
+      <time-till-next-tournament/>
     </div>
     <div class="tournament-cards-container">
       <a v-for="tournament in tournamentsToShow" :key="tournament.id" :href="'/tournament/' + tournament.tournamentId" 
