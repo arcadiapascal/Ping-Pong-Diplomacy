@@ -91,6 +91,7 @@ methods: {
     justify-content: center;
     align-items: flex-start;
     height: 100vh;
+    padding: 2rem;
     background: linear-gradient(to bottom, #DAE8F2, #ffffff);
   }
 
@@ -99,11 +100,10 @@ methods: {
     color: #4d565e;
     width: 33vh;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
     font-family: inherit;
     padding: 20px;
     margin: 0 auto;
-    margin-top: 100px;
     
   }
 
