@@ -1,97 +1,104 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link style rel="stylesheet" href="bracket.css">
-    <title>Bracket</title>
-</head>
-<body>
-    <div id="app"></div>
-    <div class = "container"> <!-- contains everythng-->
-       
-        <div Class = "branch_1"> <!-- contains the matches-->
-            
-            <div class="match" v-for="(match,index) in matches">
-
-            <div class="object_1"> <!-- name of players -->
-
-                <div><select Class = "Name" v-model=match.player1>
-                <option v-for="player in players" :value="player">{{ player }}</option>
-                </select>
-                </div>
-
-                <div><!-- contains the results-->
-                    <form :name="'FormId' + (index * 2 + 1)" class="Result"> <!-- use dynamic form name based on index -->
-                        <select v-model="match.result1">
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                    </form>
-                </div>
-
-                <div><select class="Name" v-model="match.player2">
-                    <option v-for="player in players" :value="player">{{ player }}</option>
-                </select>
-            </div>
-
-                <div><!-- contains the results-->
-                    <form name = "FormId2" class= "Result">
-                        <select id ="result2" >
-                            <option value="0">0</option>
-                            <option value="1">1</option>
-                            <option value="2">2</option>
-                            <option value="3">3</option>
-                            <option value="4">4</option>
-                            <option value="5">5</option>
-                            <option value="6">6</option>
-                            <option value="7">7</option>
-                            <option value="8">8</option>
-                            <option value="9">9</option>
-                            <option value="10">10</option>
-                            <option value="11">11</option>
-                        </select>
-                    </form>
-                </div>
-                </div>
-                        <!--match2-->
-                
-             </div>
-           
- <script src="main.js"></script>
-
- <script> 
- new Vue({
-     el: "#App",
-     data: {
-         players:[],
-         matches:[]
-     },
-    mount() {
-        this.players = [];
-        let numPlayers = this.players.length;
-        let numMatches = Math.floor(numPlayers / 2);
-        this.matches = Array.from({length: numMatches}, () => ({
-            player1: "",
-            result1: 0,
-            player2: "",
-            result2: 0
-        }));
+  <style>
+    .bracket {
+      display: flex;
+      flex-direction: column;
+      margin-right: 50px;
     }
-})
 
- </script>
+    .matchup {
+      display: flex;
+      align-items: center;
+      margin-bottom: 10px;
+    }
 
+    .player {
+      margin-right: 10px;
+    }
+
+    .win-button {
+      margin-left: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="bracket">
+    <div class="matchup">
+      <div class="player">Player 1</div>
+      <div class="win-button"><button onclick="moveToNextBracket(1)">Win</button></div>
+    </div>
+    <div class="matchup">
+      <div class="player">Player 2</div>
+      <div class="win-button"><button onclick="moveToNextBracket(2)">Win</button></div>
+    </div>
+  </div>
+  <div class="bracket">
+    <div class="matchup">
+      <div class="player">Player 3</div>
+      <div class="win-button"><button onclick="moveToNextBracket(3)">Win</button></div>
+    </div>
+    <div class="matchup">
+      <div class="player">Player 4</div>
+      <div class="win-button"><button onclick="moveToNextBracket(4)">Win</button></div>
+    </div>
+  </div>
+  <script>
+    // Array to store bracket information
+    let brackets = [
+      { player1: 'Player 1', player2: 'Player 2' },
+      { player1: 'Player 3', player2: 'Player 4' }
+    ];
+
+    // Function to move player to next bracket
+    function moveToNextBracket(bracketIndex) {
+      if (bracketIndex >= 0 && bracketIndex < brackets.length) {
+        const currentBracket = brackets[bracketIndex];
+        if (currentBracket.player1 && currentBracket.player2) {
+          const winner = prompt(`Enter the winner for Bracket ${bracketIndex + 1}:`);
+          if (winner && (winner === currentBracket.player1 || winner === currentBracket.player2)) {
+            const nextBracketIndex = Math.floor(bracketIndex / 2);
+            const nextBracket = brackets[nextBracketIndex];
+            if (bracketIndex % 2 === 0) {
+              nextBracket.player1 = winner;
+            } else {
+              nextBracket.player2 = winner;
+            }
+            // Update the UI
+            updateUI();
+          } else {
+            alert('Invalid input. Please enter the name of a player in the current matchup.');
+          }
+        } else {
+          alert('Both players need to play before moving to the next bracket.');
+        }
+      }
+    }
+
+    // Function to update the UI
+    function updateUI() {
+      const matchups = document.getElementsByClassName('matchup');
+      for (let i = 0; i < matchups.length; i++) {
+        const matchup = matchups[i];
+        const player1Element = matchup.getElementsByClassName('player')[0];
+        const player2Element = matchup.getElementsByClassName('player')[1];
+        const winButton = matchup.getElementsByClassName('win-button')[0];
+        if (brackets[i].player1 && brackets[i].player2) {
+          player1Element.textContent = brackets[i].player1;
+          player2Element.textContent = brackets[i].player
+          .player2;
+          winButton.style.display = 'block';
+        } else {
+          player1Element.textContent = 'Player 1';
+          player2Element.textContent = 'Player 2';
+          winButton.style.display = 'none';
+        }
+      }
+    }
+  </script>
 </body>
+
 </html>
