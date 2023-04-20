@@ -10,6 +10,8 @@
         <div class="table-cell">Username</div>
         <div class="table-cell">Wins</div>
         <div class="table-cell">Losses</div>
+        <div class="table-cell">PPG</div>
+        <div class="table-cell">Win Percentage</div>
         <div class="table-cell">Total Points</div>
       </div>
       <div v-for="(player, index) in sortedPlayers" :key="player.id" class="table-row">
@@ -17,44 +19,50 @@
         <div class="table-cell">{{ player.playerName }}</div>
         <div class="table-cell">{{ player.wins }}</div>
         <div class="table-cell">{{ player.losses }}</div>
+        <div class="table-cell">{{calculatePointsPerGame(player.totalPoints, player.wins, player.losses).toFixed(0)}}</div>
+        <div class="table-cell">{{calculateWinPercentage(player.wins, player.losses)}}%</div>
         <div class="table-cell">{{ player.totalPoints }}</div>
       </div>
       <div v-if="sortedPlayers.length === 0" class="no-results">No results found.</div>
     </div>
   </div>
 </template>
+
 <script>
 import tournament from '../services/TournamentService';
 // import tournamentPhoto from '../Assets/tournamentPhoto.jpg';
 export default {
-data() {
-return {
-players: [],
-searchQuery: '',
-};
-},
-mounted() {
-tournament.getPlayers().then((response) => {
-this.players = response.data;
-});
-},
-computed: {
-sortedPlayers() {
-if (this.searchQuery === '') {
-return this.players.slice().sort((a, b) => b.wins - a.wins);
-}
-return this.players.filter(player => player.playerName.toLowerCase().includes(this.searchQuery.toLowerCase()))
-.slice().sort((a, b) => b.wins - a.wins);
-},
-// tournamentPhotoStyle() {
-// return {
-// backgroundImage: url(${tournamentPhoto}),
-// backgroundSize: 'cover',
-// backgroundPosition: 'center',
-// color: 'black'
-// }
-// }
-},
+  data() {
+    return {
+      players: [],
+      searchQuery: '',
+    };
+  },
+
+  mounted() {
+    tournament.getPlayers().then((response) => {
+      this.players = response.data;
+    });
+  },
+
+  computed: {
+    sortedPlayers() {
+      if (this.searchQuery === '') {
+        return this.players.slice().sort((a, b) => b.wins - a.wins);
+      }
+      return this.players.filter(player => player.playerName.toLowerCase().includes(this.searchQuery.toLowerCase()))
+        .slice().sort((a, b) => b.wins - a.wins);
+    },
+  },
+
+  methods: {
+    calculatePointsPerGame(totalPoints, wins, losses) {
+      return totalPoints / (wins + losses);
+    },
+    calculateWinPercentage(wins, losses) {
+      return ((wins / (wins + losses)) * 100).toFixed(0);
+    }
+  },
 };
 </script>
 <style scoped>

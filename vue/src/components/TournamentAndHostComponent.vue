@@ -98,10 +98,12 @@ export default {
 
 <style scoped>
 
-h2 {
-  text-align: center;
-  font-size: 2.5rem;
-  margin-bottom: 2rem;
+.heading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin: 2rem;
 }
 
 .search-bar-container {
@@ -200,8 +202,8 @@ h2 {
   cursor: pointer;
 }
 
-#join-tournament:hover {
-  background-color: #4d565e;
+.tournament-details div:first-child p {
+  margin-right: 16px;
 }
 
 </style>
