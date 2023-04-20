@@ -208,6 +208,10 @@ export default {
 
 }
 
+#join-tournament:hover {
+  background-color: #4d565e;
+}
+
 .tournament-details div:first-child p {
   margin-right: 16px;
 }

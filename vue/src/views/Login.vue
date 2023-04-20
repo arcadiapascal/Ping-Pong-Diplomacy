@@ -83,6 +83,7 @@ export default {
     border-radius: 4px;
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
     background-color: #fff;
+    margin-top: 3vh;
   }
 
   h1 {
@@ -104,26 +105,31 @@ export default {
   }
 
   input[type="text"],
+  input[type="username"],
   input[type="password"] {
     font-size: 1.2rem;
     padding: 0.5rem;
     width: 100%;
     margin-bottom: 0.5rem;
-    border-radius: 0.3rem;
-    border: none;
-    border-bottom: 2px solid #ccc;
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
   }
+  
 
   button[type="submit"] {
-    background-color: #00adee;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    padding: 0.5rem 1rem;
-    font-size: 1.2rem;
-    cursor: pointer;
-    margin-top: 1rem;
+  display: block;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 0.25rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: bold;
+  color: #fff;
+  background-color: #00adee;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
+  transition: background-color 0.3s ease-in-out;
+  margin: 0 auto;
+  cursor: pointer;
   }
 
   button[type="submit"]:hover {

@@ -31,7 +31,7 @@ body {
 
 h1 {
   font-size: 40px;
-  font-style: italic;
+  /* font-style: italic; */
   font-family: 'Poppins', sans-serif;
   margin: 10px;
 }
@@ -39,7 +39,7 @@ h2 {
   font-family: 'Quicksand', sans-serif;
 }
 h3 {
-  font-style: italic;
+  /* font-style: italic; */
   font-family: 'Poppins', sans-serif;
 }
 h4 {

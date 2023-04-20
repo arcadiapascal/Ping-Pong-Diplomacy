@@ -5,6 +5,12 @@ select *
 from player
 join users on player.user_id = users.user_id
 
+select player.player_id, user_id, player_name, age, city, state_abbrev, wins, losses, win_percentage, ranking, total_points, email
+from tournament_player
+join player on tournament_player.player_id = player.player_id
+join tournament on tournament_player.tournament_id = tournament.tournament_id
+where tournament.tournament_id = 1
+
 select *
 from team
 
