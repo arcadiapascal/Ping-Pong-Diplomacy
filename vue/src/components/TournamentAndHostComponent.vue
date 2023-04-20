@@ -104,6 +104,7 @@ export default {
   align-items: center;
   flex-direction: column;
   margin: 2rem;
+  font-size: 2.5rem;
 }
 
 .search-bar-container {

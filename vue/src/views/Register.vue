@@ -22,11 +22,9 @@
       <p><router-link :to="{ name: 'login' }">Already have an account? Log in.</router-link></p>
     </form>
   </div>
-  <div>
+  <div id="player-form" v-show="show">
     <player-registration/>
   </div>
- 
-    
     </div>
 </template>
 
@@ -47,7 +45,7 @@ export default {
         confirmPassword: '',
         role: 'user',
       },
-      
+      show: false,
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
     };
@@ -114,6 +112,21 @@ export default {
     margin-bottom: 1rem;
   }
 
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    margin-top: 50px;
+    padding: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.1);
+    background-color: #fff;
+  }
+
   label {
     font-size: 1.2rem;
     margin-bottom: 0.5rem;
@@ -157,12 +170,11 @@ export default {
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 25px;
+    margin: 0;
     font-size: 1.2rem;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.3);
-    padding: 20px;
-    border-radius: 5px;
+    height: 100vh;
     background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+    
   }
 
   h1 {
@@ -172,15 +184,18 @@ export default {
 
   p {
     margin-top: 1rem;
-    font-size: 1rem;
-    color: #888;
+    font-size: 1.2rem;
+    text-align: center;
+    
   }
-
-  router-link {
+  a{
     color: #00adee;
+    text-decoration: none;
+    font-weight: bold;
   }
 
-  router-link:hover {
+
+  a:hover {
     text-decoration: underline;
   }
 
