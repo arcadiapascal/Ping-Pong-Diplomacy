@@ -1,6 +1,9 @@
 <template>
 <div id="browse">
     <!-- <h1 id="heading">Tournaments and Rankings</h1> -->
+    <!-- <div style="margin: 0 auto">
+      <time-till-next-tournament/>
+    </div> -->
     <search-navagation-component/>
     <!-- <time-till-next-tournament/> -->
 </div>
