@@ -7,7 +7,7 @@
 
 <script>
 import CreateForm from "../components/CreateForm.vue"
-import BracketGenerator from "../components/Bracket.vue" // Import the Bracket component with the correct name
+import BracketGenerator from "../components/bracketGenerator.vue" // Import the Bracket component with the correct name
 
 export default {
   name: 'createTournament',
@@ -17,3 +17,11 @@ export default {
   }
 }
 </script>
+
+<style scoped>
+
+.create {
+  background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+}
+
+</style>

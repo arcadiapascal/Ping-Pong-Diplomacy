@@ -1,6 +1,5 @@
 <template>
 <div id="browse">
-    <!-- <router-link class="PlayGame" v-bind:to="{ name: 'playgame' }">play game</router-link> -->
     <search-navagation-component/>
 </div>
 </template>
@@ -26,5 +25,8 @@ export default {
 </script>
 
 <style>
-
+.browse {
+    background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+    height: 80vh;
+}
 </style>

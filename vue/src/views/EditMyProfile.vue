@@ -18,3 +18,9 @@ export default {
 }
 </script>
 
+<style scoped>
+/* .edit-profile-page {
+    background: linear-gradient(to bottom, #DAE8F2, #ffffff);
+} */
+</style>
+

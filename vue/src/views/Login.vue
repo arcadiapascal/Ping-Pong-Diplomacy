@@ -67,6 +67,7 @@ export default {
     flex-direction: column;
     align-items: center;
     height: 100vh;
+    background: linear-gradient(to bottom, #DAE8F2, #ffffff);
   }
 
   form {
