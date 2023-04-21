@@ -12,9 +12,17 @@ VALUES
 ('karate', 'password', 'ROLE_ADMIN'),
 ('wang', 'password', 'ROLE_ADMIN'),
 ('master', 'password', 'ROLE_ADMIN'),
-('Forrest', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN'),
-('Dan Taylor', 'password', 'ROLE_ADMIN'),
-('Bubba', 'password', 'ROLE_ADMIN');
+('ForrestGump', '$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC', 'ROLE_ADMIN'),
+('Lt. Dan Taylor', 'password', 'ROLE_ADMIN'),
+('LuckyGambler23', 'password', 'ROLE_ADMIN'),
+('Bob', 'password', 'ROLE_ADMIN'),
+('PokerFace88', 'password', 'ROLE_ADMIN'),
+('CasinoQueen27', 'password', 'ROLE_ADMIN'),
+('SlotMachinePro', 'password', 'ROLE_ADMIN'),
+('VegasVibes', 'password', 'ROLE_ADMIN'),
+('JackpotJunkie', 'password', 'ROLE_ADMIN'),
+('RouletteRider', 'password', 'ROLE_ADMIN'),
+('CardShark123', 'password', 'ROLE_ADMIN');
 
 
 -- Inserting some players
@@ -28,8 +36,17 @@ VALUES
 (8, 'The Dragon', 31, 'Hong Kong', 'NY', 12, 12, 0.50, 6, 600, 'L', 'wong@pingpong.com', 'Balls of Fury', 'wong.jpg'),
 (9, 'Master Wong', 50, 'Hong Kong', 'TX', 24, 1, 1.00, 7, 500, 'R', 'master@pingpong.com', 'Balls of Fury', 'master.jpg'),
 (10, 'Forrest Gump', 27, 'Greenbow', 'AL', 25, 0, 0.83, 1, 2500, 'R', 'forrestgump@example.com', 'forrest.jpg', 'Greenbow High School'),
-(11, 'Jenny Curran', 25, 'Taylor', 'MS', 5, 7, 0.42, 3, 150, 'L', 'jennycurran@example.com', 'jenny.jpg', 'None'),
-(12, 'Bubba Blue', 26, 'Bayou La Batre', 'AL', 8, 4, 0.67, 2, 200, 'L', 'bubbablue@example.com', 'bubba.jpg', 'None');
+(11, 'Lt. Dan Taylor', 25, 'Taylor', 'MS', 5, 7, 0.42, 3, 150, 'L', 'dantaylor@example.com', 'dan.jpg', 'None'),
+(12, 'Bubba Blue', 26, 'Bayou La Batre', 'AL', 8, 4, 0.67, 2, 200, 'L', 'bubbablue@example.com', 'bubba.jpg', 'None'),
+(13, 'Alice', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(14, 'Bob', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(15, 'Charlie', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(16, 'Diana', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(17, 'Ethan', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(18, 'Fiona', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(19, 'George', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(20, 'Hannah', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg'),
+(20, 'Scott', 30, 'Beijing', 'CA', 15, 5, 0.75, 2, 600, 'L', 'feng@pingpong.com', 'Balls of Fury', 'feng.jpg');
 
 -- Inserting some teams
 INSERT INTO team (team_name, description, city, state_abbrev)
@@ -49,7 +66,7 @@ VALUES
 ('randy', 3),
 ('master', 9),
 ('Forrest Gump', 10),
-('Jenny Curran', 11);
+('Lt. Dan Taylor', 11);
 
 
 -- Inserting a tournament
@@ -74,7 +91,7 @@ INSERT INTO tournament_player (tournament_id, player_id)
 VALUES (3, 3), (3, 4), (3, 5), (3, 6), (3, 7), (3, 2), (3, 1), (3, 10);
 
 INSERT INTO tournament_player (tournament_id, player_id)
-VALUES (4, 3), (4, 4), (4, 5), (4, 6), (4, 7), (4, 2), (4, 1), (4, 9);
+VALUES (4, 3), (4, 4), (4, 5), (4, 6), (4, 7), (4, 2), (4, 1), (4, 11), (4, 12), (4, 13), (4, 14), (4, 15), (4, 16), (4, 17), (4, 18), (4, 19);
 
 
 -- Inserting some tournament-team relationships
