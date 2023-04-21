@@ -1,7 +1,9 @@
 <template>
   <div class="nav-bar" id="nav-bar">
     <div id="header">
-      <img src="../Assets/logo.png" alt="logo">
+      <router-link :to="{ name: 'home' }">
+        <img src="../Assets/logo.png" alt="logo" />
+      </router-link>
     </div>
     <div id="nav">
       <ul>

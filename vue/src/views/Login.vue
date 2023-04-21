@@ -14,7 +14,7 @@
       </div>
       <div class="form-input-group">
         <label for="password">Password:</label>
-        <input type="text" id="password" v-model="user.password" required />
+        <input type="password" id="password" v-model="user.password" required />
       </div>
       <button type="submit">Sign in</button>
       <p>
