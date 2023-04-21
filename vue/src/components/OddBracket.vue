@@ -1,20 +1,21 @@
 <template>
   <div id="generate-bracket">
       <div id="control">
-       <button class="btn btn-primary" v-on:click="getAllPlayers">Get Players</button>
+       <button class="btn btn-primary" v-on:click="shuffleArray(players)">shuffle</button>
       <button class="btn btn-secondary" v-on:click="generateBracket">Generate</button>
       </div>
   <div class="tournament-bracket">
     
       <div v-for="(tier, tierId) in updateTournament"  v-bind:key="tierId" class="round">
-            
+            <h2>Round: {{tierId+1}}</h2>
         
             <div v-for="(match,matchId) in tier"  v-bind:key="matchId" class="match">
-                <div v-on:click="toggleDisplayMatchWinner(match)">
+                <div v-on:click="toggleDisplayMatchWinner(match,$event)">
                 
-                        <div v-for="(player, playerId) in match"  v-bind:key="playerId" class="player">
-                            <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}} <div class = "score>">Score: {{player.score}}</div></div>
-                            
+                        <div v-for="(player, playerId) in match"  v-bind:key="playerId"  class="player" >
+                          <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}} </div>
+                            <!-- <div class = "individual_player">{{ (player !== 0 ? player.playerName : "......" )}} <div class = "score>">Score: {{player.score}}</div></div>
+                             -->
        
                             
                 </div>
@@ -22,12 +23,15 @@
        </div>
            </div>
        </div> 
+       <div class = "round">
+
+         </div>
        <div v-if="displayMatchWinner" class="modal">
            <h2> Choose a Winner </h2>
            <button class="button" id="player1" v-on:click="addWinningPlayer(playersInMatch[0])"> {{playersInMatch[0].playerName}} </button>
            <button class="button" id="player2" v-on:click="addWinningPlayer(playersInMatch[1])"> {{playersInMatch[1].playerName}} </button>
-           <h3> {{playersInMatch[0].playerName}} Score: {{playersCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[0])">+</button></h3>
-           <h3> {{playersInMatch[1].playerName}} Score: {{playerTwoCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[1])">+</button></h3>
+           <!-- <h3> {{playersInMatch[0].playerName}} Score: {{playersCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[0])">+</button></h3>
+           <h3> {{playersInMatch[1].playerName}} Score: {{playerTwoCurrentScore}} <button v-on:click="addScore(playersInMatch,playersInMatch[1])">+</button></h3> -->
 
            
            
@@ -43,6 +47,7 @@ import tournamentPlayers from '../services/TournamentService.js'
 export default {
 data() {
       return {
+        matchid:[],
        name: "oddBracket",
        tournament_id:"",
        players:[],
@@ -51,7 +56,8 @@ data() {
        playersInMatch:"",
        winningPlayer:"",
        score: 0,
-       playerTwoScore:0
+       playerTwoScore:0,
+       lastplayerclicked: "",
         }        
       },
 computed:{
@@ -66,7 +72,6 @@ computed:{
      }
 },
 created(){
-this.getAllPlayers();
 this.generateBracket();
 },
 
@@ -86,6 +91,16 @@ methods: {
           }
         });
     },
+     shuffleArray(array) {
+  // Loop through the array from the end to the start
+  for (let i = array.length - 1; i > 0; i--) {
+    // Generate a random index from 0 to i
+    const j = Math.floor(Math.random() * (i + 1));
+    // Swap the elements at indexes i and j
+    [array[i], array[j]] = [array[j], array[i]];
+  }
+  return array;
+},
     addScore(match,player){
       if(match[0]==player){
       this.score = player.score;
@@ -102,12 +117,23 @@ methods: {
         let a =2;
         a;
     },
-    toggleDisplayMatchWinner(match){
+    toggleDisplayMatchWinner(match, event){
+      this.lastplayerclicked = event.currentTarget;
+      console.log(this.lastplayerclicked);
     this.displayMatchWinner = !this.displayMatchWinner;
         this.playersInMatch = match;
     },
 addWinningPlayer(player){
  // player.score=0;
+    //change winning player color
+    var matchPlayers = this.lastplayerclicked.getElementsByClassName("individual_player");
+    if(matchPlayers[0].innerText.includes(player.playerName)){
+      matchPlayers[0].classList.add("winner");
+    }
+    else{
+      matchPlayers[1].classList.add("winner");
+    }
+    
     this.winningPlayer = player.playerName;
      let win = player;
 let found = false;
@@ -131,8 +157,10 @@ for (let i = 1; i < this.tournament.length; i++) {
   }
      
 }
-
+     
 },
+
+
 addScoreToPlayer(){
   console.log("I'm in addScoreToPlayer")
 this.players.forEach(element => {
@@ -140,6 +168,7 @@ this.players.forEach(element => {
 });
 },
     generateBracket(){
+      this.getAllPlayers();
       console.log("I'm in the bracket")
       this.addScoreToPlayer();
         var perfectBrackets = [2, 4, 8, 16, 32, 64];
@@ -264,6 +293,10 @@ h2 {
      padding: 30px;
      margin:5px;
      box-shadow: 0 2px 4px rgba(0,0,0,0.15), 0 4px 8px rgba(0,0,0,0.15) ;
+}
+.winner{
+    background: linear-gradient(to bottom, #45e27a, #DAE8F2);
+
 }
 .modal{
     position: fixed;
